@@ -33,6 +33,17 @@
 #define MAX_PATCH_SIZE 3072
 #define MAX_PARAM_SIZE 768
 
+#define PATCH_HEADER_LENGTH 6
+
+typedef struct uint24 {
+    uint8_t bytes[3];
+} uint24_t;
+
+#define MAX_EQ_ITEM_SIZE (sizeof(uint24_t))
+#define MAX_EQ_LINE_SIZE 6
+#define MAX_EQ_LINES 10
+#define MAX_EQ_SIZE (MAX_EQ_ITEM_SIZE * MAX_EQ_LINE_SIZE * MAX_EQ_LINES)
+
 #define CONFIG_TFA9887 "/system/etc/tfa/tfa9895.config"
 #define PATCH_TFA9887 "/system/etc/tfa/tfa9895.patch"
 

@@ -219,7 +219,7 @@ static uint32_t get_mode(audio_mode_t mode)
     }
 }
 
-static int read_file(const char *file_name, uint8_t *buf, int sz)
+static int read_file(const char *file_name, uint8_t *buf, int sz, int seek)
 {
     int ret;
     int fd;
@@ -230,6 +230,8 @@ static int read_file(const char *file_name, uint8_t *buf, int sz)
         ALOGE("%s: unable to open file %s: %d", __func__, file_name, ret);
         return ret;
     }
+
+    lseek(fd, seek, SEEK_SET);
 
     ret = read(fd, buf, sz);
     if (ret < 0) {
@@ -460,7 +462,7 @@ static int tfa9887_load_patch(struct tfa9887_amp_t *amp, const char *file_name)
         return -ENODEV;
     }
 
-    length = read_file(file_name, bytes, MAX_PATCH_SIZE);
+    length = read_file(file_name, bytes, MAX_PATCH_SIZE, PATCH_HEADER_LENGTH);
     if (length < 0) {
         ALOGE("Unable to read patch file");
         return -EIO;
@@ -579,6 +581,120 @@ static int tfa9887_load_dsp(struct tfa9887_amp_t *amp, const char *param_file)
         }
     }
     return error;
+}
+
+static int tfa9887_load_dsp(struct tfa9887_amp_t *amp, const char *param_file)
+{
+    int param_id, module_id;
+    uint8_t data[MAX_PARAM_SIZE];
+    int num_bytes, error;
+    char *suffix;
+
+    suffix = strrchr(param_file, '.');
+    if (suffix == NULL) {
+        ALOGE("%s: Failed to determine parameter file type", __func__);
+        return -EINVAL;
+    } else if (strcmp(suffix, ".speaker") == 0) {
+        param_id = PARAM_SET_LSMODEL;
+        module_id = MODULE_SPEAKERBOOST;
+    } else if (strcmp(suffix, ".config") == 0) {
+        param_id = PARAM_SET_CONFIG;
+        module_id = MODULE_SPEAKERBOOST;
+    } else if (strcmp(suffix, ".preset") == 0) {
+        param_id = PARAM_SET_PRESET;
+        module_id = MODULE_SPEAKERBOOST;
+    } else if (strcmp(suffix, ".drc") == 0) {
+        param_id = PARAM_SET_DRC;
+        module_id = MODULE_SPEAKERBOOST;
+    } else {
+        ALOGE("%s: Invalid DSP param file %s", __func__, param_file);
+        return -EINVAL;
+    }
+
+    num_bytes = read_file(param_file, data, MAX_PARAM_SIZE, 0);
+    if (num_bytes < 0) {
+        error = num_bytes;
+        ALOGE("%s: Failed to load file %s: %d", __func__, param_file, error);
+        return -EIO;
+    }
+
+    return tfa9887_load_data(amp, param_id, module_id, data, num_bytes);
+}
+
+static int tfa9887_load_eq(struct tfa9887_amp_t *amp, const char *eq_file)
+{
+    uint8_t data[MAX_EQ_SIZE];
+    const float disabled[5] = { 1.0, 0.0, 0.0, 0.0, 0.0 };
+    float line[5];
+    int32_t line_data[6];
+    float max;
+    FILE *f;
+    int i, j;
+    int idx, space, rc;
+
+    memset(data, 0, MAX_EQ_SIZE);
+
+    f = fopen(eq_file, "r");
+    if (!f) {
+        rc = errno;
+        ALOGE("%s: Unable to open file %s: %d", __func__, eq_file, rc);
+        return -EIO;
+    }
+
+    for (i = 0; i < MAX_EQ_LINES; i++) {
+        rc = fscanf(f, "%d %f %f %f %f %f", &idx, &line[0], &line[1],
+                &line[2], &line[3], &line[4]);
+        if (rc != 6) {
+            ALOGE("%s: %s has bad format: line must be 6 values\n",
+                    __func__, eq_file);
+            fclose(f);
+            return -EINVAL;
+        }
+
+        if (idx != i + 1) {
+            ALOGE("%s: %s has bad format: index mismatch\n",
+                    __func__, eq_file);
+            fclose(f);
+            return -EINVAL;
+        }
+
+        if (!memcmp(disabled, line, 5)) {
+            /* skip */
+            continue;
+        } else {
+            max = (float) fabs(line[0]);
+            /* Find the max */
+            for (j = 1; j < 5; j++) {
+                if (fabs(line[j]) > max) {
+                    max = (float) fabs(line[j]);
+                }
+            }
+            space = (int) ceil(log(max + pow(2.0, -23)) / log(2.0));
+            if (space > 8) {
+                fclose(f);
+                ALOGE("%s: Invalid value encountered\n", __func__);
+                return -EINVAL;
+            }
+            if (space < 0) {
+                space = 0;
+            }
+
+            /* Pack line into bytes */
+            line_data[0] = space;
+            line_data[1] = (int32_t) (-line[4] * (1 << (23 - space)));
+            line_data[2] = (int32_t) (-line[3] * (1 << (23 - space)));
+            line_data[3] = (int32_t) (line[2] * (1 << (23 - space)));
+            line_data[4] = (int32_t) (line[1] * (1 << (23 - space)));
+            line_data[5] = (int32_t) (line[0] * (1 << (23 - space)));
+            data2bytes(line_data, MAX_EQ_LINE_SIZE,
+                    &data[i * MAX_EQ_LINE_SIZE * MAX_EQ_ITEM_SIZE]);
+        }
+    }
+
+    fclose(f);
+
+    return tfa9887_load_data(amp, PARAM_SET_EQ, MODULE_BIQUADFILTERBANK, data,
+            MAX_EQ_SIZE);
 }
 
 static int htc_init9887(struct tfa9887_amp_t *amp)
