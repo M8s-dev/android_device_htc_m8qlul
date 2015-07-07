@@ -134,10 +134,6 @@ etc/tfa/tfa9895_l.speaker
 etc/tfa/voice.drc
 etc/tfa/voice.eq
 etc/tfa/voice.preset
-etc/tfa/voiceWB.eq
-etc/tfa/voiceWB_l.eq
-etc/tfa/voice_l.drc
-etc/tfa/voice_l.preset
 etc/tfa/voip.drc
 etc/tfa/voip.eq
 etc/tfa/voip.preset
