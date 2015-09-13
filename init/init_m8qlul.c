@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2013, The Linux Foundation. All rights reserved.
+   Copyright (c) 2015, The CyanogenMod Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -28,55 +28,52 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
 #include "log.h"
 #include "util.h"
 
-void cdma_properties(char cdma_subscription[],
-                     char default_network[]);
+#include "init_msm.h"
 
-void vendor_load_properties()
+static int display_density = 320;
+
+static void import_cmdline(char *name, int for_emulator)
 {
-    char platform[PROP_VALUE_MAX];
-    char bootmid[PROP_VALUE_MAX];
+    char *value = strchr(name, '=');
+    int name_len = strlen(name);
+
+    if (value == 0) return;
+    *value++ = 0;
+    if (name_len == 0) return;
+
+    if (!strcmp(name,"panel.xres") && !strcmp(value,"1080")) {
+        display_density = 480;
+    }
+}
+
+void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
+{
     char device[PROP_VALUE_MAX];
-    char devicename[PROP_VALUE_MAX];
     int rc;
 
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX))
+    UNUSED(msm_id);
+    UNUSED(msm_ver);
+    UNUSED(board_type);
+
+    rc = property_get("ro.cm.device", device);
+    if (!rc || !ISMATCH(device, "m8qlul"))
         return;
 
-    property_get("ro.boot.mid", bootmid);
-
-    if (strstr(bootmid, "0PKV10000")) {
-        /* m8s (m8_ql_ul) */
-        property_set("ro.product.model", "HTC One M8s");
-        property_set("ro.build.fingerprint", "htc/m8qlul_htc_europe/htc_m8qlul:5.0.2/LRX22G/555949.10:user/release-keys");
-        property_set("ro.build.description", "1.16.401.10 CL555949 release-keys");
-        property_set("ro.product.device", "htc_m8qlul");
-        property_set("ro.telephony.default_network", "0");
-        property_set("telephony.lteOnGsmDevice", "1");
+    char density[5];
+    import_kernel_cmdline(0, import_cmdline);
+    snprintf(density, sizeof(density), "%d", display_density);
+    property_set(PROP_LCDDENSITY, density);
+    if (display_density == 480) {
+        property_set("ro.product.model", "M8QLUL");
+    } else {
+        property_set("ro.product.model", "NOIDEA");
     }
-
-    property_get("ro.product.device", device);
-    ERROR("Found bootmid %s setting build properties for %s device\n", bootmid, device);
 }
 
-void cdma_properties(char default_cdma_sub[], char default_network[])
-{
-    property_set("ro.telephony.default_cdma_sub", default_cdma_sub);
-    property_set("ro.telephony.default_network", default_network);
-
-    property_set("telephony.lteOnCdmaDevice", "1");
-    property_set("ro.ril.svdo", "true");
-    property_set("ro.ril.disable.fd.plmn.prefix", "23402,23410,23411,23420");
-    property_set("ro.ril.enable.sdr", "0");
-    property_set("ro.ril.enable.gea3", "1");
-    property_set("ro.ril.enable.a53", "1");
-    property_set("ro.ril.enable.r8fd=1", "1");
-    property_set("persist.radio.snapshot_enabled", "1");
-    property_set("persist.radio.snapshot_timer", "22");
-}
