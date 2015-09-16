@@ -18,15 +18,18 @@ $(call inherit-product, device/htc/m8qlul/full_m8qlul.mk)
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
+PRODUCT_RELEASE_NAME := m8qlul
 PRODUCT_NAME := cm_m8qlul
+PRODUCT_BRAND := htc
+PRODUCT_MODEL := m8qlul
 BOARD_VENDOR := htc
 PRODUCT_DEVICE := m8qlul
 
 #PRODUCT_GMS_CLIENTID_BASE := android-micromax
 
-#TARGET_VENDOR_PRODUCT_NAME := m8qlul
-#TARGET_VENDOR_DEVICE_NAME := m8qlul
-#PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=m8qlul PRODUCT_NAME=m8qlul
+TARGET_VENDOR_PRODUCT_NAME := m8qlul
+TARGET_VENDOR_DEVICE_NAME := m8qlul
+PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=m8qlul PRODUCT_NAME=m8qlul
 
 
 ## Use the latest approved GMS identifiers unless running a signed build

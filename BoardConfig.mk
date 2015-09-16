@@ -22,7 +22,7 @@
 # (yut) means yu tomato
 
 # Inherit from cyanogenmod's msm8939-common
--include device/cyanogen/msm8939-common
+-include device/cyanogen/msm8939-common/BoardConfigCommon.mk
 
 DEVICE_PATH := device/htc/m8qlul
 
@@ -35,7 +35,10 @@ TARGET_OTA_ASSERT_DEVICE := htc_m8qlul,m8s,m8qlul
 TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
 
 # Kernel
-TARGET_KERNEL_CONFIG := cm_m8qlul_defconfig
+#TARGET_KERNEL_CONFIG := cm_m8qlul_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_tomato-64_defconfig
+#TARGET_PREBUILT_KERNEL := device/htc/m8qlul/kernel
+
 
 # Below here was taken from Yu Tomato, unless mentioned otherwise
 # I think it is a similar device
@@ -46,7 +49,7 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
 # Camera (yut)
-BOARD_CAMERA_SENSORS := imx135_cp8675 imx214_cp8675 ov5648_cp8675
+BOARD_CAMERA_SENSORS := imx135 imx214 ov5648
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
@@ -74,14 +77,17 @@ endif
 TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
 TARGET_NO_RPC := true
 
+# init (yut)
+TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_PATH)/init/init_m8qlul.c
+
 # Lights (yut)
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Partitions (me)
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x02000000
-BOARD_CACHEIMAGE_PARTITION_SIZE := 
-BOARD_PERSISTIMAGE_PARTITION_SIZE :=
+BOARD_CACHEIMAGE_PARTITION_SIZE := 0x10000000
+BOARD_PERSISTIMAGE_PARTITION_SIZE := 0x00040000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x02000000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x100000000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x268000000
