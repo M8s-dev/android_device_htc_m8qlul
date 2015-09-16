@@ -31,21 +31,29 @@ function extract() {
       fi
       DIR=`dirname $DEST`
       if [ ! -d $BASE/$DIR ]; then
+        echo DEBUG mkdir -p $BASE/$DIR
         mkdir -p $BASE/$DIR
       fi
       # Try CM target first
       if [ "$SRC" = "adb" ]; then
+        echo DEBUG adb pull /system/$DEST $BASE/$DEST
         adb pull /system/$DEST $BASE/$DEST
         # if file does not exist try OEM target
         if [ "$?" != "0" ]; then
+            echo DEBUG adb pull /system/$FILE $BASE/$DEST
             adb pull /system/$FILE $BASE/$DEST
+          if [ "$?" != "0" ]; then
+            echo "UNFOUND /system/$DEST AND /system/$FILE" >&2
+          fi
         fi
       else
         if [ -z $SRC/system/$DEST ]; then
             echo ":: $DEST"
+            echo DEBUG cp $SRC/system/$DEST $BASE/$DEST
             cp $SRC/system/$DEST $BASE/$DEST
         else
             echo ":: $FILE"
+            echo DEBUG cp $SRC/system/$FILE $BASE/$DEST
             cp $SRC/system/$FILE $BASE/$DEST
         fi
       fi
@@ -53,9 +61,12 @@ function extract() {
 }
 
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
+echo rm -rf $BASE/*
 rm -rf $BASE/*
 
-extract ../../$VENDOR/$DEVICE/proprietary-files-qc.txt $BASE
-extract ../../$VENDOR/$DEVICE/proprietary-files.txt $BASE
+echo extract ../../$VENDOR/$DEVICE/proprietary-files-qc-m8qlul.txt $BASE
+extract ../../$VENDOR/$DEVICE/proprietary-files-qc-m8qlul.txt $BASE
+echo extract ../../$VENDOR/$DEVICE/proprietary-files-m8qlul.txt $BASE
+extract ../../$VENDOR/$DEVICE/proprietary-files-m8qlul.txt $BASE
 
-./setup-makefiles.sh
+./setup-makefiles-debug-m8qlul.sh
