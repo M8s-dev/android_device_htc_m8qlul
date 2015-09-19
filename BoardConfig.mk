@@ -35,9 +35,17 @@ TARGET_OTA_ASSERT_DEVICE := htc_m8qlul,m8s,m8qlul
 TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
 
 # Kernel
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
+BOARD_KERNEL_BASE := 0x80078000
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci zcache
+BOARD_KERNEL_TAGS_OFFSET := 0x01d88000
+BOARD_RAMDISK_OFFSET := 0x01f88000
+
 #TARGET_KERNEL_CONFIG := cm_m8qlul_defconfig
-TARGET_KERNEL_CONFIG := cyanogenmod_tomato-64_defconfig
 #TARGET_PREBUILT_KERNEL := device/htc/m8qlul/kernel
+TARGET_KERNEL_SOURCE := kernel/htc/msm8939
+#TARGET_KERNEL_CONFIG := voidzero-m8qlul64_defconfig
+TARGET_KERNEL_CONFIG := m8qlul_defconfig
 
 
 # Below here was taken from Yu Tomato, unless mentioned otherwise

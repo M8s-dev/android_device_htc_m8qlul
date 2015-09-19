@@ -1,3 +1,22 @@
-#
-# system.prop for m8qlul
-#
+# Radio
+persist.data.target=dpm1
+#persist.radio.multisim.config=dsds
+ril.ecclist=000,08,100,101,102,110,112,118,119,120,122,911,999
+ro.com.android.mobiledata=false
+ro.config.always_show_roaming=true
+ro.telephony.default_network=9,1
+
+# These values come from stock ramdisk
+# and differ with msm8939-common/system.prop
+rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
+mm.enable.qcom_parser=3314291
+ro.qc.sdk.audio.fluencetype=none
+persist.audio.fluence.speaker=true
+audio.offload.buffer.size.kb=32
+av.offload.enable=false
+debug.composition.type=gpu
+persist.gps.qc_nlp_in_use=1
+
+# This one defined differently on tomato, see above
+# the following value comes from ramdisk
+ro.telephony.default_network=9
