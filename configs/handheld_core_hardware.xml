@@ -27,6 +27,7 @@
     <feature name="android.hardware.camera" />
     <feature name="android.hardware.location" />
     <feature name="android.hardware.location.network" />
+    <feature name="android.hardware.sensor.compass" />
     <feature name="android.hardware.sensor.accelerometer" />
     <feature name="android.hardware.bluetooth" />
     <feature name="android.hardware.touchscreen" />
@@ -47,7 +48,8 @@
     <feature name="android.software.device_admin" />
 
     <!-- Feature to specify if the device support managed users. -->
-    <feature name="android.software.managed_users" />
+    <!-- [framework] louis_chang, 2015/03/04, remove managed users support -->
+    <!-- <feature name="android.software.managed_users" /> -->
 
     <!-- devices with GPS must include android.hardware.location.gps.xml -->
     <!-- devices with an autofocus camera and/or flash must include either
