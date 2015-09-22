@@ -21,9 +21,6 @@
 # (mkv) means added by mkvendor.sh
 # (yut) means yu tomato
 
-# Inherit from cyanogenmod's msm8939-common
--include device/cyanogen/msm8939-common/BoardConfigCommon.mk
-
 DEVICE_PATH := device/htc/m8qlul
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
