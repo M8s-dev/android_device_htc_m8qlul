@@ -3,5 +3,13 @@
     "repository": "android_kernel_htc_msm8939",
     "target_path": "kernel/htc/msm8939",
     "branch": "cm-12.1"
+  },
+  {
+    "repository": "android_device_qcom_common",
+    "target_path": "device/qcom/common"
+  },
+  {
+    "repository": "android_hardware_qcom_fm",
+    "target_path": "hardware/qcom/fm"
   }
 ]
