@@ -74,10 +74,6 @@ TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 # }}}
 
-# CMHW    {{{
-BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/cmhw/src
-# }}}
-
 # Compression    {{{
 TARGET_TRANSPARENT_COMPRESSION_METHOD := lz4
 # }}}
