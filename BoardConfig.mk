@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# HTC M8S (m8qlul)
+# HTC One M8S (htc_m8qlul)
 # Model Ids
 # 0PKV10000 - HTC Europe
 # msm8939 board, msm8916 kernel
@@ -23,8 +23,8 @@ DEVICE_PATH := device/htc/m8qlul
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
 # Assertions    {{{
-TARGET_OTA_ASSERT_DEVICE := htc_m8qlul,m8s,m8qlul
-TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
+TARGET_OTA_ASSERT_DEVICE := htc_m8qlul
+# TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
 # }}}
 
 # Architecture    {{{
@@ -72,10 +72,6 @@ BOARD_USES_ALSA_AUDIO := true
 BOARD_CAMERA_SENSORS := imx135 imx214 ov5648
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
-# }}}
-
-# Compression    {{{
-TARGET_TRANSPARENT_COMPRESSION_METHOD := lz4
 # }}}
 
 # CPU    {{{
@@ -134,7 +130,7 @@ TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_PATH)/init/init_m8qlul.c
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01f88000 --tags_offset 0x01d88000
 BOARD_KERNEL_BASE := 0x80078000
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci zcache
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci zcache androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_TAGS_OFFSET := 0x01d88000
@@ -156,13 +152,13 @@ MALLOC_IMPL := dlmalloc
 # }}}
 
 # Partitions    {{{
-BOARD_FLASH_BLOCK_SIZE := 131072
-BOARD_BOOTIMAGE_PARTITION_SIZE := 0x02000000
-BOARD_CACHEIMAGE_PARTITION_SIZE := 0x10000000
-BOARD_PERSISTIMAGE_PARTITION_SIZE := 0x00040000
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x02000000
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x100000000
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x268000000
+BOARD_FLASH_BLOCK_SIZE             := 131072
+BOARD_BOOTIMAGE_PARTITION_SIZE     := 33554432    # 0x002000000
+BOARD_CACHEIMAGE_PARTITION_SIZE    := 268435456   # 0x010000000
+BOARD_PERSISTIMAGE_PARTITION_SIZE  := 262144      # 0x000040000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432    # 0x002000000
+BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 4294967296  # 0x100000000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 10334765056 # 0x268000000
 # }}}
 
 # Power    {{{
@@ -207,6 +203,7 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_SEPOLICY_UNION += \
     bluetooth_loader.te \
+    device.te \
     file.te \
     file_contexts \
     healthd.te \
