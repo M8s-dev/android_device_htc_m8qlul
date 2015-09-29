@@ -19,16 +19,13 @@ ifneq ($(M8QLUL_32_BIT),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif
 
-TARGET_LOCALES := en_US en_IN en_GB hi_IN mr_IN ml_IN ta_IN kn_IN te_IN
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-
 # Inherit from m8qlul device
-$(call inherit-product, device/htc/m8qlul/device.mk)
+$(call inherit-product, device/htc/m8qlul/device_m8qlul.mk)
+
+# Locales    {{{
+#TARGET_LOCALES := en_US en_IN en_GB hi_IN mr_IN ml_IN ta_IN kn_IN te_IN
+TARGET_LOCALES := en_US en_GB nl_NL
+# }}}
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := m8qlul
 PRODUCT_NAME := full_m8qlul
-PRODUCT_BRAND := HTC
-PRODUCT_MODEL := One M8s
-PRODUCT_MANUFACTURER := HTC
