@@ -1,0 +1,504 @@
+# Copyright (c) 2014, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# HTC RC FILE DESIGN:
+# File name         File position                      Imported by      Note
+# init.rc           /system/core/rootdir/              init.c           Common GIT
+# init.target.rc    /device/htc/common/rootdir/etc/    init.c           init.qcom.rc -> init.target.rc
+# init.project.rc   /device/htc/xxx/                   init.target.rc   init.target.rc -> init.project.rc
+#
+
+on early-init
+    mkdir /firmware 0771 system system
+    mkdir /firmware/image 0771 system system
+    mkdir /vendor 0771 system system
+    mkdir /system 0777 root root
+    mkdir /vendor/firmware 0771 system system
+    symlink /data/tombstones /tombstones
+    symlink /data/persist /persist
+    symlink /system/vendor/app /vendor/app
+
+on init
+
+    # for BMA250 BOSCH
+    chown system system /sys/class/htc_g_sensor/g_sensor/bandwidth
+    chown system system /sys/class/htc_g_sensor/g_sensor/chip_layout
+    chown system system /sys/class/htc_g_sensor/g_sensor/delay
+    chown system system /sys/class/htc_g_sensor/g_sensor/eeprom_writing
+    chown system system /sys/class/htc_g_sensor/g_sensor/enable
+    chown system system /sys/class/htc_g_sensor/g_sensor/enable_int
+    chown system system /sys/class/htc_g_sensor/g_sensor/fast_calibration_x
+    chown system system /sys/class/htc_g_sensor/g_sensor/fast_calibration_y
+    chown system system /sys/class/htc_g_sensor/g_sensor/fast_calibration_z
+    chown system system /sys/class/htc_g_sensor/g_sensor/flat_hold_time
+    chown system system /sys/class/htc_g_sensor/g_sensor/flat_theta
+    chown system system /sys/class/htc_g_sensor/g_sensor/get_raw_data
+    chown system system /sys/class/htc_g_sensor/g_sensor/high_g_duration
+    chown system system /sys/class/htc_g_sensor/g_sensor/high_g_threshold
+    chown system system /sys/class/htc_g_sensor/g_sensor/int_mode
+    chown system system /sys/class/htc_g_sensor/g_sensor/low_g_duration
+    chown system system /sys/class/htc_g_sensor/g_sensor/low_g_threshold
+    chown system system /sys/class/htc_g_sensor/g_sensor/mode
+    chown system system /sys/class/htc_g_sensor/g_sensor/orient_blocking
+    chown system system /sys/class/htc_g_sensor/g_sensor/orient_hyst
+    chown system system /sys/class/htc_g_sensor/g_sensor/orient_mode
+    chown system system /sys/class/htc_g_sensor/g_sensor/orient_theta
+    chown system system /sys/class/htc_g_sensor/g_sensor/range
+    chown system system /sys/class/htc_g_sensor/g_sensor/reg
+    chown system system /sys/class/htc_g_sensor/g_sensor/selftest
+    chown system system /sys/class/htc_g_sensor/g_sensor/set_k_value
+    chown system system /sys/class/htc_g_sensor/g_sensor/slope_duration
+    chown system system /sys/class/htc_g_sensor/g_sensor/slope_threshold
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_duration
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_quiet
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_samp
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_shock
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_threshold
+
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/bandwidth
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/chip_layout
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/delay
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/eeprom_writing
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/enable
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/enable_int
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/fast_calibration_x
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/fast_calibration_y
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/fast_calibration_z
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/flat_hold_time
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/flat_theta
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/get_raw_data
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/high_g_duration
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/high_g_threshold
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/int_mode
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/low_g_duration
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/low_g_threshold
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/mode
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/orient_blocking
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/orient_hyst
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/orient_mode
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/orient_theta
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/range
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/reg
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/selftest
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/set_k_value
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/slope_duration
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/slope_threshold
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_duration
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_quiet
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_samp
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_shock
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_threshold
+
+    #set G-Sensor and Compass permissions
+    chown system system /sys/class/htc_accelerometer/accelerometer/enable_cir_interrupt
+    chown system system /sys/class/htc_g_sensor/g_sensor/enable_cir_interrupt
+    chown system system /sys/class/bma250_powerkey/bma250/clear_powerkey_flag
+    chmod 0660 /sys/class/htc_accelerometer/accelerometer/enable_cir_interrupt
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/enable_cir_interrupt
+    chmod 0660 /sys/class/bma250_powerkey/bma250/clear_powerkey_flag
+
+
+    # HTC camera
+    chown system camera /dev/AIT0
+    chmod 0660 /dev/AIT0
+
+# import cne init file
+#on post-fs
+#    export LD_PRELOAD /vendor/lib64/libNimsWrap.so
+
+    # HTC Embedded Log
+    chown root root /devlog
+    chmod 0700 /devlog
+    chown root root /fataldevlog
+    chmod 0700 /fataldevlog
+
+on fs
+    mkdir /devlog 0700 root root
+    mkdir /fataldevlog 0700 root root
+
+    wait /dev/block/bootdevice/by-name/system
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro noatime barrier=1
+
+    # mount cota partition
+    mkdir /cota 0771 root cw_access
+    wait /dev/block/bootdevice/by-name/cota
+    mount ext4 /dev/block/bootdevice/by-name/cota /cota nosuid nodev noatime barrier=1,grpid
+
+    # mount preload data partition
+    mkdir /preload 0771 system system
+    wait /dev/block/bootdevice/by-name/apppreload
+    mount ext4 /dev/block/bootdevice/by-name/apppreload /preload nosuid nodev noatime barrier=1,grpid
+
+    # zRAM swap (must use after mount_all)
+    swapon_all /etc/fstab.swap
+
+    # Keeping following partitions outside fstab file. As user may not have
+    # these partition flashed on the device. Failure to mount any partition in fstab file
+    # results in failure to launch late-start class.
+
+    wait /dev/block/bootdevice/by-name/devlog
+    e2fsck emmc@devlog
+    mount ext4 /dev/block/bootdevice/by-name/devlog /devlog nosuid nodev barrier=1,errors=continue
+
+    wait /dev/block/bootdevice/by-name/fataldevlog
+    e2fsck emmc@fataldevlog
+    mount ext4 /dev/block/bootdevice/by-name/fataldevlog /fataldevlog nosuid nodev barrier=1
+
+    # mount carrier partition
+    mkdir /carrier 0771 system carrier
+    wait /dev/block/bootdevice/by-name/carrier
+    mount ext4 /dev/block/bootdevice/by-name/carrier /carrier nosuid nodev noatime barrier=1,grpid
+
+    mount_all fstab.qcom
+
+    wait /dev/block/bootdevice/by-name/cache
+    mount ext4 /dev/block/bootdevice/by-name/cache /cache nosuid nodev barrier=1
+
+    # Mount radio image and link to /firmware/image
+    mkdir /firmware/radio 0771 system system
+    wait /dev/block/bootdevice/by-name/radio
+    mount vfat /dev/block/bootdevice/by-name/radio /firmware/radio ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+    exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/radio /firmware/image "modem* mba*"
+
+    # Mount wcnss image and link to /firmware/image
+    mkdir /firmware/wcnss 0771 system system
+    wait /dev/block/bootdevice/by-name/wcnss
+    mount vfat /dev/block/bootdevice/by-name/wcnss /firmware/wcnss ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+    exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/wcnss /firmware/image "wcnss*"
+    #using script to load wcnss fw and let it execute in background
+    exec /system/bin/sh /init.qcom.wcnss_wlan.sh
+
+    # QSEE secure application : keymaster
+    exec /system/bin/sh /init.qcom.firmware_links.sh /system/vendor/firmware /vendor/firmware "keymaster.*"
+
+    # Link vendor/lib by QCT original design
+    symlink /system/vendor/lib64 /vendor/lib64
+    symlink /system/vendor/lib /vendor/lib
+    # exfat
+    insmod /system/lib/modules/texfat.ko
+
+    # Load Mocana FIPS module. Add here since it can make sure system is mounted
+    insmod /system/lib/modules/moc_platform_mod.ko
+    insmod /system/lib/modules/moc_crypto.ko
+    insmod /system/lib/modules/moc_crypto_api_tmpl.ko
+    insmod /system/lib/modules/dm-crypt.ko
+
+    # Create absolute folder
+    mkdir /persdata 0750 system system
+    mkdir /persdata/absolute 0750 system system
+
+# Mount absolute partition for super CID
+on property:ro.cid=11111111
+    wait /dev/block/bootdevice/by-name/absolute
+    e2fsck emmc@absolute
+    mount ext4 emmc@absolute /persdata/absolute nosuid nodev barrier=1,errors=continue
+    chown system system /persdata/absolute
+    chmod 0750 /persdata/absolute
+    # restorecon absolute partition.
+    restorecon_recursive /persdata/absolute
+
+# Mount absolute partition for Orange UK(EE) SKU
+on property:ro.cid=ORANG001
+    wait /dev/block/bootdevice/by-name/absolute
+    e2fsck emmc@absolute
+    mount ext4 emmc@absolute /persdata/absolute nosuid nodev barrier=1,errors=continue
+    chown system system /persdata/absolute
+    chmod 0750 /persdata/absolute
+    # restorecon absolute partition.
+    restorecon_recursive /persdata/absolute
+
+on post-fs-data
+    mkdir /data/tombstones 0771 system system
+    mkdir /tombstones/modem 0771 system system
+    mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
+    mkdir /tombstones/dsps 0771 system system
+    mkdir /data/persist 0771 system system
+    chown system carrier /carrier
+    chmod 0771 /carrier
+    chown root cw_access /cota
+    chmod 0771 /cota
+    chown system system /preload
+    chmod 0771 /preload
+    #restorecon cota partition
+    restorecon_recursive /cota
+
+# permissions for NFC
+    chmod 0600 /dev/pn544
+    chown nfc nfc /dev/pn544
+	setprop debug.nfc.fw_download "true"
+	setprop debug.nfc.fw_boot_download "false"
+
+#start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class main
+    user camera
+    group camera system inet input graphics
+
+# Allow usb charging to be disabled peristently
+on property:persist.usb.chgdisabled=1
+    write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+    write /sys/class/power_supply/battery/charging_enabled 1
+
+#
+# start multiple rilds based on multisim property
+#
+on property:persist.radio.multisim.config=dsds
+    stop ril-daemon
+    start ril-daemon
+    start ril-daemon2
+
+on property:persist.radio.multisim.config=dsda
+    stop ril-daemon
+    start ril-daemon
+    start ril-daemon2
+
+on property:persist.radio.multisim.config=tsts
+    stop ril-daemon
+    start ril-daemon
+    start ril-daemon2
+    start ril-daemon3
+
+service qrngd /system/bin/qrngd -f
+   class main
+   user root
+   group root
+
+service qrngp /system/bin/qrngp -f
+   class main
+   user root
+   group root
+   oneshot
+   disabled
+
+on property:sys.boot_completed=1
+   start qrngp
+   start mocana-startup
+
+service qseecomd /system/bin/qseecomd
+   class main
+   user root
+   group root
+
+#service hcheck /system/bin/hcheck
+#    class late_start
+#    user system
+#    group system
+#    oneshot
+
+service wv-prov /system/bin/hcheck-v2
+    class late_start
+    user root
+    oneshot
+
+service perfd /system/bin/perfd
+   user root
+   disabled
+
+service thermal-engine /system/bin/thermal-engine
+   class main
+   user root
+   group root
+
+service time_daemon /system/bin/time_daemon
+   class late_start
+   user root
+   group root
+
+service audiod /system/bin/audiod
+   class late_start
+   user system
+   group system
+
+on boot
+    insmod /system/lib/modules/adsprpc.ko
+
+    # Motion Sensors ++
+
+    chown system system /dev/iio:device0
+
+    chmod 660 /dev/iio:device0
+
+service ppd /system/bin/mm-pp-daemon
+    class late_start
+    disabled
+    user system
+    socket pps stream 0660 system system
+    group system graphics
+
+on property:init.svc.surfaceflinger=stopped
+    stop ppd
+
+on property:init.svc.surfaceflinger=running
+    start ppd
+
+service wcnss-service /system/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio
+    disabled
+    oneshot
+
+on property:wlan.driver.ath=0
+    start wcnss-service
+
+service imsqmidaemon /system/bin/imsqmidaemon
+    class main
+    user system
+    socket ims_qmid stream 0660 system radio
+    group ims radio net_raw log qcom_diag
+
+service imsdatadaemon /system/bin/imsdatadaemon
+    class main
+    user system
+    socket ims_datad stream 0660 system radio
+    group system ims wifi radio inet net_raw log qcom_diag net_admin
+    disabled
+
+service seald /system/bin/seald
+    class late_start
+    user root
+    group system
+
+on property:sys.ims.QMI_DAEMON_STATUS=1
+    start imsdatadaemon
+
+service ims_rtp_daemon /system/bin/ims_rtp_daemon
+   class main
+   user system
+   socket ims_rtpd stream 0660 system ims
+   group ims net_raw diag qcom_diag log
+   disabled
+
+on property:sys.ims.DATA_DAEMON_STATUS=1
+    start ims_rtp_daemon
+
+service ppd /system/bin/mm-pp-daemon
+    class late_start
+    disabled
+    user system
+    socket pps stream 0660 system system
+    group system graphics
+
+on property:init.svc.surfaceflinger=stopped
+    stop ppd
+
+on property:init.svc.surfaceflinger=running
+    start ppd
+
+service  mfgsrv /sbin/mfgsrv -i -t /dev/ttyHSL0 -t /dev/ttyHSUSB1
+	class core
+	user root
+	group root
+	disabled
+
+
+
+service cci_ftm_t2 /system/bin/sh /system/etc/init.cci.ftmt2.sh
+    oneshot
+    disabled
+
+service cci_ftm_t1 /system/bin/cci_ftm_daemon
+    class main
+    oneshot
+
+service ftm_proc_t2 /system/bin/ftm_proc_daemon
+    socket ftmproc stream 666 root system
+    oneshot
+    disabled
+
+on property:ro.boot.ftm=2
+    setprop debug.sf.nobootanimation 1
+    mkdir /data/log 0777 root root
+    start ftm_proc_t2
+#    start cci_ftm_t2
+
+on property:ro.bootmode=factory2
+    chmod 0666 /sys/class/htc_compass/yas53x/iio/yas53x_i2c
+    chmod 0666 /sys/class/htc_compass/yas53x/iio/yas53x_int_pin
+
+# HTC Embedded Log +++
+service htc_ebdlogd /system/bin/htc_ebdlogd -s -k -P 7
+    user root
+    disabled
+    oneshot
+    ioprio idle 0
+
+service htc_ebdlogd_rel /system/bin/htc_ebdlogd -s -k
+    user root
+    disabled
+    oneshot
+    ioprio idle 0
+
+# HTC sensor_hub - BEGIN	
+service shub_dbg /system/bin/shub_dbg	
+    class main	
+    user system	
+# HTC sensor_hub - END
+
+on property:ro.build.tags=test-keys
+    start htc_ebdlogd
+
+on property:ro.build.tags=release-keys
+    start htc_ebdlogd_rel
+# HTC Embedded Log ---
+
+# HTC Automotive - BEGIN
+service cand /system/bin/cand
+    class main
+    user root
+# HTC Automotive - END
+
+# Remote Kill - BEGIN
+    chown system system /dev/htc_msgservice
+# Remote Kill - END
+
+# DMagent - BEGIN
+service dmagent /system/bin/dmagent -N -SA
+    class late_start
+    socket dmagent stream 660 root inet
+    user root
+# DMagent - END
+
+service mocana-startup /system/bin/sh /system/etc/init.mocana.sh
+    class late_start
+    user root
+    oneshot
+
+on charger
+    wait /dev/block/bootdevice/by-name/system
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+    start vm_bms
+    load_all_props
+    start qcom-post-boot
+
