@@ -37,44 +37,35 @@
 
 #include "init_msm.h"
 
-static int display_density = 320;
-
-static void import_cmdline(char *name, int for_emulator)
+void vendor_load_properties()
 {
-    char *value = strchr(name, '=');
-    int name_len = strlen(name);
-
-    if (value == 0) return;
-    *value++ = 0;
-    if (name_len == 0) return;
-
-    if (!strcmp(name,"panel.xres") && !strcmp(value,"1080")) {
-        display_density = 480;
-    }
-}
-
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
-{
+    char platform[PROP_VALUE_MAX];
+    char bootmid[PROP_VALUE_MAX];
     char device[PROP_VALUE_MAX];
-    // int rc;
+    char devicename[PROP_VALUE_MAX];
+    int rc;
 
-    UNUSED(msm_id);
-    UNUSED(msm_ver);
-    UNUSED(board_type);
+    rc = property_get("ro.board.platform", platform);
+    if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX))
+        return;
 
-    // TODO: voidzero
-    // rc = property_get("ro.cm.device", device);
-    // if (!rc || !ISMATCH(device, "m8qlul"))
-    //     return;
 
-    char density[5];
-    import_kernel_cmdline(0, import_cmdline);
-    snprintf(density, sizeof(density), "%d", display_density);
-    property_set(PROP_LCDDENSITY, density);
-    if (display_density == 480) {
-        property_set("ro.product.model", "M8QLUL");
-    } else {
-        property_set("ro.product.model", "NOIDEA");
-    }
+    /* m8qlul */
+
+    property_set("rild.libargs", "-d /dev/smd0");
+    property_set("ro.ril.hsdpa.category", "24");
+    property_set("ro.ril.hsxpa", "4");
+    property_set("ro.ril.disable.cpc", "1");
+    property_set("telephony.lteOnGsmDevice", "1");
+
+    property_set("ro.build.description", "1.16.401.10 CL555949 release-keys");
+    property_set("ro.build.fingerprint", "htc/m8qlul_htc_europe/htc_m8qlul:5.0.2/LRX22G/555949.10:user/release-keys");
+    property_set("ro.build.product", "htc_m8qlul");
+    property_set("ro.product.device", "htc_m8qlul");
+    property_set("ro.product.model", "HTC One M8s");
+    property_set("ro.telephony.default_network", "0");
+
+    property_get("ro.boot.mid", bootmid);
+    property_get("ro.product.device", device);
+    ERROR("Found bootmid %s setting build properties for %s device\n", bootmid, device);
 }
-
