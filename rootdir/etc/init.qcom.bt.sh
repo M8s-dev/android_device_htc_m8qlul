@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2009-2011, Code Aurora Forum. All rights reserved.
+# Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -8,7 +8,7 @@
 #     * Redistributions in binary form must reproduce the above copyright
 #       notice, this list of conditions and the following disclaimer in the
 #       documentation and/or other materials provided with the distribution.
-#     * Neither the name of Code Aurora nor
+#     * Neither the name of The Linux Foundation nor
 #       the names of its contributors may be used to endorse or promote
 #       products derived from this software without specific prior written
 #       permission.
@@ -45,12 +45,6 @@ logi ()
   /system/bin/log -t $LOG_TAG -p i "$LOG_NAME $@"
 }
 
-# add logw
-logw ()
-{
-  /system/bin/log -t $LOG_TAG -p w "$LOG_NAME $@"
-}
-
 failed ()
 {
   loge "$1: exit code $2"
@@ -70,7 +64,11 @@ config_bt ()
 {
   baseband=`getprop ro.baseband`
   target=`getprop ro.board.platform`
-  soc_hwid=`cat /sys/devices/system/soc/soc0/id`
+  if [ -f /sys/devices/soc0/soc_id ]; then
+    soc_hwid=`cat /sys/devices/soc0/soc_id`
+  else
+    soc_hwid=`cat /sys/devices/system/soc/soc0/id`
+  fi
   btsoc=`getprop qcom.bluetooth.soc`
 
   case $baseband in
@@ -147,7 +145,7 @@ config_bt ()
            setprop ro.qualcomm.bt.hci_transport smd
        fi
        ;;
-    "msm8974")
+    "msm8974" | "msm8226" | "msm8610" )
        if [ "$btsoc" != "ath3k" ]
        then
            setprop ro.bluetooth.hfp.ver 1.6
@@ -166,6 +164,12 @@ case "$stack" in
     "bluez")
 	   logi "Bluetooth stack is $stack"
 	   setprop ro.qc.bluetooth.stack $stack
+	   reason=`getprop vold.decrypt`
+	   case "$reason" in
+	       "trigger_restart_framework")
+	           start dbus
+	           ;;
+	   esac
         ;;
     *)
 	   logi "Bluetooth stack is Bluedroid"
@@ -268,7 +272,7 @@ esac
 eval $(/system/bin/hci_qcomm_init -e $PWR_CLASS $LE_PWR_CLASS && echo "exit_code_hci_qcomm_init=0" || echo "exit_code_hci_qcomm_init=1")
 
 case $exit_code_hci_qcomm_init in
-  0) logi "= Bluetooth QSoC firmware download succeeded, $BTS_DEVICE $BTS_TYPE $BTS_BAUD $BTS_ADDRESS";;
+  0) logi "Bluetooth QSoC firmware download succeeded, $BTS_DEVICE $BTS_TYPE $BTS_BAUD $BTS_ADDRESS";;
   *) failed "Bluetooth QSoC firmware download failed" $exit_code_hci_qcomm_init;
      case $STACK in
          "bluez")
