@@ -19,6 +19,10 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
+         autodetected from the Configuration. -->
+    <bool name="config_showNavigationBar">true</bool>
+
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N + 1 control points as follows:
          (1-based arrays)
@@ -40,14 +44,15 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>9</item>
-        <item>30</item>
-        <item>100</item>
-        <item>325</item>
-        <item>1250</item>
-        <item>3500</item>
-        <item>10000</item>
-        <item>20000</item>
+        <item>8</item>
+        <item>14</item>
+        <item>46</item>
+        <item>113</item>
+        <item>576</item>
+        <item>1251</item>
+        <item>2101</item>
+        <item>3201</item>
+        <item>4201</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -56,14 +61,15 @@
          The brightness values must be between 0 and 255 and be non-decreasing.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>30</item>
-        <item>46</item>
-        <item>70</item>
-        <item>70</item>
-        <item>94</item>
-        <item>134</item>
-        <item>148</item>
-        <item>252</item>
+        <item>38</item>
+        <item>64</item>
+        <item>64</item>
+        <item>90</item>
+        <item>116</item>
+        <item>142</item>
+        <item>170</item>
+        <item>199</item>
+        <item>227</item>
         <item>255</item>
     </integer-array>
 
@@ -77,7 +83,7 @@
     <integer name="config_screenBrightnessDark">2</integer>
 
     <!-- Minimum screen brightness allowed by the power manager. -->
-    <integer name="config_screenBrightnessDim">7</integer>
+    <integer name="config_screenBrightnessDim">1</integer>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
@@ -99,7 +105,7 @@
             64 - Volume keys
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareKeys">71</integer>
+    <integer name="config_deviceHardwareKeys">64</integer>
 
     <!-- Control the behavior when the user long presses the home button.
             0 - Nothing
