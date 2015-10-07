@@ -534,3 +534,9 @@ lib64/libtuning_aec.so
 lib64/libtuning_af.so
 lib64/libtuning_af_lc898212_imx214.so
 lib64/libtuning_awb.so
+
+# voidzero added
+bin/hcheck-v2
+bin/audiod
+bin/ptt_socket_app
+bin/wcnss_service
