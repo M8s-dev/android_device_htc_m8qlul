@@ -1,7 +1,7 @@
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, product/full_base_telephony.mk)
 
 $(call inherit-product-if-exists, vendor/htc/m8qlul/m8qlul-vendor.mk)
 
@@ -17,18 +17,18 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml
 
 # Screen density
-PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_CONFIG := xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Due to multi-density builds, these are set by init
 # disabled by voidzero for m8qlul
-# PRODUCT_SYSTEM_PROPERTY_BLACKLIST := ro.product.model ro.sf.lcd_density
+#PRODUCT_SYSTEM_PROPERTY_BLACKLIST := ro.product.model ro.sf.lcd_density
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-$(call inherit-product, frameworks/native/build/phone-hdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 # Audio configuration
@@ -45,15 +45,18 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
 
 # Bluetooth
+# TODO: Is this needed for m8qlul?
 # PRODUCT_PACKAGES += \
 #     yl_btmac
 
 # Camera
+# TODO: Is this needed for m8qlul?
 PRODUCT_PACKAGES += \
     camera.msm8916 \
     libmm-qcamera
 
 # Charger
+# TODO: Is this needed for m8qlul?
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.usb.id.charge=F006 \
     ro.usb.id.mtp=F003 \
@@ -65,6 +68,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.usb.vid=05c6
 
 # GPS
+# TODO: Is this needed for m8qlul?
 PRODUCT_PACKAGES += \
     gps.msm8916
 
@@ -92,32 +96,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.bt.bluedroid.sh \
-    init.ath3k.bt.sh \
-    init.qcom.sdio.sh \
-    init.qcom.fm.sh \
-    init.qcom.rootagent.sh \
-    init.qcom.post_boot.sh \
-    init.mocana.sh \
-    init.qcom.firmware_links.sh \
-    init.qcom.wcnss_wlan.sh \
-    init.qcom.usb.sh \
-    init.network.sh \
-    init.usbdiag.sh \
-    init.qcom.class_core.sh \
-    init.class_main.sh \
-    init.qcom.sh \
-    init.qcom.factory.sh \
-    init.power.rc \
-    init.project.rc \
+    init.qcom.bt.sh \
     init.qcom.rc \
-    init.qcom.power.rc \
+    init.qcom.ril.sh \
     init.qcom.usb.rc \
-    init.target.rc \
     ueventd.qcom.rc
-
-# Recovery
-PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(LOCAL_PATH)/m8qlul-releasekey
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -126,6 +109,10 @@ PRODUCT_PACKAGES += \
 # Thermal
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+
+# Releasetools / Variant script (voidzero TODO: modify to static)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/releasetools/variant_script.sh:install/bin/variant_script.sh
 
 # Wifi
 PRODUCT_PACKAGES += \
