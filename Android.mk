@@ -49,7 +49,7 @@ MODEM_IMAGES := \
     modem.b16 modem.b17 modem.b18 modem.b19 modem.b20 modem.b23 \
     modem.b24 modem.b27 modem.b28 modem.mdt
 
-MODEM_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(MODEM_IMAGES)))
+MODEM_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(MODEM_IMAGES)))
 $(MODEM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "Modem firmware link: $@"
 	@mkdir -p $(dir $@)
