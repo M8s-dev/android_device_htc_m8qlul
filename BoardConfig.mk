@@ -33,6 +33,7 @@ TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := generic
+TARGET_CPU_CORTEX_A53 := true
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
@@ -54,7 +55,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 # }}}
 
 # Bootloader    {{{
-TARGET_BOOTLOADER_BOARD_NAME := MSM8916
+TARGET_BOOTLOADER_BOARD_NAME := msm8939
 TARGET_NO_BOOTLOADER := true
 # }}}
 
@@ -75,7 +76,7 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 # }}}
 
 # CPU    {{{
-TARGET_CPU_CORTEX_A53 := true
+TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 # }}}
 
@@ -91,18 +92,15 @@ OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 TARGET_CONTINUOUS_SPLASH_ENABLED := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
+TARGET_USES_NEW_ION_API := true
 USE_OPENGL_RENDERER := true
 # }}}
 
-# Dexopt, only if we can fit that in    {{{
-ifneq ($(TARGET_TRANSPARENT_COMPRESSION_METHOD),)
+# Dexopt    {{{
 ifeq ($(HOST_OS),linux)
-  ifeq ($(TARGET_BUILD_VARIANT),user)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-    endif
+  ifeq ($(WITH_DEXPREOPT),)
+    WITH_DEXPREOPT := true
   endif
-endif
 endif
 # }}}
 
@@ -133,6 +131,7 @@ BOARD_KERNEL_BASE := 0x80078000
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci zcache androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
+BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_TAGS_OFFSET := 0x01d88000
 BOARD_RAMDISK_OFFSET := 0x01f88000
 TARGET_KERNEL_SOURCE := kernel/htc/msm8939
