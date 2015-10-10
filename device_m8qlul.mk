@@ -108,11 +108,16 @@ PRODUCT_COPY_FILES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
+    init.htc.power.rc \
+    init.htc.trace.rc \
     init.qcom.bt.bluedroid.sh \
     init.qcom.bt.sh \
+    init.qcom.post_boot.sh \
     init.qcom.rc \
     init.qcom.ril.sh \
+    init.qcom.usb..htc.rc \
     init.qcom.usb.rc \
+    init.target.rc \
     ueventd.qcom.rc
 
 # Sensors
