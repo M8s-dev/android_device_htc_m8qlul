@@ -1,0 +1,252 @@
+# Copyright (c) 2009-2012, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of The Linux Foundation nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# Based on HTC's init.target.rc for the HTC m8
+# Based on HTC's init.target.rc for the HTC m8
+
+on early-init
+    symlink /data/tombstones /tombstones
+    symlink /data/persist /persist
+    symlink /system/vendor/app /vendor/app
+
+
+on init
+    symlink /system/vendor/firmware/keymaster.b00 /firmware/image/keymaste.b00
+    symlink /system/vendor/firmware/keymaster.b01 /firmware/image/keymaste.b01
+    symlink /system/vendor/firmware/keymaster.b02 /firmware/image/keymaste.b02
+    symlink /system/vendor/firmware/keymaster.b03 /firmware/image/keymaste.b03
+    symlink /system/vendor/firmware/keymaster.mdt /firmware/image/keymaste.mdt
+
+    # for BMA250 BOSCH
+    chown system system /sys/class/htc_g_sensor/g_sensor/bandwidth
+    chown system system /sys/class/htc_g_sensor/g_sensor/chip_layout
+    chown system system /sys/class/htc_g_sensor/g_sensor/delay
+    chown system system /sys/class/htc_g_sensor/g_sensor/eeprom_writing
+    chown system system /sys/class/htc_g_sensor/g_sensor/enable
+    chown system system /sys/class/htc_g_sensor/g_sensor/enable_int
+    chown system system /sys/class/htc_g_sensor/g_sensor/fast_calibration_x
+    chown system system /sys/class/htc_g_sensor/g_sensor/fast_calibration_y
+    chown system system /sys/class/htc_g_sensor/g_sensor/fast_calibration_z
+    chown system system /sys/class/htc_g_sensor/g_sensor/flat_hold_time
+    chown system system /sys/class/htc_g_sensor/g_sensor/flat_theta
+    chown system system /sys/class/htc_g_sensor/g_sensor/get_raw_data
+    chown system system /sys/class/htc_g_sensor/g_sensor/high_g_duration
+    chown system system /sys/class/htc_g_sensor/g_sensor/high_g_threshold
+    chown system system /sys/class/htc_g_sensor/g_sensor/int_mode
+    chown system system /sys/class/htc_g_sensor/g_sensor/low_g_duration
+    chown system system /sys/class/htc_g_sensor/g_sensor/low_g_threshold
+    chown system system /sys/class/htc_g_sensor/g_sensor/mode
+    chown system system /sys/class/htc_g_sensor/g_sensor/orient_blocking
+    chown system system /sys/class/htc_g_sensor/g_sensor/orient_hyst
+    chown system system /sys/class/htc_g_sensor/g_sensor/orient_mode
+    chown system system /sys/class/htc_g_sensor/g_sensor/orient_theta
+    chown system system /sys/class/htc_g_sensor/g_sensor/range
+    chown system system /sys/class/htc_g_sensor/g_sensor/reg
+    chown system system /sys/class/htc_g_sensor/g_sensor/selftest
+    chown system system /sys/class/htc_g_sensor/g_sensor/set_k_value
+    chown system system /sys/class/htc_g_sensor/g_sensor/slope_duration
+    chown system system /sys/class/htc_g_sensor/g_sensor/slope_threshold
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_duration
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_quiet
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_samp
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_shock
+    chown system system /sys/class/htc_g_sensor/g_sensor/tap_threshold
+
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/bandwidth
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/chip_layout
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/delay
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/eeprom_writing
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/enable
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/enable_int
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/fast_calibration_x
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/fast_calibration_y
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/fast_calibration_z
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/flat_hold_time
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/flat_theta
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/get_raw_data
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/high_g_duration
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/high_g_threshold
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/int_mode
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/low_g_duration
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/low_g_threshold
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/mode
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/orient_blocking
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/orient_hyst
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/orient_mode
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/orient_theta
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/range
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/reg
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/selftest
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/set_k_value
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/slope_duration
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/slope_threshold
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_duration
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_quiet
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_samp
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_shock
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/tap_threshold
+
+    #set G-Sensor and Compass permissions
+    chown system system /sys/class/htc_accelerometer/accelerometer/enable_cir_interrupt
+    chown system system /sys/class/htc_g_sensor/g_sensor/enable_cir_interrupt
+    chown system system /sys/class/bma250_powerkey/bma250/clear_powerkey_flag
+    chmod 0660 /sys/class/htc_accelerometer/accelerometer/enable_cir_interrupt
+    chmod 0660 /sys/class/htc_g_sensor/g_sensor/enable_cir_interrupt
+    chmod 0660 /sys/class/bma250_powerkey/bma250/clear_powerkey_flag
+
+
+    # HTC camera
+    chown system camera /dev/AIT0
+    chmod 0660 /dev/AIT0
+
+
+on post-fs-data
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
+
+    restorecon /data/OTPData.dat
+
+    # Create the directories used by DPM subsystem
+    mkdir /data/dpm 0771 system system
+    chown system system /data/dpm
+
+    # Camera
+    mkdir /data/misc/camera 0770 camera camera
+
+    #Create PERFD deamon related dirs
+    mkdir /data/misc/perfd 0770 root system
+    mkdir /data/misc/perfd 0755 root system
+    mkdir /data/system/perfd 0770 root system
+    chmod 2770 /data/misc/perfd
+    chmod 2755 /data/misc/perfd
+    chmod 2770 /data/system/perfd
+
+    #Create directories for Location services
+    mkdir /data/misc/location 0770 gps gps
+    mkdir /data/misc/location/mq 0770 gps gps
+    mkdir /data/misc/location/xtwifi 0770 gps gps
+    mkdir /data/misc/location/gpsone_d 0770 system gps
+    mkdir /data/misc/location/quipc 0770 gps system
+    mkdir /data/misc/location/gsiff 0770 gps gps
+
+    # Create the directories used by the Wireless subsystem
+    mkdir /data/misc/wifi 0771 wifi wifi
+    mkdir /data/misc/wifi/hostapd 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+    mkdir /data/connectivity/nsrm 0771 system system
+    chown system system /data/connectivity/nsrm
+
+    # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
+    # We chown/chmod /persist again so because mount is run as root + defaults
+    chown system system /persist
+    chmod 0771 /persist
+
+    #Create directory for hostapd
+    mkdir /data/hostapd 0770 system wifi
+
+    # pstore/ramoops previous console log
+    mount pstore pstore /sys/fs/pstore
+    chown system log /sys/fs/pstore/console-ramoops
+    chmod 0440 /sys/fs/pstore/console-ramoops
+
+    # maintain the list of processes name for kernel monitoring usage
+    chown system /sys/process/task_comm_list
+
+    # permissions for NFC
+    chmod 0600 /dev/pn544
+    chown nfc nfc /dev/pn544
+    setprop debug.nfc.fw_download "true"
+    setprop debug.nfc.fw_boot_download "false"
+
+on charger
+    wait /dev/block/bootdevice/by-name/system
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+    start vm_bms
+    load_all_props
+    start qcom-post-boot
+
+on early-boot
+    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
+    write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.sys.mba_boot_timeout}
+    write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.sys.modem_auth_timeout}
+    write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}
+
+on boot
+    chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /proc/bluetooth/sleep/proto
+    chown bluetooth bluetooth /sys/module/hci_uart/parameters/ath_lpm
+    chown bluetooth bluetooth /sys/module/hci_uart/parameters/ath_btwrite
+    chown system system /sys/module/sco/parameters/disable_esco
+    chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
+    chmod 0660 /sys/module/bluetooth_power/parameters/power
+    chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /proc/bluetooth/sleep/proto
+    chown bluetooth bluetooth /dev/ttyHS0
+    chown bluetooth bluetooth /dev/ttyHS2
+    chmod 0660 /sys/module/hci_uart/parameters/ath_lpm
+    chmod 0660 /sys/module/hci_uart/parameters/ath_btwrite
+    chmod 0660 /dev/ttyHS0
+    chmod 0660 /dev/ttyHS2
+    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
+    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
+
+    setprop wifi.interface wlan0
+
+    write /sys/module/msm_thermal/core_control/enabled 0
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/module/msm_thermal/core_control/enabled 1
+
+on property:sys.boot_completed=1
+    start qcom-post-boot
+
+service qcom-post-boot /system/bin/sh /init.qcom.post_boot.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+
+service vm_bms /system/bin/vm_bms
+    user root
+    group root
+    disabled
+
+on property:sys.boot_completed=1
+    write /dev/kmsg "Boot completed "
+
+
