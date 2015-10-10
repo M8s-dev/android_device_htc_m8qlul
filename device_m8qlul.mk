@@ -99,7 +99,9 @@ PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media/media_codecs_sw_vendor.xml:system/etc/media_codecs_sw_vendor.xml \
+    $(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
 # Ramdisk
 PRODUCT_PACKAGES += \
