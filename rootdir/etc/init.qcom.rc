@@ -24,67 +24,58 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+# Based on CM's init.qcom.rc for the HTC m8
 
 import init.qcom.usb.rc
+import init.qcom.usb.htc.rc
+import init.target.rc
+import init.htc.trace.rc
+import init.htc.power.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
-    write /sys/block/mmcblk0/queue/scheduler noop
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
     write /sys/block/mmcblk1/bdi/read_ahead_kb 512
 
 on init
-    # Set permissions for persist partition
-    mkdir /persist 0771 system system
-
-    # See storage config details at http://source.android.com/devices/tech/storage/
+    # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
 
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
+    mkdir /mnt/media_rw/ext_sd 0700 media_rw media_rw
+    mkdir /storage/ext_sd 0700 root root
 
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/usbdisk 0700 root root
+    mkdir /storage/usb 0700 root root
+    mkdir /mnt/media_rw/usb 0700 media_rw media_rw
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
-    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
+    export SECONDARY_STORAGE /storage/ext_sd
+    export EXTERNAL_STORAGE2 /storage/ext_sd
+    export EXTERNAL_STORAGE4 /storage/usb
 
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-    symlink /storage/sdcard1 /external_sd
-    symlink /storage/sdcard1 /mnt/external_sd
-    symlink /storage/usbdisk /usbdisk
-    symlink /storage/usbdisk /mnt/usbdisk
-
-# HTC SSD Battery - BEGIN
-    chown system system /sys/class/power_supply/battery/full_level_dis_batt_chg
-    chmod 0220 /sys/class/power_supply/battery/full_level_dis_batt_chg
-    chown radio radio /sys/class/power_supply/battery/phone_call
-    chmod 0660 /sys/class/power_supply/battery/phone_call
-    chown radio radio /sys/class/power_supply/battery/network_search
-    chmod 0220 /sys/class/power_supply/battery/network_search
-    chown system system /sys/class/power_supply/battery/navigation
-    chmod 0220 /sys/class/power_supply/battery/navigation
-    chown system system /sys/class/power_supply/battery/disable_limit_chg
-    chmod 0220 /sys/class/power_supply/battery/disable_limit_chg
-# HTC SSD Battery - END
+    symlink /storage/ext_sd /sdcard2
+    #symlink /storage/ext_sd /external_sd
+    #symlink /storage/ext_sd /mnt/external_sd
+    symlink /storage/usb /mnt/usb
+    #symlink /storage/usb /usbdisk
 
     # permissions for NFC
     chown nfc nfc /sys/class/NFC_sensor/comn/nxp_uicc_swp
     chmod 0664 /sys/class/NFC_sensor/comn/nxp_uicc_swp
 
-# Vibrator permission
+    # Vibrator permission
     chown system /sys/devices/virtual/timed_output/vibrator/voltage_level
     restorecon /sys/devices/virtual/timed_output/vibrator/voltage_level
 
-# Quick Charge 2.0 daemon
+    # Quick Charge 2.0 daemon
     setprop persist.usb.hvdcp.detect "true"
 
 on fs
@@ -96,12 +87,19 @@ on fs
 
     mkdir /firmware 0771 system system
     mkdir /firmware/radio 0771 system system
-    mkdir /firmware/adsp 0771 system system
     mkdir /firmware/wcnss 0771 system system
+    mkdir /firmware/image 0771 system system
     mkdir /vendor 0771 system system
     mkdir /vendor/firmware 0771 system system
 
     mount_all /fstab.qcom
+
+    mkdir /persist/data 0700 system system
+    restorecon_recursive /persist
+
+    mkdir /data/media 0770 media_rw media_rw
+    chown media_rw media_rw /data/media
+    restorecon_recursive /data/media
 
     setprop ro.crypto.fuse_sdcard true
 
@@ -115,9 +113,6 @@ on post-fs-data
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
 
-    # We will remap this as /mnt/sdcard with the sdcard fuse tool
-    mkdir /data/media 0770 media_rw media_rw
-
     restorecon /data/OTPData.dat
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
@@ -128,6 +123,9 @@ on post-fs-data
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
+
+    # Create directory used by the DASH client
+    mkdir /data/misc/dash 0770 media audio
 
     # Chown polling nodes as needed from UI running on system server
     chown system system /sys/devices/platform/msm_sdcc.1/polling
@@ -174,14 +172,16 @@ on post-fs-data
     mkdir /data/misc/radio 0770 system radio
     mkdir /data/misc/sms 0770 system radio
 
-    setprop vold.post_fs_data_done 1
-
     #Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
     # Hardware tunables
     chown system system /sys/devices/virtual/graphics/fb0/rgb
     chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
+    chown system system /sys/devices/virtual/graphics/fb0/idle_time
+    chmod 0660 /sys/devices/virtual/graphics/fb0/idle_time
+
+    setprop vold.post_fs_data_done 1
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -299,12 +299,6 @@ service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     user root
     oneshot
 
-#service cir_fw_update /system/bin/cir_fw_update -u cir.img
-#    class main
-#    user root
-#    group root
-#    oneshot
-
 service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
@@ -372,7 +366,7 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/us
     disabled
 # End FUSE
 
-service hcheck-v2 /system/bin/hcheck-v2
+service hcheck /system/bin/hcheck-v2
     class late_start
     user system
     group system
@@ -384,12 +378,6 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.bluedroid.sh
     group bluetooth net_bt_admin
     disabled
     oneshot
-
-#service hvdcp /system/bin/hvdcp
-#    class core
-#    user root
-#    group root
-#    disabled
 
 service iprenew_bt-pan /system/bin/dhcpcd -n
     class late_start
@@ -435,11 +423,6 @@ service map1_del /system/bin/sdptool del 0x1ff17
     disabled
     oneshot
 
-service mpdecision /system/bin/mpdecision --avg_comp
-    class core
-    user root
-    disabled
-
 service netmgrd /system/bin/netmgrd
     class core
 
@@ -479,14 +462,6 @@ service qseecomd /system/bin/qseecomd
 service rmt_storage /system/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
     class core
     user root
-
-service thermal-engine /system/bin/thermal-engine -c /system/etc/thermal-engine.conf
-   class main
-   user root
-   group root
-   socket thermal-send-client stream 0666 system system
-   socket thermal-recv-client stream 0660 system system
-   socket thermal-recv-passive-client stream 0666 system system
 
 service time_daemon /system/bin/time_daemon
    class late_start
