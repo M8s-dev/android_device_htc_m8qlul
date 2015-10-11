@@ -34,12 +34,6 @@ on early-init
 
 
 on init
-    symlink /system/vendor/firmware/keymaster.b00 /firmware/image/keymaste.b00
-    symlink /system/vendor/firmware/keymaster.b01 /firmware/image/keymaste.b01
-    symlink /system/vendor/firmware/keymaster.b02 /firmware/image/keymaste.b02
-    symlink /system/vendor/firmware/keymaster.b03 /firmware/image/keymaste.b03
-    symlink /system/vendor/firmware/keymaster.mdt /firmware/image/keymaste.mdt
-
     # for BMA250 BOSCH
     chown system system /sys/class/htc_g_sensor/g_sensor/bandwidth
     chown system system /sys/class/htc_g_sensor/g_sensor/chip_layout

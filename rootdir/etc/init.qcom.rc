@@ -92,6 +92,12 @@ on fs
     mkdir /vendor 0771 system system
     mkdir /vendor/firmware 0771 system system
 
+    symlink /system/vendor/firmware/keymaster.b00 /firmware/image/keymaste.b00
+    symlink /system/vendor/firmware/keymaster.b01 /firmware/image/keymaste.b01
+    symlink /system/vendor/firmware/keymaster.b02 /firmware/image/keymaste.b02
+    symlink /system/vendor/firmware/keymaster.b03 /firmware/image/keymaste.b03
+    symlink /system/vendor/firmware/keymaster.mdt /firmware/image/keymaste.mdt
+
     mount_all /fstab.qcom
 
     mkdir /persist/data 0700 system system
