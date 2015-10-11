@@ -53,31 +53,62 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/soundimage/srsfx_trumedia_int.cfg:system/etc/soundimage/srsfx_trumedia_int.cfg \
     $(LOCAL_PATH)/audio/soundimage/srsmodels.lic:system/etc/soundimage/srsmodels.lic
 
-# Bluetooth
-# TODO: Is this needed for m8qlul?
-# PRODUCT_PACKAGES += \
-#     yl_btmac
+# ANT+
+PRODUCT_PACKAGES += \
+    AntHalService \
+    com.dsi.ant.antradio_library \
+    libantradio
 
 # Camera
-# TODO: Is this needed for m8qlul?
 PRODUCT_PACKAGES += \
     camera.msm8916 \
     libmm-qcamera
 
 # Charger
-# TODO: Is this needed for m8qlul?
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.usb.id.charge=F006 \
-    ro.usb.id.mtp=F003 \
-    ro.usb.id.mtp_adb=9039 \
-    ro.usb.id.ptp=904D \
-    ro.usb.id.ptp_adb=904E \
-    ro.usb.id.ums=F000 \
-    ro.usb.id.ums_adb=9015 \
-    ro.usb.vid=05c6
+PRODUCT_PACKAGES += \
+    charger_res_images
+
+# Connectivity Engine support
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig
+
+ifeq ($(BOARD_USES_QCNE),true)
+PRODUCT_PACKAGES += \
+    services-ext \
+    init.cne.rc
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.cne.feature=4
+endif
+
+# CRDA
+PRODUCT_PACKAGES += \
+    crda \
+    linville.key.pub.pem \
+    regdbdump \
+    regulatory.bin
+
+# Display
+PRODUCT_PACKAGES += \
+    copybit.msm8916 \
+    gralloc.msm8916 \
+    hwcomposer.msm8916 \
+    libtinyxml \
+    memtrack.msm8916
+
+# Filesystem
+PRODUCT_PACKAGES += \
+    e2fsck \
+    make_ext4fs
+
+# FM
+PRODUCT_PACKAGES += \
+    FM2 \
+    FMRecord \
+    libqcomfm_jni \
+    qcom.fmradio
 
 # GPS
-# TODO: Is this needed for m8qlul?
 PRODUCT_PACKAGES += \
     gps.msm8916
 
@@ -92,6 +123,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/etc/msm_irqbalance.conf
 
+# IRSC
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/device-keypad.kl:system/usr/keylayout/device-keypad.kl \
@@ -99,15 +134,37 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/m1120.kl:system/usr/keylayout/m1120.kl \
     $(LOCAL_PATH)/keylayout/projector-Keypad.kl:system/usr/keylayout/projector-Keypad.kl
 
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.msm8916
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8916
 
 # Media
 PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media/media_codecs_sw_vendor.xml:system/etc/media_codecs_sw_vendor.xml \
     $(LOCAL_PATH)/configs/media/media_profiles_htc.xml:system/etc/media_profiles.xml
+
+PRODUCT_PACKAGES += \
+    libdashplayer \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxCore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
+    libOmxVdec \
+    libOmxVenc \
+    libstagefrighthw \
+    qcmediaplayer
+
+PRODUCT_BOOT_JARS += \
+    qcmediaplayer
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -135,6 +192,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
+# Power HAL
+PRODUCT_PACKAGES += \
+    power.msm8916
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -151,6 +211,18 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.qcom.rc
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_cm
+
+# Releasetools / Variant script (voidzero TODO: modify to static)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/releasetools/variant_script.sh:install/bin/variant_script.sh
+
+# RIL
+PRODUCT_PACKAGES += \
+    libxml2
+
 # Sensors
 PRODUCT_PACKAGES += \
     sensors.msm8916
@@ -159,10 +231,37 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
 
-# Releasetools / Variant script (voidzero TODO: modify to static)
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/variant_script.sh:install/bin/variant_script.sh
+# USB
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory
 
 # Wifi
 PRODUCT_PACKAGES += \
+    libqsap_sdk \
+    libQWiFiSoftApCfg \
+    libwpa_client \
+    hostapd \
+    dhcpcd.conf \
+    wpa_supplicant \
+    wpa_supplicant.conf \
+    wcnss_service
+
+PRODUCT_PACKAGES += \
     libwcnss_qmi
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    $(LOCAL_PATH)/configs/hostapd.conf:system/etc/hostapd/hostapd_default.conf \
+    $(LOCAL_PATH)/configs/hostapd.deny:system/etc/hostapd/hostapd.deny \
+    $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+
+# WiFi Display
+ifneq ($(QCPATH),)
+PRODUCT_BOOT_JARS += WfdCommon
+endif
