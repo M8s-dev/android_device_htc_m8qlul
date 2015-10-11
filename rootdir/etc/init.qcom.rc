@@ -647,8 +647,6 @@ on property:sys.perf.profile=1
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor msm-adreno-tz
     start mpdecision
 
-    setprop sys.io.scheduler bfq
-
 on property:sys.perf.profile=2
     stop mpdecision
     write /sys/devices/system/cpu/cpu1/online 1
