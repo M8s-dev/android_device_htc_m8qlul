@@ -59,6 +59,10 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    yl_btmac
+
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8916 \
@@ -247,10 +251,8 @@ PRODUCT_PACKAGES += \
     dhcpcd.conf \
     wpa_supplicant \
     wpa_supplicant.conf \
+    libwcnss_qmi \
     wcnss_service
-
-PRODUCT_PACKAGES += \
-    libwcnss_qmi
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/hostapd.accept:system/etc/hostapd/hostapd.accept \
