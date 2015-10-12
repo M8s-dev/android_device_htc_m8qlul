@@ -96,7 +96,7 @@ TARGET_USES_OVERLAY := true
 USE_OPENGL_RENDERER := true
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 HAVE_ADRENO_SOURCE = false
-TARGET_USES_LOGD := true
+TARGET_USES_LOGD := false
 # }}}
 
 # Dexopt    {{{
@@ -131,7 +131,8 @@ TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_PATH)/init/init_m8qlul.c
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01f88000 --tags_offset 0x01d88000
 BOARD_KERNEL_BASE := 0x80078000
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci zcache androidboot.selinux=permissive
+#BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci zcache androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_IMAGE_NAME := Image
@@ -142,7 +143,7 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_USES_UNCOMPRESSED_KERNEL := true
-TARGET_KERNEL_CONFIG := m8qlul_defconfig
+TARGET_KERNEL_CONFIG := m8qlul-v0_defconfig
 # }}}
 
 # Libc extensions   {{{
