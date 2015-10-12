@@ -106,7 +106,8 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     fsck.f2fs \
     make_f2fs \
-    mkfs.f2fs
+    mkfs.f2fs \
+    mount.exfat
 
 # FM
 PRODUCT_PACKAGES += \
@@ -128,7 +129,8 @@ PRODUCT_COPY_FILES += \
 
 # IRQ balance
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/etc/msm_irqbalance.conf
+    $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/etc/msm_irqbalance.conf \
+    $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
 
 # IRSC
 PRODUCT_COPY_FILES += \
