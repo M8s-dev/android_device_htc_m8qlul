@@ -43,29 +43,32 @@ on init
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
 
-    mkdir /mnt/media_rw/ext_sd 0700 media_rw media_rw
-    mkdir /storage/ext_sd 0700 root root
+    # External SDcard
+    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
+    mkdir /storage/sdcard1 0700 root root
 
-    mkdir /storage/usb 0700 root root
-    mkdir /mnt/media_rw/usb 0700 media_rw media_rw
+    # External USB drive
+    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
+    mkdir /storage/usbdisk 0700 root root
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
-    export SECONDARY_STORAGE /storage/ext_sd
-    export EXTERNAL_STORAGE2 /storage/ext_sd
-    export EXTERNAL_STORAGE4 /storage/usb
+    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
+    export EXTERNAL_STORAGE2 /storage/sdcard1
+    export EXTERNAL_STORAGE4 /storage/usbdisk
 
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-    symlink /storage/ext_sd /sdcard2
-    #symlink /storage/ext_sd /external_sd
-    #symlink /storage/ext_sd /mnt/external_sd
-    symlink /storage/usb /mnt/usb
-    #symlink /storage/usb /usbdisk
+    # External SD card
+    symlink /storage/sdcard1 /external_sd
+    symlink /storage/sdcard1 /mnt/external_sd
+    # External USB
+    symlink /storage/usbdisk /mnt/usbdisk
+    symlink /storage/usbdisk /mnt/usbdisk
 
     # permissions for NFC
     chown nfc nfc /sys/class/NFC_sensor/comn/nxp_uicc_swp
@@ -193,13 +196,11 @@ on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
-    write /sys/bus/platform/drivers/msm_hsic_host/unbind "msm_hsic_host"
-
-    chown system system /sys/bus/platform/drivers/msm_hsic_host/bind
-    chmod 0200 /sys/bus/platform/drivers/msm_hsic_host/bind
-
-    chown system system /sys/bus/platform/drivers/msm_hsic_host/unbind
-    chmod 0200 /sys/bus/platform/drivers/msm_hsic_host/unbind
+    #write /sys/bus/platform/drivers/msm_hsic_host/unbind "msm_hsic_host"
+    #chown system system /sys/bus/platform/drivers/msm_hsic_host/bind
+    #chmod 0200 /sys/bus/platform/drivers/msm_hsic_host/bind
+    #chown system system /sys/bus/platform/drivers/msm_hsic_host/unbind
+    #chmod 0200 /sys/bus/platform/drivers/msm_hsic_host/unbind
 
 on boot
     # bring CPUs online
@@ -208,6 +209,9 @@ on boot
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
     write /sys/module/msm_thermal/core_control/enabled 1
+
+    modprobe gspca_main
+    modprobe spidev
 
     # bluetooth
     chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
@@ -234,12 +238,12 @@ on boot
     chown system system /sys/class/leds/flashlight/brightness
     chmod 0666 /sys/class/leds/flashlight/brightness
 
-# Assign TCP buffer thresholds to be ceiling value of technology maximums
-# Increased technology maximums should be reflected here.
+    # Assign TCP buffer thresholds to be ceiling value of technology maximums
+    # Increased technology maximums should be reflected here.
     write /proc/sys/net/core/rmem_max  1220608
     write /proc/sys/net/core/wmem_max  1220608
 
-#SSD_HDMI start
+    #SSD_HDMI start
     # setup permissions for fb1 related nodes
     chown system graphics /sys/class/graphics/fb1/hpd
     chown system graphics /sys/class/graphics/fb1/vendor_name
@@ -254,7 +258,7 @@ on boot
 
     # create symlink for fb1 as HDMI
     symlink /sys/class/graphics/fb1 /dev/graphics/hdmi
-#SSD_HDMI end
+    #SSD_HDMI end
 
     #To allow interfaces to get v6 address when tethering is enabled
     write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
@@ -286,7 +290,7 @@ on boot
     # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
-# load ADSP
+    # load ADSP
     write /sys/kernel/boot_adsp/boot 1
 
 ## Service start here
@@ -516,9 +520,9 @@ on property:bluetooth.sap.status=running
 on property:bluetooth.sap.status=stopped
     stop bt-sap
 
-on property:crypto.driver.load=1
-     insmod /system/lib/modules/qce.ko
-     insmod /system/lib/modules/qcedev.ko
+#on property:crypto.driver.load=1
+#     modprobe qce.ko
+#     modprobe qcedev.ko
 
 on property:crypto.driver.load=0
      exec /system/bin/rmmod qcedev.ko

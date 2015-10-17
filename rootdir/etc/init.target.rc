@@ -218,6 +218,9 @@ on boot
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
+    modprobe wlan
+    modprobe radio_iris_transport
+
     setprop wifi.interface wlan0
 
     write /sys/module/msm_thermal/core_control/enabled 0
