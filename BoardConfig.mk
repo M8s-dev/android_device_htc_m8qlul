@@ -159,6 +159,16 @@ TARGET_PROVIDES_LIBLIGHT := true
 MALLOC_IMPL := dlmalloc
 # }}}
 
+# NFC   {{{
+BOARD_NFC_CHIPSET := pn547
+# }}}
+
+# Offmode Charging   {{{
+COMMON_GLOBAL_CFLAGS += \
+    -DBOARD_CHARGING_CMDLINE_NAME='"androidboot.mode"' \
+    -DBOARD_CHARGING_CMDLINE_VALUE='"chargerlogo"'
+# }}}
+
 # Partitions    {{{
 BOARD_FLASH_BLOCK_SIZE             := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 33554432    # 0x002000000
@@ -186,7 +196,7 @@ BOARD_USES_QCOM_HARDWARE := true
 # }}}
 
 # Recovery    {{{
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_cm
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_m8qlul
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := RGB_565
 TARGET_RECOVERY_DENSITY := xxhdpi
@@ -201,8 +211,8 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 # }}}
 
 # RIL    {{{
-PROTOBUF_SUPPORTED := true
-TARGET_RIL_VARIANT := caf
+#PROTOBUF_SUPPORTED := true
+#TARGET_RIL_VARIANT := caf
 # }}}
 
 # SELinux    {{{
@@ -245,12 +255,6 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
-
-TARGET_PROVIDES_WCNSS_QMI := true
-TARGET_USES_QCOM_WCNSS_QMI := true
-# The uncompressed arm64 is too large, split wifi for now
-# WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
-# WIFI_DRIVER_MODULE_NAME := "wlan"
 # }}}
 
 # Vendor Init    {{{
