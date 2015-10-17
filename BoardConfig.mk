@@ -18,6 +18,7 @@
 # 0PKV10000 - HTC Europe
 # msm8939 board, msm8916 kernel
 
+BOARD_VENDOR := htc
 DEVICE_PATH := device/htc/m8qlul
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
