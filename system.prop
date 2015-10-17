@@ -1,22 +1,17 @@
+#--------- start m8qlul system.prop
 # ActivityManager optimizations
 ro.config.max_starting_bg=8
-ro.sys.fw.bservice_enable=true
-ro.sys.fw.bservice_limit=5
-ro.sys.fw.bservice_age=5000
 
 # Audio
-ro.qc.sdk.audio.fluencetype=fluence
+ro.qc.sdk.audio.fluencetype=none
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=false
-persist.audio.fluence.speaker=false
+persist.audio.fluence.speaker=true
 tunnel.audio.encode=false
-av.offload.enable=true
-av.streaming.offload.enable=true
-audio.offload.buffer.size.kb=64
+av.offload.enable=false
+audio.offload.buffer.size.kb=1024
 audio.offload.min.duration.secs=30
-audio.offload.gapless.enabled=true
-audio.offload.pcm.16bit.enable=false
-audio.offload.pcm.24bit.enable=true
+audio.offload.gapless.enabled=false
 use.voice.path.for.pcm.voip=true
 vidc.enc.narrow.searchrange=1
 
@@ -27,24 +22,18 @@ ro.qualcomm.bt.hci_transport=smd
 ro.sys.fw.dex2oat_thread_count=4
 
 # Display
-debug.composition.type=c2d
-debug.sf.gpu_comp_tiling=1
-debug.mdpcomp.idletime=600
+debug.composition.type=gpu
 persist.hwc.mdpcomp.enable=true
-persist.hwc.ptor.enable=true
 ro.opengles.version=196608
 debug.enable.sglscale=1
 
 # GPS
-persist.gps.qc_nlp_in_use=0
+persist.gps.qc_nlp_in_use=1
 ro.gps.agps_provider=1
-ro.qc.sdk.izat.premium.enabled=0
-ro.qc.sdk.izat.service_mask=0x0
 
 # Media
-mm.enable.qcom_parser=3179041
+mm.enable.qcom_parser=3314291
 mm.enable.smoothstreaming=true
-mm.disable.sec_smoothstreaming=true
 media.aac_51_output_enabled=true
 drm.service.enabled=1
 
@@ -59,19 +48,17 @@ persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 
-# OTG
-persist.sys.isUsbOtgEnabled=1
-
 # perf
-ro.min_freq_0=960000
-ro.min_freq_4=800000
 ro.vendor.extension_library=libqti-perfd-client.so
 
 # Radio
-persist.radio.apm_sim_not_pwdn=1
+ril.ecclist=112,911,113,114,115,118,000,08,110,999,119
+ril.subscription.types=NV,RUIM
 rild.libargs=-d /dev/smd0
-rild.libpath=/system/vendor/lib64/libril-qc-qmi-1.so
+rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 ro.baseband.arch=msm
+ro.baseband=1.0.U20410.1@50311
+ro.cid=HTC__031
 ro.use_data_netmgrd=true
 
 # Scheduler
@@ -80,9 +67,123 @@ sys.io.scheduler=row
 # Time
 persist.timed.enable=true
 
-#Trim properties
-ro.sys.fw.use_trim_settings=true
-ro.sys.fw.empty_app_percent=50
-ro.sys.fw.trim_empty_percent=100
-ro.sys.fw.trim_cache_percent=100
-ro.sys.fw.trim_enable_memory=1073741824
+#Storage
+persist.fuse_sdcard=true
+
+# Sort these out
+# they come from stock
+debug.egl.hw=1
+debug.sf.hw=1
+dev.pm.dyn_samplingrate=1
+keyguard.no_require_sim=1
+media.hwhevccodectype=0
+media.stagefright.enable-aac=true
+media.stagefright.enable-fma2dp=true
+media.stagefright.enable-http=true
+media.stagefright.enable-player=true
+media.stagefright.enable-qcp=true
+media.stagefright.enable-scan=true
+media.swhevccodectype=0
+mmp.enable.3g2=true
+persist.htc.audio.dqlog.dci=1
+persist.htc.audio.pcm.channels=2
+persist.htc.audio.pcm.samplerate=48000
+persist.hwc.enable_vds=1
+persist.radio.fill_eons=1
+ro.apn.uservalue.protocol=IPV4V6
+ro.bluetooth.remote.autoconnect=true
+ro.bluetooth.request.master=true
+ro.board.platform=msm8916
+ro.cwkey=HTC__001
+ro.fm.transmitter=false
+ro.htc.bluetooth.sap=true
+ro.hwui.renderer.disable_opaque=true
+ro.pip.gated=0
+ro.product.bluetooth=4.0
+ro.product.front_camera = 8M
+ro.product.main_camera = 13M
+ro.product.processor = Octacore
+ro.product.ram = 2GB
+ro.qc.bluetooth.stack=bluedroid
+ro.qc.sdk.audio.ssr=false
+ro.qualcomm.bluetooth.dun=false
+ro.qualcomm.bluetooth.ftp=true
+ro.qualcomm.bluetooth.hfp.wbs=false
+ro.qualcomm.cabl=0
+ro.aa.cidlist=HTC__001,HTC__102,HTC__032,HTC__Y13,HTC__031,HTC__M27,HTC__002,HTC__A07
+ro.ril.disable.cpc=1
+ro.ril.disable.fd.plmn.prefix=23402,23410,23411,23420,23594,27202,27205
+ro.ril.enable.a52=0
+ro.ril.enable.a53=1
+ro.ril.enable.amr.wideband=1
+ro.ril.enable.dtm=0
+ro.ril.enable.enhance.search=1
+ro.ril.enable.managed.roaming=1
+ro.ril.enable.pre_r8fd=1
+ro.ril.enable.r8fd=1
+ro.ril.enable.sdr=1
+ro.ril.fast.dormancy.rule=1
+ro.ril.fd.pre_r8_tout.scr_off=2
+ro.ril.fd.pre_r8_tout.scr_on=3
+ro.ril.fd.r8_tout.scr_off=2
+ro.ril.fd.r8_tout.scr_on=3
+ro.ril.gprsclass=10
+ro.ril.gsm.amrwb=1
+ro.ril.gsm.to.lte.blind.redir=1
+ro.ril.hsdpa.category=24
+ro.ril.hsupa.category=6
+ro.ril.hsxpa=1
+ro.ril.hsxpa=4
+ro.ril.n-roaming.mcclist=219,204,234,272,222,240,232,238,260,425
+ro.ril.show.all.plmn=1
+ro.ril.vmail.20801=888
+ro.ril.vmail.20810=123
+ro.ril.vmail.20826=777
+ro.ril.vmail.22201=41901,I TIM
+ro.ril.vmail.22210=42020,Vodafone IT
+ro.ril.vmail.22288=4200,I WIND
+ro.ril.vmail.22299=4133,3ITA
+ro.ril.vmail.23410=901,O2 UK,905,TESCO,443,giffgaff
+ro.ril.vmail.23415=1571,BT,121,VDF UK
+ro.ril.vmail.27203=171
+ro.ril.vmail.27211=171
+ro.ril.vmail.42403=161
+ro.ril.vmail.65502=181
+ro.ril.vmail.65510=100
+ro.storage_encryption_type = 2
+ro.storage_structure = 10
+ro.telephony.bl=27202
+ro.telephony.default_network=0
+ro.telephony.ipv6_capability=1
+ro.usb_host = 1
+ro.wifi.channels=
+sys.stt.ssr.no_prompt=1
+telephony.lteOnCdmaDevice=1
+voice.playback.conc.disabled=true
+voice.record.conc.disabled=false
+voice.voip.conc.disabled=true
+wifi.interface=wlan0
+wifi.miracastconcurrent.scan=WCN3680
+wifi.softap.interface=wlan0
+wifi.softapconcurrent.interface=softap.0
+wifi.supplicant_scan_interval=15
+wifi.wpa_supp_ready=
+wlan.driver.status=
+
+# Some extras
+com.qc.hardware=true
+persist.thermal.monitor=true
+ro.qc.sdk.sensors.gestures=true
+ro.qualcomm.perf.cores_online=4
+ro.data.large_tcp_window_size=true
+ro.frp.pst=/dev/block/bootdevice/by-name/config
+ro.telephony.call_ring.multiple=false
+persist.data.netmgrd.qos.enable=true
+persist.radio.apm_sim_not_pwdn=1
+DEVICE_PROVISIONED=1
+
+
+
+ro.sf.lcd_density=420
+#--------- end m8qlul system.prop
+
