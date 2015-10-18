@@ -1,4 +1,4 @@
-#
+# vim: ts=4 sw=4 sts=4 et
 # Copyright (C) 2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,9 @@
 
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
+
+# Disabled to speed up building
+# will be enabled again later
 #$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
@@ -23,7 +26,7 @@ $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui
 $(call inherit-product-if-exists, vendor/htc/m8qlul/m8qlul-vendor.mk)
 
 # System properties
-# TODO!
+# TODO: I'm using system.prop now, probably better to use PRODUCT_PROPERTY_OVERRIDES
 # -include $(LOCAL_PATH)/system_prop.mk
 
 # Overlays
@@ -87,10 +90,19 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     tinymix
 
+# More audio
+#    libtinyalsa \
+#    tinyplay \
+#    tinycap \
+#    tinypcminfo \
+#    tinycompress \
+
+
 # Audio configuration
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_effects.conf:system/etc/audio_effects.conf \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
     $(LOCAL_PATH)/audio/sound_mfg.txt:system/etc/sound_mfg.txt \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
@@ -147,11 +159,11 @@ PRODUCT_PACKAGES += \
     copybit.msm8916 \
     gralloc.msm8916 \
     hwcomposer.msm8916 \
+    memtrack.msm8916 \
     libtinyxml \
     libxml2 \
     libgenlock \
-    liboverlay \
-    memtrack.msm8916
+    liboverlay
 
 # Filesystem
 PRODUCT_PACKAGES += \
@@ -170,8 +182,9 @@ PRODUCT_PACKAGES += \
     libqcomfm_jni \
     qcom.fmradio
 
-# Test
+# SIM stuff existent on stock
 PRODUCT_PACKAGES += \
+    requestsync \
     org.simalliance.openmobileapi \
     org.simalliance.openmobileapi.xml
 
@@ -278,10 +291,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     qcmediaplayer
 
-# Test
-PRODUCT_PACKAGES += \
-    requestsync
-
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
@@ -308,6 +317,8 @@ PRODUCT_PACKAGES += \
     init.qcom.firmware_links.sh \
     init.qcom.fm.sh \
     init.qcom.sh \
+    init.qcom.uicc.sh \
+    init.qcom.usb.sh \
     init.qcom.wcnss_wlan.sh \
     init.qcom.usb.htc.rc
 
