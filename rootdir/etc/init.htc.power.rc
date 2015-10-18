@@ -28,7 +28,7 @@
 # Copied from HTC's init.power.rc for the HTC m8s.
 
 on init
-# init PnPMgr node
+    # init PnPMgr node
     chmod 0664 /sys/power/pnpmgr/apps/media_mode
     chown media system /sys/power/pnpmgr/apps/media_mode
     chown system /sys/power/pnpmgr/apps/activity_trigger
@@ -55,7 +55,7 @@ on init
     write /sys/power/pnpmgr/touch_boost_duration 3000
     write /sys/power/pnpmgr/long_duration_touch_boost_duration 3000
 
-# HTC SSD Battery - BEGIN
+    # HTC SSD Battery - BEGIN
     chown system system /sys/class/power_supply/battery/full_level_dis_batt_chg
     chmod 0220 /sys/class/power_supply/battery/full_level_dis_batt_chg
     chown radio radio /sys/class/power_supply/battery/phone_call
@@ -68,7 +68,7 @@ on init
     chmod 0220 /sys/class/power_supply/battery/navigation
     chown system system /sys/class/power_supply/battery/disable_limit_chg
     chmod 0220 /sys/class/power_supply/battery/disable_limit_chg
-# HTC SSD Battery - END
+    # HTC SSD Battery - END
 
     chown root system /sys/devices/system/cpu/cpu1/online
     chmod 0664 /sys/devices/system/cpu/cpu1/online
@@ -85,24 +85,10 @@ on init
     chown root system /sys/devices/system/cpu/cpu7/online
     chmod 0664 /sys/devices/system/cpu/cpu7/online
 
-service mpdecision /system/bin/mpdecision --avg_comp
-    class core
-    user root
-    disabled
-
 service thermal-engine /system/bin/thermal-engine
     class main
     user root
     group root
-
-#service pnpmgr /system/bin/pnpmgr
-#    class core
-#    user root
-
-#service memlock /system/bin/memlock
-#    class main
-#    cgroup bg
-#    user root
 
 on property:init.svc.thermal-engine=stopped
     write /sys/power/pnpmgr/thermal/thermal_final_bcpu 999999999
@@ -111,18 +97,3 @@ on property:init.svc.thermal-engine=stopped
     write /sys/power/pnpmgr/thermal/thermal_batt 0
     write /sys/power/pnpmgr/cluster/big/cpu0/thermal_freq 999999999
     write /sys/power/pnpmgr/cluster/little/cpu0/thermal_freq 999999999
-
-#service clockd /system/bin/clockd
-#    class main
-#    user root
-
-#service qb_offmode_alarm /system/bin/qb_offmode_alarm
-#    class main
-#    user root
-#    disabled
-#    oneshot
-
-#service zchgd_offmode /system/bin/zchgd -pseudooffmode -autostop -poffmodewarn
-#    user root
-#    group root graphics
-#    disabled

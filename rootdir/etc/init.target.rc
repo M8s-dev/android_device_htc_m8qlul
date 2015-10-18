@@ -218,8 +218,8 @@ on boot
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
-    modprobe wlan
-    modprobe radio_iris_transport
+    insmod /system/lib/modules/wlan.ko
+    insmod /system/lib/modules/radio_iris_transport.ko
 
     setprop wifi.interface wlan0
 
@@ -232,7 +232,7 @@ on boot
 on property:sys.boot_completed=1
     start qcom-post-boot
 
-service qcom-post-boot /system/bin/sh /init.qcom.post_boot.sh
+service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
     user root
     disabled
@@ -246,4 +246,13 @@ service vm_bms /system/bin/vm_bms
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
 
+service qcom-sh /system/bin/sh /init.qcom.sh
+    class late_start
+    user root
+    oneshot
+
+service atfwd /system/bin/ATFWD-daemon
+    class late_start
+    user system
+    group system radio
 
