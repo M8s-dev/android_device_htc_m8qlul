@@ -60,12 +60,12 @@ TARGET_NO_BOOTLOADER := true
 # }}}
 
 # ANT+    {{{
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+#BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+BOARD_ANT_WIRELESS_DEVICE := "qualcomm-smd"
 # }}}
 
 # Audio    {{{
 BOARD_USES_ALSA_AUDIO := true
-
 AUDIO_FEATURE_DEEP_BUFFER_RINGTONE := true
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
 AUDIO_FEATURE_ENABLED_COMPRESS_CAPTURE := true
@@ -85,12 +85,11 @@ AUDIO_FEATURE_ENABLED_PCM_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_PCM_OFFLOAD_24 := true
 AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
-#AUDIO_FEATURE_ENABLED_PM_SUPPORT := true
-#AUDIO_FEATURE_ENABLED_LISTEN := true
 # }}}
 
 # Camera    {{{
-# BOARD_CAMERA_SENSORS := imx132 imx134 imx135 imx214 ov5648
+BOARD_CAMERA_SENSORS := imx214
+BOARD_NUMBER_OF_CAMERAS := 3
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -99,6 +98,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 USE_DEVICE_SPECIFIC_CAMERA := true
 COMMON_GLOBAL_CFLAGS += -DHTC_CAMERA_HARDWARE
 COMMON_GLOBAL_CFLAGS += -DPROPERTY_PERMS_APPEND='{"htc.camera.sensor.", AID_CAMERA, 0}, {"camera.4k2k.", AID_MEDIA, 0},'
+COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
+
 # }}}
 
 # CPU    {{{
@@ -144,13 +145,12 @@ EXTENDED_FONT_FOOTPRINT := true
 # }}}
 
 # GPS    {{{
-TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
+#TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
+#BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := true
 # }}}
 
 # Init    {{{
-TARGET_INIT_VENDOR_LIB := libinit_m8qlul
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
-TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_PATH)/init/init_m8qlul.c
 # }}}
 
 # Kernel    {{{
@@ -158,7 +158,7 @@ BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01f88000 --tags_offset 0x01d88000
 BOARD_KERNEL_BASE := 0x80078000
 #BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci zcache androidboot.selinux=permissive
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive lpm_levels.sleep_disabled=1 boot_cpus=0-5 androidtouch.htc_event=1 disk_mode_enable=1
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_IMAGE_NAME := Image
@@ -169,7 +169,8 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_USES_UNCOMPRESSED_KERNEL := true
-TARGET_KERNEL_CONFIG := m8qlul-v0_defconfig
+#TARGET_KERNEL_CONFIG := m8qlul-v0_defconfig
+TARGET_KERNEL_CONFIG := m8qlul-v0_sensor_defconfig
 # }}}
 
 # Libc extensions   {{{
@@ -189,7 +190,7 @@ BOARD_NFC_CHIPSET := pn547
 # }}}
 
 # Offmode Charging   {{{
-BOARD_CHARDING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
+BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
 COMMON_GLOBAL_CFLAGS += \
     -DBOARD_CHARGING_CMDLINE_NAME='"androidboot.mode"' \
     -DBOARD_CHARGING_CMDLINE_VALUE='"chargerlogo"'
@@ -206,6 +207,7 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 10334748672 # 0x268000000 ~ 10334765056 - 
 # }}}
 
 # Power    {{{
+CM_POWERHAL_EXTENSION := qcom
 TARGET_POWERHAL_VARIANT := qcom
 # }}}
 
@@ -242,6 +244,8 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 #PROTOBUF_SUPPORTED := true
 #TARGET_RIL_VARIANT := caf
 #BOARD_PROVIDES_LIBRIL := true
+#BOARD_RIL_NO_CELLINFOLIST := true
+#BOARD_RIL_FIVE_SEARCH_RESPONSES := true
 # }}}
 
 # SELinux    {{{
