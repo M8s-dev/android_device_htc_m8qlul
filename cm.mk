@@ -17,12 +17,12 @@ BOARD_VENDOR := htc
 # Device naming
 PRODUCT_NAME := cm_m8qlul
 PRODUCT_DEVICE := m8qlul
-PRODUCT_BRAND := HTC
-PRODUCT_MODEL := One M8s
-BOARD_MANUFACTURER := HTC
+PRODUCT_BRAND := htc
+PRODUCT_MODEL := HTC One M8s
+PRODUCT_MANUFACTURER := HTC
 
 # Set build fingerprint / ID / Product Name etc.
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=htc_m8qlul PRODUCT_DEVICE=htc_m8qlul
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=m8qlul_htc_europe PRODUCT_DEVICE=htc_m8qlul
 
 ## Use the latest approved GMS identifiers unless running a signed build
 ifneq ($(SIGN_BUILD),true)
