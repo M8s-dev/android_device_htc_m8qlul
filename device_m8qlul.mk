@@ -85,6 +85,7 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     audio.usb.default \
     audio_policy.msm8916 \
+    libaudioresampler \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
@@ -116,9 +117,7 @@ PRODUCT_COPY_FILES += \
 
 # ANT+
 PRODUCT_PACKAGES += \
-    AntHalService \
-    com.dsi.ant.antradio_library \
-    libantradio
+    AntHalService
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -127,32 +126,8 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.msm8916 \
     libmm-qcamera
-
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
-# Connectivity Engine support
-PRODUCT_PACKAGES += \
-    libcnefeatureconfig
-
-ifeq ($(BOARD_USES_QCNE),true)
-PRODUCT_PACKAGES += \
-    services-ext \
-    init.cne.rc
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.cne.feature=4
-endif
-
-# CRDA
-PRODUCT_PACKAGES += \
-    crda \
-    linville.key.pub.pem \
-    regdbdump \
-    regulatory.bin
+#    camera.msm8916
 
 # Display
 PRODUCT_PACKAGES += \
@@ -185,8 +160,10 @@ PRODUCT_PACKAGES += \
 # SIM stuff existent on stock
 PRODUCT_PACKAGES += \
     requestsync \
-    org.simalliance.openmobileapi \
-    org.simalliance.openmobileapi.xml
+    SmartcardService
+
+#    org.simalliance.openmobileapi \
+#    org.simalliance.openmobileapi.xml
 
 # GPS
 #PRODUCT_PACKAGES += \
@@ -269,6 +246,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/qcom/netmgr_config.xml:system/etc/data/netmgr_config.xml \
     $(LOCAL_PATH)/configs/qcom/qmi_config.xml:system/etc/data/qmi_config.xml
 
+# Test Omx
+PRODUCT_PACKAGES += \
+    libOmxVdpp \
+    libOmxVidcCommon \
+    libmm-omxcore
+
 # OMX
 PRODUCT_PACKAGES += \
     libdashplayer \
@@ -332,8 +315,8 @@ PRODUCT_COPY_FILES += \
 
 
 # Sensors
-PRODUCT_PACKAGES += \
-    sensors.msm8916
+#PRODUCT_PACKAGES += \
+#    sensors.msm8916
 
 # Thermal
 PRODUCT_COPY_FILES += \
