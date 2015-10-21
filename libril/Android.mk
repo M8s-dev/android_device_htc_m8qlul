@@ -1,7 +1,7 @@
 # Copyright 2015 The CyanogenMod Project
 
 ifeq ($(BOARD_PROVIDES_LIBRIL),true)
-ifeq ($(TARGET_BOARD_PLATFORM),msm8994)
+ifeq ($(TARGET_BOARD_PLATFORM),msm8916)
 ifeq ($(BOARD_VENDOR),htc)
 
 LOCAL_PATH:= $(call my-dir)
