@@ -457,6 +457,10 @@ service audiod /system/bin/audiod
     user system
     group system
 
+service cand /system/bin/cand
+    class main
+    user root
+
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class late_start
     user root
@@ -529,12 +533,6 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/us
     disabled
 # End FUSE
 
-service hcheck /system/bin/hcheck-v2
-    class late_start
-    user system
-    group system
-    oneshot
-
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.bluedroid.sh
     class late_start
     user bluetooth
@@ -601,6 +599,10 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
+service perfd /system/bin/perfd
+   user root
+   disabled
+
 service ptt_socket_app /system/bin/ptt_socket_app
     class main
     user system
@@ -612,6 +614,17 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
 
+service qcom-post-boot /system/bin/sh /system/etc/init.m8qlul.post_boot.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+
+service qcom-sh /system/bin/sh /init.qcom.sh
+    class late_start
+    user root
+    oneshot
+
 service qmuxd /system/bin/qmuxd
     class core
     user radio
@@ -622,14 +635,44 @@ service qseecomd /system/bin/qseecomd
     user root
     group root
 
+service radiomod /system/bin/insmod /system/lib/modules/radio-iris-transport.ko
+    class late_start
+    user root
+    group root
+    oneshot
+    disabled
+
+service ril-daemon2 /system/bin/rild -c 2
+    class main
+    socket rild2 stream 660 root radio
+    socket rild-debug2 stream 660 radio system
+    user root
+    disabled
+    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
+
 service rmt_storage /system/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
     class core
     user root
+
+# HTC sensor_hub
+service shub_dbg /system/bin/shub_dbg
+    class main
+    user system
+
+service thermal-engine /system/bin/thermal-engine
+   class main
+   user root
+   group root
 
 service time_daemon /system/bin/time_daemon
     class late_start
     user root
     group root
+
+service vm_bms /system/bin/vm_bms
+    user root
+    group root
+    disabled
 
 service wcnss-service /system/bin/wcnss_service
     class main
@@ -646,30 +689,6 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-service ril-daemon2 /system/bin/rild -c 2
-    class main
-    socket rild2 stream 660 root radio
-    socket rild-debug2 stream 660 radio system
-    user root
-    disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
-
-service qcom-post-boot /system/bin/sh /system/etc/init.m8qlul.post_boot.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service vm_bms /system/bin/vm_bms
-    user root
-    group root
-    disabled
-
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    oneshot
-
 #service atfwd /system/bin/ATFWD-daemon
 #    class late_start
 #    user system
@@ -681,17 +700,18 @@ service wlanmod /system/bin/insmod /system/lib/modules/wlan.ko
     group root
     oneshot
 
-service radiomod /system/bin/insmod /system/lib/modules/radio-iris-transport.ko
+service wv-prov /system/bin/hcheck-v2
     class late_start
     user root
-    group root
     oneshot
-    disabled
 
 # }}}
 
 
 # Properties   {{{
+on property:wlan.driver.ath=0
+    start wcnss-service
+
 on property:bluetooth.hciattach=true
     start hciattach
 
@@ -733,9 +753,6 @@ on property:ro.use_data_netmgrd=false
 
 on property:service.adb.root=1
     write /sys/class/android_usb/android0/restart_adbd 1
-
-on property:sys.boot_completed=1
-    start qrngp
 
 on property:sys.boot_completed=1
     start qcom-post-boot

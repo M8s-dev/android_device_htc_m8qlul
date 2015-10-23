@@ -140,6 +140,14 @@ on boot
 
 # Services {{{
 
+# Allow usb charging to be disabled peristently
+on property:persist.usb.chgdisabled=1
+    write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+    write /sys/class/power_supply/battery/charging_enabled 1
+
+
 # TODO: voidzero: these do exist on m8qlul, not sure if required though.
 # Probably layer 2 vpn stuff.
 service L2PE /system/bin/l2_profile_exchange handset softap.0
