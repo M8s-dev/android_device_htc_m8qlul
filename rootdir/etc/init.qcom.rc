@@ -607,18 +607,18 @@ service qmuxd /system/bin/qmuxd
     group radio audio bluetooth gps qcom_diag
 
 service qseecomd /system/bin/qseecomd
-   class main
-   user root
-   group root
+    class main
+    user root
+    group root
 
 service rmt_storage /system/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
     class core
     user root
 
 service time_daemon /system/bin/time_daemon
-   class late_start
-   user root
-   group root
+    class late_start
+    user root
+    group root
 
 service wcnss-service /system/bin/wcnss_service
     class main
@@ -685,6 +685,7 @@ service radiomod /system/bin/insmod /system/lib/modules/radio-iris-transport.ko
 
 # }}}
 
+
 # Properties   {{{
 on property:bluetooth.hciattach=true
     start hciattach
@@ -719,7 +720,7 @@ on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
 
 on property:ro.use_data_netmgrd=true
-   start netmgrd
+    start netmgrd
 
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
