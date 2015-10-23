@@ -289,20 +289,24 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fstab.qcom \
     fstab.swap \
-    init.htc.power.rc \
-    init.htc.trace.rc \
     init.qcom.rc \
     init.qcom.usb.rc \
-    init.target.rc \
+    init.qcom.usb.htc.rc \
+    init.extras.rc \
+    init.sensors.rc \
+    init.htc.power.rc \
+    init.htc.trace.rc \
     ueventd.qcom.rc
 
 PRODUCT_PACKAGES += \
+    init.ath3k.bt.sh \
+    init.class_main.sh \
+    init.m8qlul.post_boot.sh \
     init.qcom.bt.bluedroid.sh \
     init.qcom.bt.sh \
-    init.qcom.ril.sh \
-    init.qcom.post_boot.sh \
     init.qcom.firmware_links.sh \
     init.qcom.fm.sh \
+    init.qcom.rootagent.sh \
     init.qcom.sh \
     init.qcom.uicc.sh \
     init.qcom.usb.sh \

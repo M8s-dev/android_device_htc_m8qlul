@@ -133,6 +133,28 @@ on boot
     chown drm system /dev/htcdrm
     chmod 0660 /dev/htcdrm
 
+    #Set SUID bit for usbhub
+    chmod 4755 /system/bin/usbhub
+    chmod 755 /system/bin/usbhub_init
+
+    chown system graphics /sys/class/leds/lcd-backlight/cabc_level_ctl
+
+    # TODO: Do we want this?
+    # Remove SUID bit for iproute2 ip tool
+    chmod 0755 /system/bin/ip
+
+    # TODO: Are these used?
+    chown system system /sys/class/leds/lcd-backlight-nits/brightness
+    chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    #TODO: Do we have this?
+    # For bridgemgr daemon to inform the USB driver of the correct transport
+    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
+
+    # Set the console loglevel to < KERN_INFO
+    # Set the default message loglevel to KERN_INFO
+    # write /proc/sys/kernel/printk "6 6 1 7"
+
     # End boot stages }}}
 
 # End boot stages }}}
@@ -140,13 +162,68 @@ on boot
 
 # Services {{{
 
-# Allow usb charging to be disabled peristently
-on property:persist.usb.chgdisabled=1
-    write /sys/class/power_supply/battery/charging_enabled 0
+service atfwd /system/bin/ATFWD-daemon
+    class late_start
+    user system
+    group system radio
 
-on property:persist.usb.chgdisabled=0
-    write /sys/class/power_supply/battery/charging_enabled 1
+# Bluetooth dun server
+# Source http://www.svgalib.org/matan/android/
+# http://www.svgalib.org/matan/android/DUNS.html
+service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
+    class late_start
+    user bluetooth
+    group bluetooth net_bt_admin inet
+    disabled
+    oneshot
 
+# Bluetooth experimental daemon to connect with Samsung's Gear smartwatches.
+# Source is actually at https://git.javispedro.com/cgit/sapd.git
+service bt-sap /system/bin/sapd 15
+    user bluetooth
+    group bluetooth net_bt_admin radio
+    class late_start
+    disabled
+    oneshot
+
+# bugreport is triggered by the KEY_VOL-UP and KEY_VOL-DOWN keycodes
+service bugreport /system/bin/dumpstate -d -p -B \
+ -o /data/data/com.android.shell/files/bugreports/bugreport
+    disabled
+    cgroup bg
+    oneshot
+    keycodes 114 115
+
+service charger /charger
+    class charger
+
+service diag_mdlog_start /system/bin/diag_mdlog
+    class late_start
+    user sdcard_rw
+    group system qcom_diag sdcard_rw sdcard_r media_rw
+    disabled
+    oneshot
+
+service diag_mdlog_stop /system/bin/diag_mdlog -k
+    class late_start
+    user sdcard_rw
+    group system qcom_diag sdcard_rw sdcard_r media_rw
+    disabled
+    oneshot
+
+# Bluetooth ftm daemon
+service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
+    class late_start
+    user root
+    group bluetooth net_bt_admin misc net_bt_stack qcom_diag
+    disabled
+    oneshot
+
+service ftm_ffbm /system/bin/ftmdaemon
+    user root
+    group root
+    disabled
+    oneshot
 
 # TODO: voidzero: these do exist on m8qlul, not sure if required though.
 # Probably layer 2 vpn stuff.
@@ -162,7 +239,76 @@ service L2PE_BRCM /system/bin/l2_profile_exchange handset wl0.1
     disabled
     oneshot
 
+# For DAP to read certificates
+service read_dap_cert /system/bin/readDapCert
+    class main
+    oneshot
+
+service rootagent /system/bin/sh /system/etc/init.qcom.rootagent.sh
+    disabled
+    oneshot
+
+# Export GPIO56 for fusion targets to enable/disable hub
+service usbhub_init /system/bin/usbhub_init
+   class late_start
+   user root
+   disabled
+   oneshot
+
+service qlogd /system/xbin/qlogd
+    class main
+    disabled
+
 # End services }}}
+
+
+# Properties {{{
+
+on property:bluetooth.sap.status=running
+    start bt-sap
+
+on property:bluetooth.sap.status=stopped
+    stop bt-sap
+
+on property:bluetooth.dun.status=running
+    start bt-dun
+
+on property:bluetooth.dun.status=stopped
+    stop bt-dun
+
+on property:crypto.driver.load=1
+     insmod /system/lib/modules/qce.ko
+     insmod /system/lib/modules/qcedev.ko
+
+on property:persist.radio.atfwd.start=false
+    stop atfwd
+
+on property:persist.env.fastdorm.enabled=true
+    setprop persist.radio.data_no_toggle 1
+
+on property:persist.sys.qlogd=1
+    start qlogd
+
+on property:persist.sys.qlogd=0
+    stop qlogd
+
+on property:persist.sys.rootagent=1
+    start rootagent
+
+on property:persist.sys.rootagent=0
+    stop rootagent
+
+# Allow usb charging to be disabled peristently
+on property:persist.usb.chgdisabled=1
+    write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+    write /sys/class/power_supply/battery/charging_enabled 1
+
+on property:ro.bluetooth.ftm_enabled=true
+    start ftmd
+
+# }}}
 
 
 # Disabled stuff {{{
