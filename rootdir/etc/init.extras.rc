@@ -128,24 +128,17 @@ on boot
     chown system system /sys/class/android_usb/f_rmnet/on
     chown system system /sys/devices/platform/android_usb/usb_disable
 
-    # HTC SSD Camera
-    # For Flashlight Restriction
-    chown system system /sys/camera_led_status/led_hotspot_status
-
     # HTC SSD Peripheral UI - BEGIN
     # P-sensor
     #chown radio radio /sys/class/optical_sensors/proximity/PhoneApp_status
     #chmod 0660 /sys/class/optical_sensors/proximity/PhoneApp_status
 
-    # LED
     #chown system system /sys/class/leds/green/brightness
     #chown system system /sys/class/leds/green/blink
     #chown system system /sys/class/leds/green/off_timer
     #chown system system /sys/class/leds/amber/brightness
     #chown system system /sys/class/leds/amber/blink
     #chown system system /sys/class/leds/amber/off_timer
-    chown system system /sys/class/leds/indicator/ModeRGB
-    chown system system /sys/class/leds/indicator/off_timer
 
     #chmod 0660 /sys/class/leds/amber/brightness
     #chmod 0660 /sys/class/leds/amber/blink
@@ -153,89 +146,6 @@ on boot
     #chmod 0660 /sys/class/leds/green/brightness
     #chmod 0660 /sys/class/leds/green/blink
     #chmod 0660 /sys/class/leds/green/off_timer
-    chmod 0660 /sys/class/leds/indicator/ModeRGB
-    chmod 0660 /sys/class/leds/indicator/off_timer
-
-    # htc sensorhub
-    #chown system system /sys/class/htc_g_sensor/g_sensor/clear_powerkey_flag
-    #chmod 0660 /sys/class/htc_g_sensor/g_sensor/clear_powerkey_flag
-
-    # Motion Sensors ++
-    chown system system /dev/iio:device0
-    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
-    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/length
-    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/trigger/current_trigger
-
-    chmod 660 /dev/iio:device0
-    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
-    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/buffer/length
-    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/trigger/current_trigger
-
-    chown system system /sys/class/htc_sensorhub/sensor_hub/enable
-    chown system system /sys/class/htc_sensorhub/sensor_hub/delay_ms
-    chown system system /sys/class/htc_sensorhub/sensor_hub/barometer_self_test
-    chown system system /sys/class/htc_sensorhub/sensor_hub/AP_calibrator_data_accRL
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_en
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_status_acc
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_status_mag
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_status_gyro
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_data_acc
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_data_accRL
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_data_mag
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_data_gyro
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_data_light
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_data_proximity
-    chown system system /sys/class/htc_sensorhub/sensor_hub/calibrator_data_barometer
-    chown system system /sys/class/htc_sensorhub/sensor_hub/data_barometer
-    chown system system /sys/class/htc_sensorhub/sensor_hub/data_proximity
-    chown system system /sys/class/htc_sensorhub/sensor_hub/data_proximity_polling
-    chown system system /sys/class/htc_sensorhub/sensor_hub/data_light_polling
-    chown system system /sys/class/htc_sensorhub/sensor_hub/sensor_hub_rdata
-    chown system system /sys/class/htc_sensorhub/sensor_hub/ps_canc
-    chown system system /sys/class/htc_sensorhub/sensor_hub/data_light_kadc
-    chown system system /sys/class/htc_sensorhub/sensor_hub/firmware_version
-    chown system system /sys/class/htc_sensorhub/sensor_hub/uart_debug
-    chown system system /sys/class/htc_sensorhub/sensor_hub/boot_mode
-    chown system system /sys/class/htc_sensorhub/sensor_hub/ls_mechanism
-    chown system system /sys/class/htc_sensorhub/sensor_hub/nvram_cali_data
-    chown system gesture_motion /sys/class/htc_sensorhub/sensor_hub/gesture_motion
-    chown system system /sys/class/htc_sensorhub/sensor_hub/mcu_wakeup
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/enable
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/delay_ms
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/barometer_self_test
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/AP_calibrator_data_accRL
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_en
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_status_acc
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_status_mag
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_status_gyro
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_data_acc
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_data_accRL
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_data_mag
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_data_gyro
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_data_light
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_data_proximity
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/calibrator_data_barometer
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/data_barometer
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/data_proximity
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/data_proximity_polling
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/data_light_polling
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/sensor_hub_rdata
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/ps_canc
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/data_light_kadc
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/firmware_version
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/uart_debug
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/boot_mode
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/ls_mechanism
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/nvram_cali_data
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/gesture_motion
-    chmod 0664 /sys/class/htc_sensorhub/sensor_hub/mcu_wakeup
-
-    # Flashlight
-    chown system system /sys/class/leds/flashlight/brightness
-    chown system system /sys/class/leds/flashlight_front/brightness
-    chown system system /sys/class/leds/flashlight_front/dual_brightness
-    chown system system /sys/class/leds/torch_0_front/brightness
-    chown system system /sys/class/leds/torch_1_front/brightness
 
     ## CIR
     #chown system system /sys/class/htc_cir/cir/reset_cir

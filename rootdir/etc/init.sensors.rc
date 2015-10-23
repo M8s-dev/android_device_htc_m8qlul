@@ -1,6 +1,6 @@
 # vim: ts=4 sw=4 sts=4 ft=sh fdm=marker
 #
-# Copyright blah, 2015. All rights derped.  {{{ 
+# Copyright blah, 2015. All rights derped.  {{{
 # We are the borg, you will be assimilated.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,6 +29,23 @@
 # }}}
 
 on init
+    # HTC SSD Camera
+    # For Flashlight Restriction
+    chown system system /sys/camera_led_status/led_hotspot_status
+
+    # LED
+    chown system system /sys/class/leds/indicator/ModeRGB
+    chown system system /sys/class/leds/indicator/off_timer
+    chmod 0660 /sys/class/leds/indicator/ModeRGB
+    chmod 0660 /sys/class/leds/indicator/off_timer
+
+    # Flashlight
+    chown system system /sys/class/leds/flashlight/brightness
+    chown system system /sys/class/leds/flashlight_front/brightness
+    chown system system /sys/class/leds/flashlight_front/dual_brightness
+    chown system system /sys/class/leds/torch_0_front/brightness
+    chown system system /sys/class/leds/torch_1_front/brightness
+
 	# Motion Sensors ++
 	chown system system /dev/iio:device0
 	chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
