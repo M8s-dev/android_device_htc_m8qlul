@@ -36,6 +36,10 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
+# Camera
+BOARD_CAMERA_SENSORS := imx214
+BOARD_NUMBER_OF_CAMERAS := 3
+
 # Screen density
 # Device uses ultra-high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
