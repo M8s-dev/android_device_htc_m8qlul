@@ -734,20 +734,23 @@ on property:bugreport.debug=1
 
 on property:bugreport.debug=0
     write /sys/class/android_usb/android0/bugreport_debug 0
+
 # Services
-
-service udhcpd /system/bin/logwrapper /system/bin/udhcpd
-    disabled
-    oneshot
-
-service netsharing_on /system/bin/netsharing net on
-    disabled
-    oneshot
-
-service netsharing_off /system/bin/netsharing net off
-    disabled
-    oneshot
-
-service netsharing_pass /system/bin/netsharing net_pass on
-    disabled
-    oneshot
+# TODO: Are these even necessary? Don't think so...
+#####
+# service udhcpd /system/bin/logwrapper /system/bin/udhcpd
+#     disabled
+#     oneshot
+#
+# service netsharing_on /system/bin/netsharing net on
+#     disabled
+#     oneshot
+#
+# service netsharing_off /system/bin/netsharing net off
+#     disabled
+#     oneshot
+#
+# service netsharing_pass /system/bin/netsharing net_pass on
+#     disabled
+#     oneshot
+#####
