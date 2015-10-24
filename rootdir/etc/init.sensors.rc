@@ -46,11 +46,11 @@ on init
     chown system system /sys/class/leds/torch_0_front/brightness
     chown system system /sys/class/leds/torch_1_front/brightness
 
-	# Motion Sensors ++
-	chown system system /dev/iio:device0
-	chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
-	chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/length
-	chown system system /sys/class/htc_sensorhub/sensor_hub/iio/trigger/current_trigger
+    # Motion Sensors ++
+    chown system system /dev/iio:device0
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/length
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/trigger/current_trigger
 
     chmod 660 /dev/iio:device0
     chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
