@@ -88,20 +88,10 @@ PRODUCT_PACKAGES += \
     audio.primary.msm8916 \
     audio.r_submix.default \
     audio.usb.default \
-    audio_policy.msm8916 \
-    libaudioresampler \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     tinymix
-
-# More audio
-#    libtinyalsa \
-#    tinyplay \
-#    tinycap \
-#    tinypcminfo \
-#    tinycompress \
-
 
 # Audio configuration
 PRODUCT_COPY_FILES += \
@@ -258,21 +248,21 @@ PRODUCT_PACKAGES += \
 
 # OMX
 PRODUCT_PACKAGES += \
-    libdashplayer \
-    libOmxAacEnc \
-    libOmxAmrEnc \ \
-    libOmxCore \
-    libOmxEvrcEnc \
-    libOmxQcelp13Enc \
-    libOmxVdec \
-    libOmxVenc \
-    libOmxVdecHevc \
-    libOmxSwVencMpeg4 \
-    libOmxSwVencHevc \
-    libOmxVidcCommon \
-    libstagefrighthw \
     libc2dcolorconvert \
     libdivxdrmdecrypt \
+    libOmxCore \
+    libOmxVdec \
+    libOmxVenc \
+    libOmxAacEnc \
+    libOmxAmrEnc \ \
+    libOmxEvrcEnc \
+    libOmxVdecHevc \
+    libOmxQcelp13Enc \
+    libOmxSwVencHevc \
+    libOmxVidcCommon \
+    libOmxSwVencMpeg4 \
+    libstagefrighthw \
+    libdashplayer \
     qcmediaplayer
 
 PRODUCT_BOOT_JARS += \
