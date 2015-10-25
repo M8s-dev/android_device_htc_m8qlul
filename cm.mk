@@ -13,6 +13,7 @@ $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 $(call inherit-product, device/htc/m8qlul/full_m8qlul.mk)
 
 BOARD_VENDOR := htc
+BOARD_NUMBER_OF_CAMERAS := 3
 
 # Device naming
 PRODUCT_NAME := cm_m8qlul

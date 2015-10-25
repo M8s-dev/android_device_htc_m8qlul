@@ -111,7 +111,9 @@ PRODUCT_COPY_FILES += \
 
 # ANT+
 PRODUCT_PACKAGES += \
-    AntHalService
+    AntHalService \
+    com.dsi.ant.antradio_library \
+    libantradio
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -120,8 +122,18 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    libmm-qcamera
-#    camera.msm8916
+    libmm-qcamera \
+    camera.msm8916
+
+# Charger
+PRODUCT_PACKAGES += \
+    charger \
+    charger_res_images
+
+# Connectivity Engine Support
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig
+
 
 # Display
 PRODUCT_PACKAGES += \
@@ -156,8 +168,9 @@ PRODUCT_PACKAGES += \
     requestsync \
     SmartcardService
 
-#    org.simalliance.openmobileapi \
-#    org.simalliance.openmobileapi.xml
+PRODUCT_PACKAGES += \
+    org.simalliance.openmobileapi \
+    org.simalliance.openmobileapi.xml
 
 # GPS
 #PRODUCT_PACKAGES += \
@@ -273,6 +286,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # Power HAL
 PRODUCT_PACKAGES += \
+    power.qcom \
     power.msm8916
 
 # Ramdisk
@@ -350,3 +364,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+
+# WiFi Display
+ifneq ($(QCPATH),)
+PRODUCT_BOOT_JARS += WfdCommon
+endif
