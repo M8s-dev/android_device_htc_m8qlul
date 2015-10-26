@@ -24,7 +24,8 @@ $(call inherit-product, device/htc/m8qlul/device_m8qlul.mk)
 
 # Locales    {{{
 #TARGET_LOCALES := en_US en_IN en_GB hi_IN mr_IN ml_IN ta_IN kn_IN te_IN
-TARGET_LOCALES := en_US en_GB nl_NL
+#TARGET_LOCALES := en_US en_GB nl_NL
+TARGET_LOCALES := en_US en_AU en_GB de_DE nl_NL et_EE
 # }}}
 
 # Device identifier. This must come after all inclusions

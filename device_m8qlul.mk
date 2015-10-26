@@ -36,10 +36,6 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-# Camera
-BOARD_CAMERA_SENSORS := imx214
-BOARD_NUMBER_OF_CAMERAS := 3
-
 # Screen density
 # Device uses ultra-high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
@@ -122,8 +118,7 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    libmm-qcamera \
-    camera.msm8916
+    libmm-qcamera
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -329,6 +324,10 @@ PRODUCT_COPY_FILES += \
 # Sensors
 #PRODUCT_PACKAGES += \
 #    sensors.msm8916
+
+#PRODUCT_PACKAGES += \
+#    sensors.msm8939 \
+#    sensorservice
 
 PRODUCT_PACKAGES += \
     sensorservice
