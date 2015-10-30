@@ -368,3 +368,10 @@ PRODUCT_COPY_FILES += \
 ifneq ($(QCPATH),)
 PRODUCT_BOOT_JARS += WfdCommon
 endif
+
+# Device naming
+PRODUCT_DEVICE := m8qlul
+PRODUCT_NAME := m8qlul
+PRODUCT_BRAND := htc
+PRODUCT_MODEL := One M8s
+PRODUCT_MANUFACTURER := HTC

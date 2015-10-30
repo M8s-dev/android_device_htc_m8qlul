@@ -19,7 +19,7 @@ BOARD_NUMBER_OF_CAMERAS := 4
 PRODUCT_NAME := cm_m8qlul
 PRODUCT_DEVICE := m8qlul
 PRODUCT_BRAND := htc
-PRODUCT_MODEL := HTC One M8s
+PRODUCT_MODEL := One M8s
 PRODUCT_MANUFACTURER := HTC
 
 # Set build fingerprint / ID / Product Name etc.
