@@ -231,7 +231,7 @@ PRODUCT_PACKAGES += \
     nfc_nci.pn54x.default \
     Tag
 
-ifeq ($(TARGET_BUILD_VARIANT),user)
+ifneq ($(TARGET_BUILD_VARIANT),eng)
     NFCEE_ACCESS_PATH := $(LOCAL_PATH)/configs/nfc/nfcee_access.xml
 else
     NFCEE_ACCESS_PATH := $(LOCAL_PATH)/configs/nfc/nfcee_access_debug.xml
