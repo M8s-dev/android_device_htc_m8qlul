@@ -270,7 +270,7 @@
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
     <!-- Wifi driver supports batched scan -->
-    <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
+    <bool translatable="false" name="config_wifi_batched_scan_supported">false</bool>
 
     <!-- /Wifi }}} -->
 
