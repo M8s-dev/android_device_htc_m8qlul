@@ -26,8 +26,7 @@ $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui
 $(call inherit-product-if-exists, vendor/htc/m8qlul/m8qlul-vendor.mk)
 
 # System properties
-# TODO: I'm using system.prop now, probably better to use PRODUCT_PROPERTY_OVERRIDES
-# -include $(LOCAL_PATH)/system_prop.mk
+-include $(LOCAL_PATH)/system_prop.mk
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
