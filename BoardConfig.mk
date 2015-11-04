@@ -210,10 +210,6 @@ CM_POWERHAL_EXTENSION := qcom
 TARGET_POWERHAL_VARIANT := qcom
 # }}}
 
-# Properties    {{{
-TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
-# }}}
-
 # Qualcomm support    {{{
 BOARD_USES_QC_TIME_SERVICES := true
 BOARD_USES_QCOM_HARDWARE := true

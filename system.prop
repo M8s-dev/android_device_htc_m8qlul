@@ -24,7 +24,6 @@
 ## ro.apn.uservalue.protocol=IPV4V6
 ## ro.bluetooth.remote.autoconnect=true
 ## ro.bluetooth.request.master=true
-## ro.board.platform=msm8916
 ## ro.cwkey=HTC__001
 ## ro.fm.transmitter=false
 ## ro.htc.bluetooth.sap=true
@@ -40,7 +39,6 @@
 ## ro.qualcomm.bluetooth.dun=false
 ## ro.qualcomm.bluetooth.ftp=true
 ## ro.qualcomm.bluetooth.hfp.wbs=false
-## ro.qualcomm.cabl=0
 ## ro.aa.cidlist=HTC__001,HTC__102,HTC__032,HTC__Y13,HTC__031,HTC__M27,HTC__002,HTC__A07
 ## ro.ril.disable.cpc=1
 ## ro.ril.disable.fd.plmn.prefix=23402,23410,23411,23420,23594,27202,27205
@@ -107,9 +105,6 @@
 ## ro.qc.sdk.sensors.gestures=true
 ## ro.qualcomm.perf.cores_online=4
 ## ro.data.large_tcp_window_size=true
-## ro.telephony.call_ring.multiple=false
-## persist.data.netmgrd.qos.enable=true
-## persist.radio.apm_sim_not_pwdn=1
 #---------------------------------------------------
 #--------- end unsorted unchecked m8qlul system.prop
 #---------------------------------------------------

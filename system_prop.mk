@@ -130,5 +130,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Additionals, yes, more, from yours truly
 PRODUCT_PROPERTY_OVERRIDES += \
-telephony.lteOnCdmaDevice=1
+    telephony.lteOnCdmaDevice=1
 
