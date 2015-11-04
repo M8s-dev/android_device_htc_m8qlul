@@ -34,9 +34,6 @@
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">true</bool>
 
-    <!-- Disable lockscreen translucent decor by default -->
-    <bool name="config_enableLockScreenTranslucentDecor">true</bool>
-
     <!-- Base "touch slop" value used by ViewConfiguration as a
          movement threshold where scrolling should begin. -->
     <dimen name="config_viewConfigurationTouchSlop">4dp</dimen>
@@ -68,13 +65,6 @@
     <bool translatable="false" name="skip_restoring_network_selection">true</bool>
 
     <!-- /Networking }}} -->
-
-    <!-- {{{ Animations -->
-
-    <!-- If this is true, the screen will fade off. -->
-    <bool name="config_animateScreenLights">false</bool>
-
-    <!-- End of animations }}} -->
 
     <!-- {{{ Brightness -->
 
