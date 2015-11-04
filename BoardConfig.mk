@@ -291,10 +291,6 @@ WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 # }}}
 
-# Vendor Init    {{{
-TARGET_UNIFIED_DEVICE := true
-# }}}
-
 # Inherit from the proprietary version    {{{
 -include vendor/htc/m8qlul/BoardConfigVendor.mk
 # }}}
