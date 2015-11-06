@@ -315,14 +315,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/releasetools/variant_script.sh:install/bin/variant_script.sh
 
 
-# Sensors
-#PRODUCT_PACKAGES += \
-#    sensors.msm8916
-
-#PRODUCT_PACKAGES += \
-#    sensors.msm8939 \
-#    sensorservice
-
 PRODUCT_PACKAGES += \
     sensorservice
 
