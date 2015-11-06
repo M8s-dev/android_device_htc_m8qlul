@@ -20,7 +20,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif
 
 # Inherit from m8qlul device
-$(call inherit-product, device/htc/m8qlul/device_m8qlul.mk)
+$(call inherit-product, device/htc/m8qlul/device.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_NAME := full_m8qlul
