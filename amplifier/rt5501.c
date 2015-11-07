@@ -55,7 +55,7 @@ static struct rt5501_reg_data rt5501_playback_128_data[] = {
 
 static struct rt5501_reg_data rt5501_ring_data[] = {
     { 0x00, 0xC0, },
-    { 0x01, 0x1C, }, // gain 0dB
+    { 0x01, 0x0C, }, // gain -16dB
     { 0x02, 0x81, }, // noise gate on
     { 0x08, 0x01, }, // noise gate on
     { 0x07, 0x7F, }, // noise gate setting
