@@ -52,10 +52,6 @@ on early-init
 
     chown system system /sys/kernel/debug/kgsl/proc
 
-    # TODO: Is this really necessary?
-    #write /sys/block/mmcblk0/bdi/read_ahead_kb 512
-    #write /sys/block/mmcblk1/bdi/read_ahead_kb 512
-
     # }}}
 
 on init
@@ -118,7 +114,7 @@ on fs
 
     mount_all /fstab.qcom
 
-    mkdir /persist/data 0700 system system
+    mkdir /data/persist 0700 system system
     restorecon_recursive /persist
 
     mkdir /data/media 0770 media_rw media_rw
