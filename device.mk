@@ -293,8 +293,6 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc
 
 PRODUCT_PACKAGES += \
-    init.ath3k.bt.sh \
-    init.class_main.sh \
     init.m8qlul.post_boot.sh \
     init.qcom.bt.bluedroid.sh \
     init.qcom.bt.sh \

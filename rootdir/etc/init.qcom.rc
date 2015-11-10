@@ -550,13 +550,6 @@ service hciattach /system/bin/sh /system/etc/init.qcom.bt.bluedroid.sh
     disabled
     oneshot
 
-service hciattach_ath3k /system/bin/sh /system/etc/init.ath3k.bt.sh
-     class late_start
-     user bluetooth
-     group system bluetooth net_bt_admin misc
-     disabled
-     oneshot
-
 service iprenew_bt-pan /system/bin/dhcpcd -n
     class late_start
     disabled
@@ -626,12 +619,6 @@ service perfd /system/bin/perfd
    user root
    disabled
 
-service port-bridge /system/bin/port-bridge /dev/mhi_pipe_32 /dev/ttyGS0
-    class main
-    user radio system
-    group radio system inet
-    disabled
-
 service ptt_socket_app /system/bin/ptt_socket_app
     class main
     user system
@@ -649,21 +636,10 @@ service qcom-post-boot /system/bin/sh /system/etc/init.m8qlul.post_boot.sh
     disabled
     oneshot
 
-service qcom-c_main-sh /system/bin/sh /init.class_main.sh
-    class main
-    user root
-    oneshot
-
 service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
     user root
     oneshot
-
-service qmiproxy /system/bin/qmiproxy
-    class main
-    user radio
-    group radio qcom_diag
-    disabled
 
 service qmuxd /system/bin/qmuxd
     class core
@@ -674,13 +650,6 @@ service qseecomd /system/bin/qseecomd
     class main
     user root
     group root
-
-service radiomod /system/bin/insmod /system/lib/modules/radio-iris-transport.ko
-    class late_start
-    user root
-    group root
-    oneshot
-    disabled
 
 service rfs_access /system/bin/rfs_access
    class core
@@ -698,11 +667,6 @@ service ril-daemon2 /system/bin/rild -c 2
 service rmt_storage /system/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
     class core
     user root
-
-# HTC sensor_hub
-service shub_dbg /system/bin/shub_dbg
-    class main
-    user system
 
 service thermal-engine /system/bin/thermal-engine
    class main
@@ -795,7 +759,6 @@ on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
 
 on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
     start config_bluetooth
 
 on property:wlan.driver.ath=0
