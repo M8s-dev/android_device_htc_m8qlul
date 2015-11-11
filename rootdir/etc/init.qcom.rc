@@ -460,9 +460,12 @@ service audiod /system/bin/audiod
     user system
     group system
 
+# voidzero TODO: do we need this?
+# 151111 disabling for now.
 service cand /system/bin/cand
     class main
     user root
+    disabled
 
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class late_start
