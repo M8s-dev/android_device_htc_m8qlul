@@ -114,7 +114,7 @@ on fs
     mount_all /fstab.qcom
 
     mkdir /data/persist 0700 system system
-    restorecon_recursive /persist
+    restorecon_recursive /data/persist
 
     mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
@@ -275,7 +275,7 @@ on post-fs-data
     symlink /data/tombstones /tombstones
 
     # Wireless subsystem
-    mkdir /data/misc/wifi 0771 wifi wifi
+    mkdir /data/misc/wifi 0771 system wifi
     mkdir /data/misc/wifi/hostapd 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
