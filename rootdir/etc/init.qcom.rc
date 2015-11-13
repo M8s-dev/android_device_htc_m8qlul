@@ -35,7 +35,6 @@ import init.qcom.usb.htc.rc
 import init.extras.rc
 import init.sensors.rc
 import init.htc.power.rc
-import init.htc.trace.rc
 
 # End imports }}}
 
@@ -670,11 +669,6 @@ service ril-daemon2 /system/bin/rild -c 2
 service rmt_storage /system/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
     class core
     user root
-
-service thermal-engine /system/bin/thermal-engine
-   class main
-   user root
-   group root
 
 service time_daemon /system/bin/time_daemon
     class late_start

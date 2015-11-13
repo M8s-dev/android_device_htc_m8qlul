@@ -289,7 +289,6 @@ PRODUCT_PACKAGES += \
     init.extras.rc \
     init.sensors.rc \
     init.htc.power.rc \
-    init.htc.trace.rc \
     ueventd.qcom.rc
 
 PRODUCT_PACKAGES += \
