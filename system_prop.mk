@@ -79,7 +79,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # ActivityManager optimizations
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.max_starting_bg=8
+    ro.config.max_starting_bg=4
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -95,7 +95,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Dexopt - limit to 4 cores
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.fw.dex2oat_thread_count=4
+    ro.sys.fw.dex2oat_thread_count=2
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
