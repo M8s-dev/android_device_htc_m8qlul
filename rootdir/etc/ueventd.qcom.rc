@@ -287,5 +287,7 @@
 # set the owner of partition control's block node to media and system for MFG disable camera feature.
 /dev/block/bootdevice/by-name/control   0660    media   system
 
-#HTC Debug
+#HTC misc file systems
+/dev/block/bootdevice/by-name/frp       0660    root    system
 /dev/block/bootdevice/by-name/misc      0660    root    system
+/dev/block/bootdevice/by-name/pdata     0660    root    system

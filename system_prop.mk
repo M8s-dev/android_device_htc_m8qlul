@@ -126,7 +126,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Persistent Data Block service
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.frp.pst=/dev/block/bootdevice/by-name/pdata
+    ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
 # Additionals, yes, more, from yours truly
 PRODUCT_PROPERTY_OVERRIDES += \
