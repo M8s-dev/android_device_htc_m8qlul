@@ -312,17 +312,6 @@ on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
-    write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
-    write /sys/module/pil_msa/parameters/pbl_mba_boot_timeout_ms ${persist.sys.mba_boot_timeout}
-    write /sys/module/pil_msa/parameters/modem_auth_timeout_ms ${persist.sys.modem_auth_timeout}
-    write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}
-
-    #write /sys/bus/platform/drivers/msm_hsic_host/unbind "msm_hsic_host"
-    #chown system system /sys/bus/platform/drivers/msm_hsic_host/bind
-    #chmod 0200 /sys/bus/platform/drivers/msm_hsic_host/bind
-    #chown system system /sys/bus/platform/drivers/msm_hsic_host/unbind
-    #chmod 0200 /sys/bus/platform/drivers/msm_hsic_host/unbind
-
     # }}}
 
 on boot
@@ -448,11 +437,6 @@ on boot
 
 
 # Services {{{
-
-service adsprpcd /system/bin/adsprpcd
-    class main
-    user media
-    group media
 
 service audiod /system/bin/audiod
     class late_start
@@ -652,6 +636,7 @@ service qseecomd /system/bin/qseecomd
     class main
     user root
     group root
+    disabled
 
 service rfs_access /system/bin/rfs_access
    class core
