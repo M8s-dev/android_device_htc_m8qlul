@@ -428,6 +428,8 @@ on boot
     # This is what wifi's called
     setprop wifi.interface wlan0
 
+    start qseecomd
+
     # load ADSP
     write /sys/kernel/boot_adsp/boot 1
 
@@ -627,6 +629,11 @@ service qcom-sh /system/bin/sh /init.qcom.sh
     user root
     oneshot
 
+service qmiproxy /system/bin/qmiproxy
+    class late_start
+    user radio
+    group radio qcom_diag
+
 service qmuxd /system/bin/qmuxd
     class core
     user radio
@@ -741,6 +748,8 @@ on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
 
 on property:vold.decrypt=trigger_restart_framework
+    start qseecomd
+    start qmiproxy
     start config_bluetooth
 
 on property:wlan.driver.ath=0
