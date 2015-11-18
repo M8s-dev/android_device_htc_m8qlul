@@ -14,3 +14,5 @@ ro.qc.sdk.sensors.gestures=true
 ro.data.large_tcp_window_size=true
 af.resampler.quality=4
 sys.stt.ssr.no_prompt=1
+ro.gps.agps_provider=1
+ro.telephony.bl=27202
