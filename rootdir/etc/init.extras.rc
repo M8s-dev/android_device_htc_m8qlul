@@ -51,6 +51,12 @@ on init
     chmod 0660 /dev/timer_group/bg/tasks
     write /dev/timer_group/bg/timer_slack.min_slack_ns 100000000
 
+    # Enable KSM following Google's guidelines:
+    # https://source.android.com/devices/tech/config/low-ram.html
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
+
     # }}}
 
 on post-fs
