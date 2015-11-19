@@ -1,7 +1,6 @@
-# vim: ts=4 sw=4 sts=4 ft=sh fdm=marker
 #
-# Copyright blah, 2015. All rights derped.  {{{
-# We are the borg, you will be assimilated.
+#
+# Copyright (C) 2015 The CyanogenMod Project
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,7 +25,6 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# }}}
 
 # Stripped version of init.qcom.post_boot.sh
 # m8qlul target is msm8939

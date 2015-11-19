@@ -1,4 +1,4 @@
-# vim: ts=4 sw=4 sts=4 et
+#
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -69,10 +69,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # USB
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
-
-#####################################################
-# Start of void's additions based on stock htc_m8qlul
-#####################################################
 
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.isa.arm64.features=div

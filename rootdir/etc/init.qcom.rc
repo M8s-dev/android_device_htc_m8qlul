@@ -1,6 +1,4 @@
-# vim: ts=4 sw=4 sts=4 ft=sh fdm=marker
-
-# Copyright (c) 2009-2012, The Linux Foundation. All rights reserved. {{{
+# Copyright (c) 2009-2012, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,10 +23,10 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# }}}
+#
 
 
-# Imports {{{
+# Imports
 
 import init.qcom.usb.rc
 import init.qcom.usb.htc.rc
@@ -36,12 +34,10 @@ import init.extras.rc
 import init.sensors.rc
 import init.htc.power.rc
 
-# End imports }}}
 
-
-# Boot stages   {{{
+# Boot stages
 on early-init
-    # {{{
+    #
 
     symlink /data/tombstones /tombstones
     symlink /data/persist /persist
@@ -51,10 +47,10 @@ on early-init
 
     chown system system /sys/kernel/debug/kgsl/proc
 
-    # }}}
+    #
 
 on init
-    # {{{
+    #
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
@@ -87,10 +83,10 @@ on init
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 
-    # }}}
+    #
 
 on fs
-    # {{{
+    #
 
     mkdir /devlog 0700 root root
     mkdir /fataldevlog 0700 root root
@@ -123,11 +119,11 @@ on fs
 
     setprop ro.crypto.fuse_sdcard true
 
-    # }}}
+    #
 
 
 on post-fs
-    # {{{
+    #
 
     # permissions for NFC
     chown nfc nfc /sys/class/NFC_sensor/comn/nxp_uicc_swp
@@ -145,11 +141,11 @@ on post-fs
     chown system camera /dev/AIT0
     chmod 0660 /dev/AIT0
 
-    # }}}
+    #
 
 
 on post-fs-data
-    # {{{
+    #
 
     # Bluetooth
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
@@ -290,10 +286,10 @@ on post-fs-data
     # Leave some breadcrumbs behind
     setprop vold.post_fs_data_done 1
 
-    # }}}
+    #
 
 on charger
-    # {{{
+    #
 
     wait /dev/block/bootdevice/by-name/system
     mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
@@ -305,18 +301,18 @@ on charger
     load_all_props
     start qcom-post-boot
 
-    # }}}
+    #
 
 on early-boot
-    # {{{
+    #
 
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
-    # }}}
+    #
 
 on boot
-    # {{{
+    #
 
     # bring CPUs online
     write /sys/module/msm_thermal/core_control/enabled 0
@@ -434,20 +430,18 @@ on boot
     # load ADSP
     write /sys/kernel/boot_adsp/boot 1
 
-    # }}}
+    #
 
-# End boot stages }}}
+# End boot stages
 
 
-# Services {{{
+# Services
 
 service audiod /system/bin/audiod
     class late_start
     user system
     group system
 
-# voidzero TODO: do we need this?
-# 151111 disabling for now.
 service cand /system/bin/cand
     class main
     user root
@@ -693,10 +687,10 @@ service wv-prov /system/bin/hcheck-v2
     user root
     oneshot
 
-# }}}
+#
 
 
-# Properties   {{{
+# Properties
 on property:bluetooth.hciattach=true
     start hciattach
 
@@ -806,7 +800,7 @@ on property:init.svc.bootanim=running
 on property:init.svc.bootanim=stopped
     setprop sys.perf.profile 1
 
-# CM Performance Profiles   {{{
+# CM Performance Profiles
 on property:sys.perf.profile=0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -854,6 +848,6 @@ on property:sys.perf.profile=2
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor performance
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor performance
 
-    # }}}
+    #
 
-# }}}
+#
