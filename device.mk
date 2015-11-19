@@ -1,4 +1,4 @@
-# vim: ts=4 sw=4 sts=4 et
+#
 # Copyright (C) 2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -128,7 +128,6 @@ PRODUCT_PACKAGES += \
 # Connectivity Engine Support
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
-
 
 # Display
 PRODUCT_PACKAGES += \
