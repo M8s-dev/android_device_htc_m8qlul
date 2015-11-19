@@ -112,6 +112,7 @@ on fs
     symlink /system/vendor/firmware/keymaster.mdt /firmware/image/keymaste.mdt
 
     mount_all /fstab.qcom
+    swapon_all /fstab.qcom
 
     mkdir /data/persist 0700 system system
     restorecon_recursive /data/persist
