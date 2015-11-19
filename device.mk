@@ -114,8 +114,7 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    com.quicinc.wbc \
-    yl_btmac
+    com.quicinc.wbc
 
 # Camera
 PRODUCT_PACKAGES += \
