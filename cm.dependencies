@@ -1,10 +1,19 @@
 [
   {
-    "repository": "android_device_cyanogen_msm8939-common",
-    "target_path": "device/cyanogen/msm8939-common"
-  },{
-    "repository": "android_kernel_cyanogen_msm8916",
-    "target_path": "kernel/cyanogen/msm8916",
-    "branch": "cm-12.1-amss-1.0.2"
+    "repository": "android_kernel_htc_msm8939",
+    "target_path": "kernel/htc/msm8939",
+    "branch": "cm-12.1"
+  },
+  {
+    "repository": "android_external_mm-dash",
+    "target_path": "external/mm-dash"
+  },
+  {
+    "repository": "android_device_qcom_common",
+    "target_path": "device/qcom/common"
+  },
+  {
+    "repository": "android_hardware_qcom_fm",
+    "target_path": "hardware/qcom/fm"
   }
 ]

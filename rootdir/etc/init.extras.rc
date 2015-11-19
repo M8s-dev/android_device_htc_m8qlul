@@ -1,0 +1,225 @@
+# vim: ts=4 sw=4 sts=4 ft=sh fdm=marker
+#
+# Copyright blah, 2015. All rights derped.  {{{
+# We are the borg, you will be assimilated.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of The Linux Foundation nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# }}}
+
+
+# Boot stages   {{{
+
+on init
+    # {{{
+
+    # Create cgroup mount points for timer groups
+    mkdir /dev/timer_group
+    mount cgroup none /dev/timer_group timer_slack
+    chown system system /dev/timer_group
+    chown system system /dev/timer_group/cgroup.procs
+    chown system system /dev/timer_group/tasks
+    chmod 0660 /dev/timer_group/cgroup.procs
+    chmod 0660 /dev/timer_group/tasks
+
+    mkdir /dev/timer_group/bg
+    chown system system /dev/timer_group/bg
+    chown system system /dev/timer_group/bg/cgroup.procs
+    chown system system /dev/timer_group/bg/tasks
+    chmod 0660 /dev/timer_group/bg/cgroup.procs
+    chmod 0660 /dev/timer_group/bg/tasks
+    write /dev/timer_group/bg/timer_slack.min_slack_ns 100000000
+
+    # Enable KSM following Google's guidelines:
+    # https://source.android.com/devices/tech/config/low-ram.html
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
+
+    # }}}
+
+on post-fs
+    # {{{
+
+    chown system carrier /carrier
+    chmod 0771 /carrier
+
+    restorecon_recursive /carrier
+    restorecon_recursive /preload
+
+    # change mode & owner of HTC Debug Driver node
+    chown root system /proc/driver/hdf
+    chmod 0664 /proc/driver/hdf
+
+    # Probably the htc log daemon. We won't need it.
+    # start hld
+
+    # }}}
+
+on post-fs-data
+    # {{{
+
+    mkdir /dev/radio 0770 radio radio
+
+    # }}}
+
+on boot
+    # {{{
+
+    ## HTC_PROCESS_DEBUG file to maintain the monitoring process list, change owner to system
+    chown system /sys/process/task_comm_list
+
+    # HTC SSD USB
+    chown system radio /sys/class/android_usb/f_modem/on
+    chown root usb /sys/class/android_usb/f_acm/baud_rate
+    chown system system /sys/class/android_usb/f_diag/on
+    chown system system /sys/class/android_usb/f_rmnet/on
+    chown system system /sys/devices/platform/android_usb/usb_disable
+
+    # HTC Embedded Log - BEGIN
+    chown root root /devlog
+    chmod 0700 /devlog
+    chown root root /fataldevlog
+    chmod 0700 /fataldevlog
+    # HTC Embedded Log - END
+
+    # HTC SSD Peripheral TOUCH - BEGIN
+    # set touch permissions
+    chown system system /sys/android_touch/unlock
+    #chown system system /sys/android_touch/glove_setting
+
+    #volume key wake up attribute file permission
+    chown media media /sys/keyboard/vol_wakeup
+    # HTC SSD Peripheral TOUCH - END
+
+    # HTC set radio_feedback permissions
+    chown radio radio /dev/radio_feedback
+    chmod 0660 /dev/radio_feedback
+
+    # For RIL to set htc_monitor_param permission
+    chown radio radio /sys/htc_monitor_status/htc_monitor_param
+
+    # Define TCP buffer sizes for various networks
+    #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default  4096,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.wifi     524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.ethernet 524288,1048576,3145728,524288,1048576,2097152
+    setprop net.tcp.buffersize.lte      524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.umts     58254,349525,1048576,58254,349525,1048576
+    setprop net.tcp.buffersize.hspa     40778,244668,734003,16777,100663,301990
+    setprop net.tcp.buffersize.hsupa    40778,244668,734003,16777,100663,301990
+    setprop net.tcp.buffersize.hsdpa    61167,367002,1101005,8738,52429,262114
+    setprop net.tcp.buffersize.hspap    122334,734003,2202010,32040,192239,576717
+    setprop net.tcp.buffersize.edge     4093,26280,70800,4096,16384,70800
+    setprop net.tcp.buffersize.gprs     4092,8760,48000,4096,8760,48000
+    setprop net.tcp.buffersize.evdo     4094,87380,262144,4096,16384,262144
+
+    #HTC SSD Security - set DRM permission
+    chown drm system /dev/htcdrm
+    chmod 0660 /dev/htcdrm
+
+    #Set SUID bit for usbhub
+    chmod 4755 /system/bin/usbhub
+
+    chown system graphics /sys/class/leds/lcd-backlight/cabc_level_ctl
+
+    # TODO: Do we want this?
+    # Remove SUID bit for iproute2 ip tool
+    chmod 0755 /system/bin/ip
+
+    # TODO: Are these used?
+    chown system system /sys/class/leds/lcd-backlight-nits/brightness
+    chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    #TODO: Do we have this?
+    # For bridgemgr daemon to inform the USB driver of the correct transport
+    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
+
+    # Set the console loglevel to < KERN_INFO
+    # Set the default message loglevel to KERN_INFO
+    # write /proc/sys/kernel/printk "6 6 1 7"
+
+    # End boot stages }}}
+
+# End boot stages }}}
+
+
+# Services {{{
+
+# Bluetooth experimental daemon to connect with Samsung's Gear smartwatches.
+# Source is actually at https://git.javispedro.com/cgit/sapd.git
+service bt-sap /system/bin/sapd 15
+    user bluetooth
+    group bluetooth net_bt_admin radio
+    class late_start
+    disabled
+    oneshot
+
+# bugreport is triggered by the KEY_VOL-UP and KEY_VOL-DOWN keycodes
+service bugreport /system/bin/dumpstate -d -p -B \
+ -o /data/data/com.android.shell/files/bugreports/bugreport
+    disabled
+    cgroup bg
+    oneshot
+    keycodes 114 115
+
+service charger /charger
+    class charger
+
+service rootagent /system/bin/sh /system/etc/init.qcom.rootagent.sh
+    disabled
+    oneshot
+
+# End services }}}
+
+
+# Properties {{{
+
+on property:bluetooth.sap.status=running
+    start bt-sap
+
+on property:bluetooth.sap.status=stopped
+    stop bt-sap
+
+on property:crypto.driver.load=1
+     insmod /system/lib/modules/qce.ko
+     insmod /system/lib/modules/qcedev.ko
+
+on property:persist.env.fastdorm.enabled=true
+    setprop persist.radio.data_no_toggle 1
+
+on property:persist.sys.rootagent=1
+    start rootagent
+
+on property:persist.sys.rootagent=0
+    stop rootagent
+
+# Allow usb charging to be disabled peristently
+on property:persist.usb.chgdisabled=1
+    write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+    write /sys/class/power_supply/battery/charging_enabled 1
+
+# }}}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodecList>
+    <Encoders>
+        <!-- Audio Aricent -->
+        <MediaCodec name="OMX.ARICENT.AUDIO.ENC.QCELP" type="audio/qcelp" />
+    </Encoders>
+    <Decoders>
+        <!-- Audio Aricent -->
+        <MediaCodec name="OMX.ARICENT.AUDIO.DEC.WMAPRO" type="audio/x-ms-wma" />
+        <MediaCodec name="OMX.ARICENT.AUDIO.DEC.QCELP" type="audio/qcelp" />
+        <!-- Video Aricent -->
+        <MediaCodec name="OMX.ARICENT.VIDEO.DEC.WMV" type="video/x-ms-wmv" />
+    </Decoders>
+</CodecList>
