@@ -1174,8 +1174,6 @@ so we keep speaker for output device -->
         <ctl name="MI2S_DL_HL Switch" value="1" />
     </path>
 
-    <!-- voidzero -->
-
     <!-- These were missing -->
     <path name="low-latency-playback voice-speaker">
         <path name="low-latency-playback speaker" />
@@ -1188,7 +1186,5 @@ so we keep speaker for output device -->
     <path name="voice-call voice-speaker">
         <path name="voice-call speaker" />
     </path>
-
-    <!-- end voidzero -->
 
 </mixer>
