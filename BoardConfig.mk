@@ -44,23 +44,19 @@ TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 TARGET_BOARD_PLATFORM := msm8916
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno405
-#
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BLUETOOTH_HCI_USE_MCT := true
-#
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8939
 TARGET_NO_BOOTLOADER := true
-#
 
 # ANT+
 #BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-smd"
-#
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -85,7 +81,6 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 #
 
 # Camera
-# BOARD_CAMERA_SENSORS := imx214
 BOARD_NUMBER_OF_CAMERAS := 4
 
 # Camera
@@ -100,11 +95,9 @@ COMMON_GLOBAL_CFLAGS += -DPROPERTY_PERMS_APPEND='{"htc.camera.sensor.", AID_CAME
 # CPU
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
-#
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
-#
 
 # Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
@@ -127,14 +120,12 @@ ifeq ($(HOST_OS),linux)
     WITH_DEXPREOPT := true
   endif
 endif
-#
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
-#
+
 # Init
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
-#
 
 # Kernel
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
@@ -155,30 +146,24 @@ TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_USES_UNCOMPRESSED_KERNEL := true
 TARGET_KERNEL_CONFIG := m8qlul_defconfig
-#
 
 # Libc extensions
 BOARD_PROVIDES_ADDITIONAL_BIONIC_STATIC_LIBS += libc_htc_symbols
-#
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
-#
 
 # Malloc
 MALLOC_IMPL := dlmalloc
-#
 
 # NFC
 BOARD_NFC_CHIPSET := pn547
-#
 
 # Offmode Charging
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
 COMMON_GLOBAL_CFLAGS += \
     -DBOARD_CHARGING_CMDLINE_NAME='"androidboot.mode"' \
     -DBOARD_CHARGING_CMDLINE_VALUE='"chargerlogo"'
-#
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE             := 131072
@@ -188,23 +173,19 @@ BOARD_PERSISTIMAGE_PARTITION_SIZE  := 262144      # 0x000040000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432    # 0x002000000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 4294967296  # 0x100000000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 10334748672 # 0x268000000 ~ 10334765056 - 16384
-#
 
 # Power
 CM_POWERHAL_EXTENSION := qcom
 TARGET_POWERHAL_VARIANT := qcom
-#
 
 # Properties
 TARGET_SYSTEM_PROP += \
     $(DEVICE_PATH)/ril.prop \
     $(DEVICE_PATH)/extra.prop
-#
 
 # Qualcomm support
 BOARD_USES_QC_TIME_SERVICES := true
 BOARD_USES_QCOM_HARDWARE := true
-#
 
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -218,13 +199,10 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
 TARGET_RECOVERY_DENSITY := xxhdpi
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-#
 
 # Releasetools
 # this should go next
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
-
-#
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
@@ -245,15 +223,12 @@ BOARD_SEPOLICY_UNION += \
     system_app.te \
     system_server.te \
     wcnss_service.te
-#
 
 # Video
 TARGET_HAVE_SIGNED_VENUS_FW := true
-#
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
-#
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
@@ -268,8 +243,6 @@ WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
-#
 
 # Inherit from the proprietary version
 -include vendor/htc/m8qlul/BoardConfigVendor.mk
-#

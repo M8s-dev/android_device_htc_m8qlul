@@ -1,14 +1,3 @@
-# Probably overkill, but this file_contexts
-# contains all the unique entries that
-# can be found in HTC's stock boot and
-# recovery images. Deduplicated of course:
-# I have removed all the lines that could
-# also be found in the inherited file
-# qcom/sepolicy/common/file_contexts.
-
-
-# this needs cleanup
-###########################################
 /dev/akm.*                                      u:object_r:akmd_device:s0
 /dev/htc_diag                                   u:object_r:diag_device:s0
 /dev/diag_arm9                                  u:object_r:diag_device:s0
@@ -219,7 +208,6 @@
 
 # Absolute persisted directory
 /persdata/absolute(/.*)?                                            u:object_r:abt_pers_data_file:s0
-#line 1 "device/qcom/sepolicy/msm8916/file_contexts"
 ###################################
 # Dev nodes
 #
