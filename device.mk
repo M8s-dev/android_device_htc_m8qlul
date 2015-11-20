@@ -307,11 +307,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librecovery_updater_cm
 
-# Releasetools / Variant script (voidzero TODO: modify to static)
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/variant_script.sh:install/bin/variant_script.sh
-
-
+# Sensors
 PRODUCT_PACKAGES += \
     sensorservice
 
