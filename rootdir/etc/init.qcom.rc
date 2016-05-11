@@ -676,7 +676,9 @@ service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqb
     disabled
 
 service netmgrd /system/bin/netmgrd
-    class core
+    class main
+    user root
+    group root wifi wakelock radio inet
 
 service p2p_supplicant /system/vendor/bin/hw/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
