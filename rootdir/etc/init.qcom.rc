@@ -104,6 +104,7 @@ on fs
     mkdir /firmware/image 0771 system system
     mkdir /vendor 0771 system system
     mkdir /vendor/firmware 0771 system system
+    mkdir /acct 0771 system system
 
     symlink /system/vendor/firmware/keymaster.b00 /firmware/image/keymaste.b00
     symlink /system/vendor/firmware/keymaster.b01 /firmware/image/keymaste.b01
