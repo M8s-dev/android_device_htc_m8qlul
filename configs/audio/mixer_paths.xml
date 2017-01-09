@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!-- Version: 8x39 M8QL v5 20150305 -->
+<!-- Version: 8x39 M8QL v6 20160223 -->
 <mixer>
     <!-- These are the initial mixer settings -->
     <ctl name="Voice Rx Device Mute" id="0" value="0" />
@@ -25,8 +25,6 @@
     <ctl name="TX2 HPF Switch" value="1" />
     <ctl name="TX2 HPF cut off" value="MIN_3DB_4HZ" />
     <ctl name="TTY Mode" value="Off" />
-    <ctl name="HPHL Volume" value="9" />
-    <ctl name="HPHR Volume" value="9" />
     <ctl name="RX1 Digital Volume" value="84" />
     <ctl name="RX2 Digital Volume" value="84" />
     <ctl name="RX3 Digital Volume" value="84" />
@@ -43,9 +41,7 @@
     <ctl name="DEC1 MUX" value="ZERO" />
     <ctl name="ADC2 MUX" value="ZERO" />
     <ctl name="RDAC2 MUX" value="ZERO" />
-    <ctl name="RX2 MIX2 INP2" value="ZERO" />
     <ctl name="RX2 MIX2 INP1" value="ZERO" />
-    <ctl name="RX1 MIX2 INP2" value="ZERO" />
     <ctl name="RX1 MIX2 INP1" value="ZERO" />
     <ctl name="RX3 MIX1 INP2" value="ZERO" />
     <ctl name="RX3 MIX1 INP1" value="ZERO" />
@@ -53,12 +49,11 @@
     <ctl name="RX2 MIX1 INP1" value="ZERO" />
     <ctl name="RX1 MIX1 INP2" value="ZERO" />
     <ctl name="RX1 MIX1 INP1" value="ZERO" />
+    <ctl name="IIR1 INP1 MUX" value="ZERO" />
     <ctl name="EAR_S" value="ZERO" />
     <ctl name="HPHL" value="ZERO" />
     <ctl name="HPHR" value="ZERO" />
     <ctl name="SPK DAC Switch" value="0" />
-    <ctl name="Speaeker Boost" value="DISABLE" />
-    <ctl name="MICBIAS CAPLESS Switch" value="0" />
     <ctl name="EAR PA Boost" value="DISABLE" />
     <ctl name="EAR PA Gain" value="POS_6_DB" />
     <ctl name="MI2S_RX Channels" value="Two" />
@@ -67,11 +62,14 @@
     <ctl name="VOC_EXT_EC MUX" value="NONE" />
     <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia1" value="0" />
     <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia1" value="0" />
+    <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia2" value="0" />
     <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia1" value="0" />
     <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia4" value="0" />
     <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia4" value="0" />
     <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia4" value="0" />
+    <ctl name="AFE_PCM_RX Audio Mixer MultiMedia1" value="0" />
     <ctl name="AFE_PCM_RX Audio Mixer MultiMedia4" value="0" />
+    <ctl name="AFE_PCM_RX Audio Mixer MultiMedia5" value="0" />
     <ctl name="INTERNAL_FM_RX Audio Mixer MultiMedia4" value="0" />
     <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia5" value="0" />
     <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia5" value="0" />
@@ -81,12 +79,12 @@
     <ctl name="PRI_MI2S_RX_Voice Mixer CSVoice" value="0" />
     <ctl name="QUAT_MI2S_RX_Voice Mixer CSVoice" value="0" />
     <ctl name="Voice_Tx Mixer TERT_MI2S_TX_Voice" value="0" />
-    <ctl name="PRI_MI2S_RX Port Mixer INT_BT_SCO_TX" value="0" />
+    <ctl name="PRI_MI2S_RX Port Mixer INTERNAL_BT_SCO_TX" value="0" />
     <!-- Voice BTSCO -->
     <ctl name="Internal BTSCO SampleRate" value="8000" />
     <ctl name="INTERNAL_BT_SCO_RX_Voice Mixer CSVoice" value="0" />
     <ctl name="Voice_Tx Mixer INTERNAL_BT_SCO_TX_Voice" value="0" />
-    <ctl name="INTERNAL_BT_SCO_RX Audio Mixer Multimedia6" value="0" />
+    <ctl name="INTERNAL_BT_SCO_RX Audio Mixer MultiMedia6" value="0" />
     <ctl name="MultiMedia6 Mixer TERT_MI2S_TX" value="0" />
     <!-- Voice2 -->
     <ctl name="PRI_MI2S_RX_Voice Mixer Voice2" value="0" />
@@ -105,6 +103,20 @@
     <ctl name="VoWLAN_Tx Mixer INTERNAL_BT_SCO_TX_VoWLAN" value="0" />
     <ctl name="AFE_PCM_RX_Voice Mixer VoWLAN" value="0" />
     <ctl name="VoWLAN_Tx Mixer AFE_PCM_TX_VoWLAN" value="0" />
+    <!-- VoLTE -->
+    <ctl name="VoLTE_Tx Mixer SLIM_0_TX_VoLTE" value="0" />
+    <ctl name="VoLTE_Tx Mixer INTERNAL_BT_SCO_TX_VoLTE" value="0" />
+    <ctl name="VoLTE_Tx Mixer AFE_PCM_TX_VoLTE" value="0" />
+    <ctl name="VoLTE_Tx Mixer TERT_MI2S_TX_VoLTE" value="0" />
+    <ctl name="PRI_MI2S_RX_Voice Mixer VoLTE" value="0" />
+    <ctl name="QUAT_MI2S_RX_Voice Mixer VoLTE" value="0" />
+    <ctl name="HDMI_RX_Voice Mixer VoLTE" value="0" />
+    <ctl name="INTERNAL_BT_SCO_RX_Voice Mixer VoLTE" value="0" />
+    <!-- usb-headset -->
+    <ctl name="Voice_Tx Mixer AFE_PCM_TX_Voice" value="0" />
+    <ctl name="AFE_PCM_RX_Voice Mixer CSVoice" value="0" />
+    <ctl name="AFE_PCM_RX_Voice Mixer VoLTE" value="0" />
+    <ctl name="MultiMedia1 Mixer AFE_PCM_TX" value="0" />
     <!-- Voip -->
     <ctl name="PRI_MI2S_RX_Voice Mixer Voip" value="0" />
     <ctl name="QUAT_MI2S_RX_Voice Mixer Voip" value="0" />
@@ -116,7 +128,6 @@
     <ctl name="Internal FM RX Volume" value="1" />
     <ctl name="PRI_MI2S_RX Port Mixer INTERNAL_FM_TX" value="0" />
     <ctl name="QUAT_MI2S_RX Port Mixer INTERNAL_FM_TX" value="0" />
-    <ctl name="MI2S_DL_HL Switch" value="1" />
     <ctl name="MultiMedia1 Mixer INTERNAL_FM_TX" value="0" />
     <ctl name="MultiMedia2 Mixer INTERNAL_FM_TX" value="0" />
     <ctl name="INTERNAL_FM_RX Audio Mixer MultiMedia1" value="0" />
@@ -165,8 +176,6 @@
     <ctl name="IIR1 Enable Band4" value="0" />
     <ctl name="IIR1 Enable Band5" value="0" />
     <!-- ADSP testfwk -->
-    <ctl name="MI2S_DL_HL Switch" value="0" />
-    <ctl name="QUAT_MI2S_DL_HL Switch" value="0" />
     <!-- ADSP testfwk end -->
     <ctl name="Speaker Boost" value="DISABLE" />
     <!-- htc ctl start -->
@@ -174,6 +183,12 @@
     <ctl name="ADC2 Gain" value="G_0_DB" />
     <ctl name="ADC3 Gain" value="G_0_DB" />
     <!-- htc ctl end -->
+    <!-- Dummy ctl -->
+    <ctl name="QUAT_MI2S_DL_COMPR_STUB Switch" value="0" />
+    <ctl name="PRI_MI2S_DL_COMPR_STUB Switch" value="0" />
+    <ctl name="QUAT_MI2S_RX_DL_HL Switch" value="0" />
+    <!-- Amp ctrl -->
+    <ctl name="HS_AMP_EN Switch" value="0" />
 
     <!-- These are audio route (FE to BE) specific mixer settings -->
     <path name="bt-sco-wb-samplerate">
@@ -492,7 +507,7 @@ so we keep speaker for output device -->
         <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia1" value="1" />
     </path>
 
-    <path name="deep-buffer-playback speaker-and-headphones">
+    <path name="deep-buffer-playback speaker-headset">
         <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia1" value="1" />
         <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia1" value="1" />
     </path>
@@ -507,7 +522,7 @@ so we keep speaker for output device -->
 
     <!-- DSP AFE not support 2 output port for ULL mode
 so we keep speaker for output device -->
-    <path name="low-latency-playback speaker-and-headphones">
+    <path name="low-latency-playback speaker-headset">
         <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia5" value="1" />
     </path>
 
@@ -519,7 +534,7 @@ so we keep speaker for output device -->
         <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia4" value="1" />
     </path>
 
-    <path name="compress-offload-playback speaker-and-headphones">
+    <path name="compress-offload-playback speaker-headset">
         <ctl name="PRI_MI2S_RX Audio Mixer MultiMedia4" value="1" />
         <ctl name="QUAT_MI2S_RX Audio Mixer MultiMedia4" value="1" />
     </path>
@@ -534,7 +549,7 @@ so we keep speaker for output device -->
         <ctl name="Voice_Tx Mixer TERT_MI2S_TX_Voice" value="1" />
     </path>
 
-    <path name="voice-call speaker-and-headphones">
+    <path name="voice-call speaker-headset">
         <ctl name="PRI_MI2S_RX_Voice Mixer CSVoice" value="1" />
         <ctl name="Voice_Tx Mixer TERT_MI2S_TX_Voice" value="1" />
     </path>
@@ -545,7 +560,7 @@ so we keep speaker for output device -->
         <ctl name="Voice2_Tx Mixer TERT_MI2S_TX_Voice2" value="1" />
     </path>
 
-    <path name="voice2-call speaker-and-headphones">
+    <path name="voice2-call speaker-headset">
         <ctl name="PRI_MI2S_RX_Voice Mixer Voice2" value="1" />
         <ctl name="Voice2_Tx Mixer TERT_MI2S_TX_Voice2" value="1" />
     </path>
@@ -556,7 +571,7 @@ so we keep speaker for output device -->
         <ctl name="QUAT_MI2S_RX_DL_HL Switch" value="1" />
     </path>
 
-    <path name="compress-voip-call speaker-and-headphones">
+    <path name="compress-voip-call speaker-headset">
         <ctl name="PRI_MI2S_RX_Voice Mixer Voip" value="1" />
         <ctl name="Voip_Tx Mixer TERT_MI2S_TX_Voip" value="1" />
     </path>
@@ -1174,21 +1189,5 @@ so we keep speaker for output device -->
         <ctl name="MI2S_DL_HL Switch" value="1" />
     </path>
 
-    <!-- voidzero -->
-
-    <!-- These were missing -->
-    <path name="low-latency-playback voice-speaker">
-        <path name="low-latency-playback speaker" />
-    </path>
-
-    <path name="low-latency-record">
-        <path name="audio-record" />
-    </path>
-
-    <path name="voice-call voice-speaker">
-        <path name="voice-call speaker" />
-    </path>
-
-    <!-- end voidzero -->
 
 </mixer>
