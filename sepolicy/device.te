@@ -3,7 +3,6 @@ type mmc_block_device_ssd, dev_type;
 type akmd_device, dev_type;
 type smux_device, dev_type;
 type qsc_device, dev_type;
-type usf_device, dev_type;
 type cwmcu_device, dev_type;
 type invensense_device, dev_type;
 type hs_device, dev_type;
@@ -14,7 +13,7 @@ type vcsFPService_device, dev_type;
 # BT lock device for BCM4335
 type btlock_device, dev_type;
 
-type vold_device, dev_type;
+
 type mm-qcamerad_device, dev_type;
 type audiod_device, dev_type;
 type pmem_device, dev_type;
@@ -29,7 +28,6 @@ type hld_socket, file_type;
 type cand_exec, exec_type, file_type;
 type cir_fw_update_exec, exec_type, file_type;
 type thermald_exec, exec_type, file_type;
-type usf_exec, exec_type, file_type;
 type pnpmgr_exec, exec_type, file_type;
 type memlock_exec, exec_type, file_type;
 type netcat_exec, exec_type, file_type;
@@ -39,16 +37,12 @@ type sfc_exec, exec_type, file_type;
 type hld_exec, exec_type, file_type;
 type mcDriverDaemon_exec, exec_type, file_type;
 type sfc_block_device, dev_type;
-type sapd_exec, exec_type, file_type;
-type btsnoop_exec, exec_type, file_type;
 type sysfs_usb_mirror_link, sysfs_type, file_type;
 type sysfs_sensor_hub, exec_type, file_type;
 type modem_config_file, file_type, data_file_type;
 type dalvikcache_device, dev_type;
-type usf_data_file, file_type, data_file_type;
 type dmagent_data_file, file_type, data_file_type;
 type hprof_data_file, file_type, data_file_type;
-type persist_usf_file, file_type, data_file_type;
 type carrier_file, file_type, data_file_type;
 type sysfs_usb_adw, dev_type;
 type htc_ebdlogd_file, file_type, data_file_type;
@@ -66,6 +60,5 @@ type read_dap_cert_exec, exec_type, file_type;
 type htc_ebdlogd_exec, exec_type, file_type;
 type dmagent_exec, exec_type, file_type;
 type shub_dbg_exec, exec_type, file_type;
-type dun-server_exec, exec_type, file_type;
 type sysfs_g_sensor, file_type, dev_type;
 
