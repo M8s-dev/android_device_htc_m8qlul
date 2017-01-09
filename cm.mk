@@ -27,6 +27,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=m8qlul_htc_europe TARGET_DEVICE=htc
 ## Use the latest approved GMS identifiers unless running a signed build
 ifneq ($(SIGN_BUILD),true)
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=htc/m8qlul_htc_europe/htc_m8qlul:5.0.2/LRX22G/555949.10:user/release-keys \
-    PRIVATE_BUILD_DESC="1.16.401.10 CL555949 release-keys"
+    BUILD_FINGERPRINT=htc/m8qlul_htc_europe/htc_m8qlul:6.0.1/MMB29M/743364.1:user/release-keys \
+    PRIVATE_BUILD_DESC="2.10.401.1 CL743364 release-keys"
+	
 endif
