@@ -22,7 +22,7 @@
 namespace android {
 
 class CameraParameters;
-class Size;
+struct Size;
 
 class CameraParameters_EXT
 {
