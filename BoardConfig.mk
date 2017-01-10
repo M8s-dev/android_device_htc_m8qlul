@@ -112,6 +112,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Crypto    {{{
 TARGET_HW_DISK_ENCRYPTION := true
+TARGET_KEYMASTER_WAIT_FOR_QSEE := true	
 # }}}
 
 # Display    {{{
