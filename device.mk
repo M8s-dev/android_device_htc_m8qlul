@@ -118,7 +118,8 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    libmm-qcamera
+    libmm-qcamera \
+    libshim_camera
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -127,7 +128,9 @@ PRODUCT_PACKAGES += \
 
 # Connectivity Engine Support
 PRODUCT_PACKAGES += \
-    libcnefeatureconfig
+    libcnefeatureconfig \
+    librmnetctl \
+    libxml2
 
 # Display
 PRODUCT_PACKAGES += \
