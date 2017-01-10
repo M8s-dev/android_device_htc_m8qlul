@@ -21,7 +21,7 @@
 BOARD_VENDOR := htc
 DEVICE_PATH := device/htc/m8qlul
 
-TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
+TARGET_SPECIFIC_HEADER_PATH := device/htc/m8qlul/include
 
 # Assertions    {{{
 TARGET_OTA_ASSERT_DEVICE := htc_m8qlul
