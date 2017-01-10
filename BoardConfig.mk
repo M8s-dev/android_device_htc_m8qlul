@@ -176,10 +176,6 @@ TARGET_USES_UNCOMPRESSED_KERNEL := true
 TARGET_KERNEL_CONFIG := m8qlul_defconfig
 # }}}
 
-# Libc extensions   {{{
-BOARD_PROVIDES_ADDITIONAL_BIONIC_STATIC_LIBS += libc_htc_symbols
-# }}}
-
 # Lights    {{{
 TARGET_PROVIDES_LIBLIGHT := true
 # }}}

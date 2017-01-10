@@ -206,6 +206,10 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8916
+
+#HTC Log Symbols
+PRODUCT_PACKAGES += \
+    libc_htc_symbols
   
 # Media config
 PRODUCT_COPY_FILES += \
