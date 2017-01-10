@@ -119,7 +119,8 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     libmm-qcamera \
-    libshim_camera
+    libshim_camera \
+    Snap
 
 # Charger
 PRODUCT_PACKAGES += \
