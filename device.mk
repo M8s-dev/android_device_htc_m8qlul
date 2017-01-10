@@ -129,7 +129,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
-
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8916 \
@@ -207,7 +206,7 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8916
-
+  
 # Media config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
@@ -257,7 +256,7 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVenc \
     libOmxAacEnc \
-    libOmxAmrEnc \ \
+    libOmxAmrEnc \
     libOmxEvrcEnc \
     libOmxVdecHevc \
     libOmxQcelp13Enc \
@@ -284,25 +283,15 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     fstab.swap \
     init.qcom.rc \
-    init.qcom.usb.rc \
-    init.qcom.usb.htc.rc \
+    init.htc.usb.rc \
     init.extras.rc \
     init.sensors.rc \
     init.htc.power.rc \
     ueventd.qcom.rc
 
 PRODUCT_PACKAGES += \
-    init.m8qlul.post_boot.sh \
-    init.qcom.bt.bluedroid.sh \
-    init.qcom.bt.sh \
-    init.qcom.firmware_links.sh \
-    init.qcom.fm.sh \
-    init.qcom.rootagent.sh \
-    init.qcom.sh \
-    init.qcom.uicc.sh \
     init.qcom.usb.sh \
-    init.qcom.wcnss_wlan.sh \
-    init.qcom.usb.htc.rc
+    init.qcom.sh
 
 # Recovery
 PRODUCT_PACKAGES += \
