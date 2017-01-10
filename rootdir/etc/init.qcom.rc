@@ -31,7 +31,7 @@
 # Imports {{{
 
 import init.qcom.usb.rc
-import init.qcom.usb.htc.rc
+import init.htc.usb.rc
 import init.extras.rc
 import init.sensors.rc
 import init.htc.power.rc
@@ -56,7 +56,9 @@ on early-init
 on init
     # {{{
 
-    # See storage config details at http://source.android.com/tech/storage/
+     #See storage config details at http://source.android.com/tech/storage/
+    #export LD_SHIM_LIBS "/system/lib/liblog.so|/system/lib/libc_htc_symbols.so:/system/lib64/liblog.so|/system/lib64/libc_htc_symbols.so" 
+    export LD_PRELOAD "libc_htc_symbols.so libshim_camera.so"
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
 
@@ -68,18 +70,10 @@ on init
     mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
     mkdir /storage/usbdisk 0700 root root
 
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
-    export EXTERNAL_STORAGE2 /storage/sdcard1
-    export EXTERNAL_STORAGE3 /storage/usbdisk
-
     # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
+
     # External SD card
     symlink /storage/sdcard1 /external_sd
     symlink /storage/sdcard1 /mnt/external_sd
@@ -112,17 +106,21 @@ on fs
     symlink /system/vendor/firmware/keymaster.b03 /firmware/image/keymaste.b03
     symlink /system/vendor/firmware/keymaster.mdt /firmware/image/keymaste.mdt
 
+    symlink /dev/block/platform/soc.0/7824900.sdhci /dev/block/bootdevice
+
     mount_all /fstab.qcom
     swapon_all /fstab.qcom
 
     mkdir /data/persist 0700 system system
     restorecon_recursive /data/persist
 
-    mkdir /data/media 0770 media_rw media_rw
-    chown media_rw media_rw /data/media
-    restorecon_recursive /data/media
+	#TODO!: root-expert maybe re-enable this.
+	
+    #mkdir /data/media 0770 media_rw media_rw
+    #chown media_rw media_rw /data/media
+    #restorecon_recursive /data/media
 
-    setprop ro.crypto.fuse_sdcard true
+    #setprop ro.crypto.fuse_sdcard true
 
     # }}}
 
@@ -284,6 +282,11 @@ on post-fs-data
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     mkdir /data/hostapd 0770 system wifi
     chown dhcp dhcp /data/misc/dhcp
+	
+	# HTC_WIFI_START
+    # [HPKB#6821] Create the directory to ptt_socket_app write log
+    mkdir /data/wifi_log 0775 wifi wifi
+    # HTC_WIFI_END
 
     # Security context restoration
     restorecon /data/OTPData.dat
@@ -327,7 +330,7 @@ on boot
     write /sys/module/msm_thermal/core_control/enabled 1
 
     insmod /system/lib/modules/gspca_main.ko
-    insmod /system/lib/modules/spidev.ko
+   	/system/lib/modules/spidev.ko
 
     # bluetooth
     chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
@@ -354,12 +357,23 @@ on boot
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
     chmod 0660 /sys/module/hci_uart/parameters/ath_btwrite
     chmod 0660 /sys/module/hci_uart/parameters/ath_lpm
+	
+	insmod /system/lib/modules/radio-iris-transport.ko
+    chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
+    chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
+    
+	# remove /dev/mem and /dev/kmem
+    rm /dev/mem
+    rm /dev/kmem
 
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     mkdir /dev/socket/qmux_audio 0770 media audio
     mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
     mkdir /dev/socket/qmux_gps 0770 gps gps
+	
+	#Create NETMGR daemon socket area
+    mkdir /dev/socket/netmgr 0750 radio radio
 
     chown system system /sys/class/leds/green/brightness
     chown system system /sys/class/leds/green/blink
@@ -426,6 +440,11 @@ on boot
     # connections on high-throughput links get dropped when
     # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
+	
+	#HTC_DRM - BEGIN
+    chown drm system /dev/htcdrm
+    chmod 0660 /dev/htcdrm
+	#HTC_DRM - END
 
     # This is what wifi's called
     setprop wifi.interface wlan0
@@ -496,7 +515,7 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
-    user root
+    user system
     group system
     disabled
     oneshot
@@ -521,16 +540,17 @@ service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
     disabled
 
 # FUSE
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-    disabled
-
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/usbdisk /storage/usbdisk
-    class late_start
-    disabled
+# Disable this M changes.
+#service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
+#    class late_start
+#
+#service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/sdcard1 /storage/sdcard1
+#    class late_start
+#    disabled
+#
+#service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/usbdisk /storage/usbdisk
+#    class late_start
+#    disabled
 # End FUSE
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.bluedroid.sh
@@ -750,6 +770,7 @@ on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
 
 on property:vold.decrypt=trigger_restart_framework
+		setprop ro.fuse_sdcard ${persist.fuse_sdcard}
     start qseecomd
     start qmiproxy
     start config_bluetooth

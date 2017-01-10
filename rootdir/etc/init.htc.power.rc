@@ -24,11 +24,9 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-# Copied from HTC's init.power.rc for the HTC One M8s.
 
 on init
-    # init PnPMgr node
+# init PnPMgr node
     chmod 0664 /sys/power/pnpmgr/apps/media_mode
     chown media system /sys/power/pnpmgr/apps/media_mode
     chown system /sys/power/pnpmgr/apps/activity_trigger
@@ -51,11 +49,17 @@ on init
     write /sys/power/pnpmgr/cluster/big/hotplug/mp_cpunum_min 1
     write /sys/power/pnpmgr/cluster/little/hotplug/mp_cpunum_max 4
     write /sys/power/pnpmgr/cluster/little/hotplug/mp_cpunum_min 0
+    write /sys/power/pnpmgr/thermal/cpu_asn 0
     write /sys/power/pnpmgr/apps/activity_trigger "booting"
     write /sys/power/pnpmgr/touch_boost_duration 3000
     write /sys/power/pnpmgr/long_duration_touch_boost_duration 3000
 
-    # HTC SSD Battery - BEGIN
+    write /dev/cpuset/cpu_exclusive 0
+    write /dev/cpuset/background/cpus "4"
+    write /dev/cpuset/foreground/cpus "0-7"
+    write /dev/cpuset/system-background/cpus "0-7"
+
+# HTC SSD Battery - BEGIN
     chown system system /sys/class/power_supply/battery/full_level_dis_batt_chg
     chmod 0220 /sys/class/power_supply/battery/full_level_dis_batt_chg
     chown radio radio /sys/class/power_supply/battery/phone_call
@@ -68,7 +72,7 @@ on init
     chmod 0220 /sys/class/power_supply/battery/navigation
     chown system system /sys/class/power_supply/battery/disable_limit_chg
     chmod 0220 /sys/class/power_supply/battery/disable_limit_chg
-    # HTC SSD Battery - END
+# HTC SSD Battery - END
 
     chown root system /sys/devices/system/cpu/cpu1/online
     chmod 0664 /sys/devices/system/cpu/cpu1/online
@@ -85,10 +89,33 @@ on init
     chown root system /sys/devices/system/cpu/cpu7/online
     chmod 0664 /sys/devices/system/cpu/cpu7/online
 
-service thermal-engine /system/bin/thermal-engine
+    chown root system /sys/power/pnpmgr/thermal/cpu_asn
+    chmod 0664 /sys/power/pnpmgr/thermal/cpu_asn
+
+    chown system system /sys/power/pnpmgr/apps/trace_trigger
+    chmod 0664 /sys/power/pnpmgr/apps/trace_trigger
+
+service mpdecision /system/bin/mpdecision --avg_comp
+    class core
+    user root
+    disabled
+
+service thermal-engine /system/vendor/bin/thermal-engine
     class main
     user root
+    socket thermal-send-client stream 0666 system system
+    socket thermal-recv-client stream 0660 system system
+    socket thermal-recv-passive-client stream 0666 system system
     group root
+
+service pnpmgr /system/bin/pnpmgr
+    class core
+    user root
+
+service memlock /system/bin/memlock
+    class main
+    cgroup bg
+    user root
 
 on property:init.svc.thermal-engine=stopped
     write /sys/power/pnpmgr/thermal/thermal_final_bcpu 999999999
@@ -97,3 +124,18 @@ on property:init.svc.thermal-engine=stopped
     write /sys/power/pnpmgr/thermal/thermal_batt 0
     write /sys/power/pnpmgr/cluster/big/cpu0/thermal_freq 999999999
     write /sys/power/pnpmgr/cluster/little/cpu0/thermal_freq 999999999
+
+service clockd /system/bin/clockd
+    class main
+    user root
+
+service qb_offmode_alarm /system/bin/qb_offmode_alarm
+    class main
+    user root
+    disabled
+    oneshot
+
+service zchgd_offmode /system/bin/zchgd -pseudooffmode -autostop -poffmodewarn
+    user root
+    group root graphics
+    disabled

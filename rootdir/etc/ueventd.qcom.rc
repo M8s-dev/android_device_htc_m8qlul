@@ -1,4 +1,4 @@
-# Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,12 +26,7 @@
 #
 
 # the DIAG device node is not world writable/readable.
-/dev/diag                 0660   radio      qcom_diag
-/dev/diag_mdm             0660   radio      qcom_diag
-/dev/htcdiag              0660   radio      qcom_diag
-/dev/diag_arm9            0660   radio      qcom_diag
-/dev/btdiag               0660   radio      qcom_diag
-/dev/diag_qsc             0660   radio      qcom_diag
+/dev/diag                 0660   system     qcom_diag
 
 /dev/genlock              0666   system     system
 /dev/kgsl                 0666   system     system
@@ -50,10 +45,16 @@
 /dev/ipa                  0660   net_admin  net_admin
 /dev/wwan_ioctl           0660   net_admin  net_admin
 /dev/ipaNatTable          0660   net_admin  net_admin
+/dev/rmnet_ctrl           0660   usb        usb
+/dev/dpl_ctrl             0660   usb        usb
 
 #permissions for CSVT
 /dev/smd11                0660   radio      radio
 
+#permissions for CIQ
+/dev/smd20                0660   system     system
+
+/dev/radio0               0644   system     system
 /dev/rfcomm0              0660   bluetooth  bluetooth
 /dev/ttyUSB0              0660   bluetooth  bluetooth
 /dev/smdcntl0             0640   radio      radio
@@ -65,9 +66,6 @@
 /dev/smdcntl6             0640   radio      radio
 /dev/smdcntl7             0640   radio      radio
 /dev/smdcntl8             0640   radio      radio
-/dev/smdcntl9             0640   radio      radio
-/dev/smdcntl10            0640   radio      radio
-/dev/smdcntl11            0640   radio      radio
 /dev/smdcnt_rev0          0640   radio      radio
 /dev/smdcnt_rev1          0640   radio      radio
 /dev/smdcnt_rev2          0640   radio      radio
@@ -119,23 +117,16 @@
 /dev/jpeg2                0660   system     camera
 /dev/jpeg3                0660   system     camera
 /dev/adsprpc-smd          0664   system     system
-/dev/system_health_monitor 0640  radio      system
 /dev/msm_camera/*         0660   system     camera
 /dev/gemini/              0660   system     camera
 /dev/mercury0             0660   system     camera
-/dev/time_helper          0660   system     camera
 /dev/msm_vidc_reg         0660   system     audio
 /dev/msm_vidc_dec         0660   system     audio
 /dev/msm_vidc_dec_sec     0660   system     audio
 /dev/msm_vidc_enc         0660   system     audio
 /dev/msm_rotator          0660   system     system
-/dev/hw_random            0660   system     system
+/dev/hw_random            0600   root       root
 /dev/adsprpc-smd          0664   system     system
-/dev/htc_msgservice       0660   system     system
-/dev/simlock              0660   radio      radio
-/dev/pn544                0600   nfc        nfc
-/dev/ttyHSUSB4            0660   root       mtp
-
 
 #permissions for audio
 /dev/audio_slimslave      0660   system     audio
@@ -152,12 +143,9 @@
 /dev/msm_qcelp_in         0660   system     audio
 /dev/msm_evrc_in          0660   system     audio
 /dev/msm_amrnb_in         0640   system     audio
-/dev/msm_amrwb_in         0660   system     audio
 /dev/msm_a2dp_in          0660   system     audio
 /dev/msm_ac3              0660   system     audio
-/dev/msm_acdb             0660   system     audio
 /dev/msm_audio_cal        0660   system     audio
-/dev/msm_hweffects        0660   system     audio
 /dev/msm_cad              0660   system     audio
 /dev/msm_fm               0660   system     audio
 /dev/msm_mvs              0660   system     audio
@@ -165,33 +153,6 @@
 /dev/msm_preproc_ctl      0660   system     audio
 /dev/msm_rtac             0660   system     audio
 /dev/msm_voicememo        0660   system     audio
-/dev/radio0               0640   system     audio
-/dev/adsp/*               0660   system     audio
-/dev/snd/*                0660   system     audio
-/dev/pmem_adsp*           0660   system     audio
-/dev/msm_pcm_out*         0660   system     audio
-/dev/msm_pcm_in*          0660   system     audio
-/dev/msm_pcm_ctl*         0660   system     audio
-/dev/msm_snd*             0660   system     audio
-/dev/msm_mp3*             0660   system     audio
-/dev/audience_a1026*      0660   system     audio
-/dev/tpa2018d1*           0660   system     audio
-/dev/msm_audpre           0660   system     audio
-/dev/msm_audio_ctl        0660   system     audio
-/dev/htc-acoustic         0660   system     audio
-/dev/tpa6185              0660   system     audio
-/dev/rt5501               0660   system     audio
-/dev/aud_hs_amp           0660   system     audio
-/dev/tfa9887              0660   system     audio
-/dev/tfa9887l             0660   system     audio
-/dev/vdec                 0660   system     audio
-/dev/q6venc               0660   system     audio
-/dev/snd/dsp              0660   system     audio
-/dev/snd/dsp1             0660   system     audio
-/dev/snd/mixer            0660   system     audio
-/dev/snd/pcmC0D0p         0660   system     audio
-/dev/snd/pcmC0D12p        0660   system     audio
-/dev/snd/pcmC0D2c         0660   media      media
 /dev/smd3                 0660   bluetooth  net_bt_stack
 /dev/smd2                 0660   bluetooth  net_bt_stack
 /dev/ttyHSL1              0660   system     system
@@ -203,15 +164,20 @@
 /dev/ttyGS0               0660   system     system
 /dev/i2c-5                0660   media       media
 /dev/voice_svc            0660   system     audio
+/dev/avtimer              0660   system     audio
 
 # DVB devices
-/dev/dvb/adapter0/demux*  0444   media       media
-/dev/dvb/adapter0/dvr*    0664   media       media
-/dev/dvb/adapter0/video*  0664   media       media
+/dev/dvb/adapter0/demux*  0440   media       media
+/dev/dvb/adapter0/dvr*    0660   media       media
+/dev/dvb/adapter0/video*  0660   media       media
 
 # Broadcast devices
 /dev/tsc_mux0             0660   media       media
 /dev/tsc_ci0              0660   media       media
+
+# tbase
+/dev/mobicore-user        0666   system    system
+/dev/mobicore             0600   system    system
 
 # sensors
 /sys/devices/i2c-12/12-*  pollrate_ms 0664 system system
@@ -232,6 +198,16 @@
 /sys/devices/virtual/input/input*                   poll           0660    input    system
 /sys/devices/virtual/input/input*                   pollrate_ms    0660    input    system
 
+# ctp
+/sys/devices/soc.0/78b9000.i2c/i2c-5/5-0038/sensors/ft5x06-proximity	enable	0660	input	system
+/sys/devices/virtual/gesture/gesture*		enable	0660	input	system
+/sys/devices/virtual/gesture/gesture*		pocket	0660	input	system
+
+# led
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-0045/leds/red		blink	0660	input	system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-0045/leds/green		blink	0660	input	system
+/sys/devices/soc.0/78b5000.i2c/i2c-1/1-0045/leds/blue		blink	0660	input	system
+
 # vm_bms
 /dev/vm_bms               0660   system     system
 /dev/battery_data         0660   system     system
@@ -239,19 +215,15 @@
 # wlan
 /dev/wcnss_wlan           0660   system     system
 /dev/wcnss_ctrl           0660   system     system
-/dev/rfkill               0660   root       wifi
-
 #nfc permissions
 /dev/nfc-nci              0660    nfc         nfc
+/dev/nq-nci               0660    nfc         nfc
 /dev/assd                 0660    nfc         nfc
 
 # UIO devices
 /dev/uio0                 0660   system     system
 /dev/uio1                 0660   system     system
 /dev/uio2                 0660   system     system
-
-# Rawchip
-/dev/rawchip0             0660   system     camera
 
 # SSR devices
 /dev/subsys_*         0640   system     system
@@ -262,32 +234,10 @@
 # Ramdump devices
 /dev/ramdump*             0640   system     system
 
-# IR
-/sys/class/htc_cir/cir reset_cir    0660    system    system
-/sys/class/htc_cir/cir enable_cir   0660    system    system
-/dev/ttyHSL2                        0660    system    system
+#Improve Touch
+/dev/hbtp_input           0660   system     system
+/dev/hbtp_vm              0660   system     system
+/dev/jdi-bu21150          0660   system     system
 
-# HtcCarGPS
-/dev/ttyHSUSB1                                 0600    system  system
-
-# for autobot car pc
-/dev/ttyHSUSB3              0660   root       mtp
-
-# MirrorLink
-/sys/devices/virtual/android_usb/android0/f_projector2    client_context_info    0664  system mtp
-/sys/devices/virtual/android_usb/android0/f_projector2    client_uuid           0644  system system
-/sys/devices/virtual/android_usb/android0/f_projector2    client_width          0644  system system
-/sys/devices/virtual/android_usb/android0/f_projector2    client_height         0644  system system
-
-# sensor hub
-/dev/shub_dload       0660   system     system
-/dev/shub_log         0660   system     system
-/dev/shub_event       0660   system     system
-
-# set the owner of partition control's block node to media and system for MFG disable camera feature.
-/dev/block/bootdevice/by-name/control   0660    media   system
-
-#HTC misc file systems
-/dev/block/bootdevice/by-name/frp       0660    root    system
-/dev/block/bootdevice/by-name/misc      0660    root    system
-/dev/block/bootdevice/by-name/pdata     0660    root    system
+# Add device block for FRP
+/dev/block/platform/soc.0/7824900.sdhci/by-name/config    0660   system     system
