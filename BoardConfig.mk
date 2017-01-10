@@ -80,6 +80,7 @@ AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+
 #
 # BOARD_SUPPORTS_SOUND_TRIGGER := true # broken
 # AUDIO_FEATURE_ENABLED_SPKR_PROTECTION := true # broken
@@ -160,7 +161,7 @@ BOARD_KERNEL_BASE := 0x80078000
 # 160526
 # BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.selinux=permissive lpm_levels.sleep_disabled=1 boot_cpus=0,4-7 androidtouch.htc_event=1 disk_mode_enable=1 elevator=bfq zswap.compressor=lz4 zswap.enabled=1
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.selinux=permissive lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidtouch.htc_event=1 disk_mode_enable=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidtouch.htc_event=1 disk_mode_enable=1
 
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
@@ -258,19 +259,6 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    bluetooth_loader.te \
-    device.te \
-    file.te \
-    file_contexts \
-    healthd.te \
-    property_contexts \
-    qseecomd.te \
-    surfaceflinger.te \
-    system.te \
-    system_app.te \
-    system_server.te \
-    wcnss_service.te
 # }}}
 
 # Video    {{{
