@@ -341,6 +341,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 
+PRODUCT_COPY_FILE += \
+    bionic/lic/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
+
 # WiFi Display
 ifneq ($(QCPATH),)
 PRODUCT_BOOT_JARS += WfdCommon

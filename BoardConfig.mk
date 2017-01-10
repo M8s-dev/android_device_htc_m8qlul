@@ -221,6 +221,16 @@ BOARD_USES_QC_TIME_SERVICES := true
 BOARD_USES_QCOM_HARDWARE := true
 # }}}
 
+# TWRP {{{
+#uncomment to build TWRP
+#RECOVERY_VARIANT := twrp
+#TW_THEME := portrait_hdpi
+#TW_NO_REBOOT_BOOTLOADER := true
+#TW_NO_REBOOT_RECOVERY := true
+#TARGET_RECOVERY_QCOM_RTC_FIX := true
+#TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+# }}}
+
 # Recovery    {{{
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
