@@ -39,6 +39,8 @@ TARGET_SCREEN_WIDTH := 1080
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
+PRODUCT_ENFORCE_RRO_TARGETS := framework-res
+
 ## Dot View Case
 # TODO!
 #PRODUCT_PACKAGES += Dotcase
