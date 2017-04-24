@@ -5,7 +5,7 @@ PRODUCT_RELEASE_NAME := m8qlul
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-# Inherit some common CM stuff.
+# Inherit some common Lineage stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 
@@ -16,7 +16,7 @@ BOARD_VENDOR := htc
 BOARD_NUMBER_OF_CAMERAS := 4
 
 # Device naming
-PRODUCT_NAME := cm_m8qlul
+PRODUCT_NAME := lineage_m8qlul
 PRODUCT_DEVICE := m8qlul
 PRODUCT_BRAND := htc
 PRODUCT_MANUFACTURER := HTC

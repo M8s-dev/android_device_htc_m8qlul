@@ -2,7 +2,6 @@
   {
     "repository": "android_kernel_htc_msm8939",
     "target_path": "kernel/htc/msm8939",
-    "branch": "cm-12.1"
   },
   {
     "repository": "android_external_mm-dash",
