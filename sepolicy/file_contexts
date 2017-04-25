@@ -24,6 +24,11 @@
 /dev/ttyHSL3                                    u:object_r:hs_device:s0
 /dev/ttyHSUSB[1-3]                              u:object_r:autobot_device:s0
 /dev/ttyHSUSB4                                  u:object_r:acm_device:s0
+
+#Radio
+/dev/radio(/.*)?				u:object_r:radio_data_file:s0
+#End
+#
 # HTC++
 #HTC_FP_START
 /dev/vfsspi                                     u:object_r:vcsFPService_device:s0
