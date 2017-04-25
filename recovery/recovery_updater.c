@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "updater/install.h"
 
 #include "edify/expr.h"
 
@@ -167,8 +168,8 @@ Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]
 
     ret = 0;
     for (i = 0; i < argc; i++) {
-        uiPrintf(state, "Comparing TZ version %s to %s",
-                tz_version[i], current_tz_version);
+        //uiPrintf(state, "Comparing TZ version %s to %s",
+        //        tz_version[i], current_tz_version);
         if (strncmp(tz_version[i], current_tz_version, strlen(tz_version[i])) == 0) {
             ret = 1;
             break;
