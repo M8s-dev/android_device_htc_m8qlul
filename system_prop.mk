@@ -11,6 +11,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #added by root-expert
 PRODUCT_PROPERTY_OVERRIDES += \
+    af.resampler.quality=7 \
     ro.qc.sdk.audio.ssr=false \
     voice.playback.conc.disabled=true \
     voice.record.conc.disabled=false \
