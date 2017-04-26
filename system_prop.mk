@@ -2,8 +2,31 @@
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
+    audio_hal.period_size=192 \
     media.aac_51_output_enabled=true \
-    av.offload.enable=false
+    audio.offload.buffer.size.kb=1024 \
+    audio.offload.multiple.enabled=false \
+    audio.offload.buffer.size.kb=1024 \
+    audio.offload.gapless.enabled=false
+
+#added by root-expert
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.ssr=false \
+    voice.playback.conc.disabled=true \
+    voice.record.conc.disabled=false \
+    htc.audio.skiplowlatency=7 \
+    persist.htc.audio.dqlog.dci=1 \
+    media.stagefright.enable-player=true \
+    media.stagefright.enable-http=true \
+    media.stagefright.enable-aac=true \
+    media.stagefright.enable-qcp=true \
+    media.stagefright.enable-fma2dp=true \
+    media.stagefright.enable-scan=true \
+    media.swhevccodectype=0 \
+    media.hwhevccodectype=0 \
+    mm.enable.smoothstreaming=true \
+    mmp.enable.3g2=true
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true
@@ -15,7 +38,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.disable=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=none
+    ro.qc.sdk.audio.fluencetype=fluence
 
 PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=true
@@ -54,6 +77,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.netmgrd.qos.enable=true \
     ro.use_data_netmgrd=true
 
+# Radio - added by root-expert
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.qmi.adb_logmask=3 \
+    persist.radio.adb_log_on=1 \
+    persist.radio.fill_eons=1 \
+    DEVICE_PROVISIONED=1 \
+    persist.cne.feature=1 \
+    ro.ril.telephony.mqanelements=5
+
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=true
@@ -84,9 +116,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     tunnel.audio.encode=false \
-    audio.offload.buffer.size.kb=1024 \
-    audio.offload.min.duration.secs=30 \
-    audio.offload.gapless.enabled=false \
     vidc.enc.narrow.searchrange=1
 
 # Bluetooth
@@ -112,7 +141,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ril.ecclist=112,911,113,114,115,118,000,08,110,999,119 \
     ril.subscription.types=NV,RUIM \
     rild.libargs=-d/dev/smd0 \
-    rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
+    rild.libpath=/system/lib64/libhtc_rilhook.so \
     ro.baseband.arch=msm \
     ro.telephony.default_network=9
 
