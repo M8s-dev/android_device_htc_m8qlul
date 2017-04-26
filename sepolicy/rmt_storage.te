@@ -1,0 +1,1 @@
+allow rmt_storage mmc_block_device_modem:blk_file rw_file_perms;
