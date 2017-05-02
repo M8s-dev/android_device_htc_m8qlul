@@ -21,7 +21,7 @@
 BOARD_VENDOR := htc
 DEVICE_PATH := device/htc/m8qlul
 
-TARGET_SPECIFIC_HEADER_PATH := device/htc/m8qlul/include
+TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
 # Assertions    {{{
 TARGET_OTA_ASSERT_DEVICE := htc_m8qlul
@@ -148,11 +148,6 @@ endif
 EXTENDED_FONT_FOOTPRINT := true
 # }}}
 
-# GPS    {{{
-#TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
-#BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := true
-# }}}
-
 # Init    {{{
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 # }}}
@@ -165,7 +160,7 @@ BOARD_KERNEL_BASE := 0x80078000
 # 160526
 # BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.selinux=permissive lpm_levels.sleep_disabled=1 boot_cpus=0,4-7 androidtouch.htc_event=1 disk_mode_enable=1 elevator=bfq zswap.compressor=lz4 zswap.enabled=1
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidtouch.htc_event=1 disk_mode_enable=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidtouch.htc_event=1 disk_mode_enable=1 zswap.enabled=1
 
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
@@ -177,7 +172,7 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_USES_UNCOMPRESSED_KERNEL := true
-TARGET_KERNEL_CONFIG := m8qlul_defconfig
+TARGET_KERNEL_CONFIG := m8qlul_vz_defconfig
 # }}}
 
 # Lights    {{{
@@ -263,6 +258,10 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 #BOARD_RIL_FIVE_SEARCH_RESPONSES := true
 # }}}
 
+# Preload {{{
+TARGET_LDPRELOAD := libNimsWrap.so
+# }}}
+
 # SELinux    {{{
 include device/qcom/sepolicy/sepolicy.mk
 
@@ -282,18 +281,22 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/
 # Wifi    {{{
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HAS_QCOM_WLAN_SDK := true
+
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn
+
 BOARD_WLAN_DEVICE := qcwcn
+
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
-TARGET_PROVIDES_WCNSS_QMI   := true
-TARGET_USES_WCNSS_CTRL      := true
-TARGET_USES_QCOM_WCNSS_QMI  := true
+TARGET_USES_QCOM_WCNSS_QMI := true
+TARGET_USES_WCNSS_CTRL := true
 WIFI_DRIVER_MODULE_NAME := "wlan"
 WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
+
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
+
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 # }}}
 
