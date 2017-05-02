@@ -45,66 +45,46 @@ on early-init
 
     symlink /data/tombstones /tombstones
     symlink /data/persist /persist
-    symlink /system/vendor/app /vendor/app
 
     mount debugfs debugfs /sys/kernel/debug
 
     chown system system /sys/kernel/debug/kgsl/proc
+
+    mkdir /carrier 0771 system carrier
+    mkdir /firmware 0771 system system
+    mkdir /firmware/radio 0771 system system
+    mkdir /firmware/wcnss 0771 system system
+    mkdir /firmware/image 0771 system system
+
+    mkdir /custdata 0771 system system
+    mkdir /devlog 0700 root root
+    mkdir /fataldevlog 0700 root root
+    mkdir /ramdump 0700 root root
 
     # }}}
 
 on init
     # {{{
 
-     #See storage config details at http://source.android.com/tech/storage/
-    #export LD_SHIM_LIBS "/system/lib/liblog.so|/system/lib/libc_htc_symbols.so:/system/lib64/liblog.so|/system/lib64/libc_htc_symbols.so" 
-    export LD_PRELOAD "libc_htc_symbols.so libshim_camera.so"
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
+    export LD_PRELOAD "libshim_camera.so"
+    export LD_SHIM_LIBS "/system/lib/liblog.so|/system/lib/libc_htc_symbols.so:/system/lib64/liblog.so|/system/lib64/libc_htc_symbols.so"
 
-    # External SDcard
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-
-    # External USB drive
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/usbdisk 0700 root root
+    chmod 0644 /proc/cmdline/
 
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
-
-    # External SD card
-    symlink /storage/sdcard1 /external_sd
-    symlink /storage/sdcard1 /mnt/external_sd
-    # External USB
-    symlink /storage/usbdisk /usbdisk
-    symlink /storage/usbdisk /mnt/usbdisk
 
     # }}}
 
 on fs
     # {{{
 
-    mkdir /devlog 0700 root root
-    mkdir /fataldevlog 0700 root root
-    mkdir /ramdump 0700 root root
-    mkdir /carrier 0770 system carrier
-    mkdir /custdata 0771 system system
-
-    mkdir /firmware 0771 system system
-    mkdir /firmware/radio 0771 system system
-    mkdir /firmware/wcnss 0771 system system
-    mkdir /firmware/image 0771 system system
-    mkdir /vendor 0771 system system
-    mkdir /vendor/firmware 0771 system system
-    mkdir /acct 0771 system system
-
-    symlink /system/vendor/firmware/keymaster.b00 /firmware/image/keymaste.b00
-    symlink /system/vendor/firmware/keymaster.b01 /firmware/image/keymaste.b01
-    symlink /system/vendor/firmware/keymaster.b02 /firmware/image/keymaste.b02
-    symlink /system/vendor/firmware/keymaster.b03 /firmware/image/keymaste.b03
-    symlink /system/vendor/firmware/keymaster.mdt /firmware/image/keymaste.mdt
+    symlink /system/vendor/firmware/keymaster/keymaster.b00 /firmware/image/keymaste.b00
+    symlink /system/vendor/firmware/keymaster/keymaster.b01 /firmware/image/keymaste.b01
+    symlink /system/vendor/firmware/keymaster/keymaster.b02 /firmware/image/keymaste.b02
+    symlink /system/vendor/firmware/keymaster/keymaster.b03 /firmware/image/keymaste.b03
+    symlink /system/vendor/firmware/keymaster/keymaster.mdt /firmware/image/keymaste.mdt
 
     symlink /dev/block/platform/soc.0/7824900.sdhci /dev/block/bootdevice
 
@@ -114,19 +94,280 @@ on fs
     mkdir /data/persist 0700 system system
     restorecon_recursive /data/persist
 
-	#TODO!: root-expert maybe re-enable this.
-	
-    #mkdir /data/media 0770 media_rw media_rw
-    #chown media_rw media_rw /data/media
-    #restorecon_recursive /data/media
-
-    #setprop ro.crypto.fuse_sdcard true
-
     # }}}
 
 
 on post-fs
     # {{{
+
+    chown root log /proc/vmallocinfo
+    chmod 0440 /proc/vmallocinfo
+
+    chown root log /proc/slabinfo
+    chmod 0440 /proc/slabinfo
+
+    # }}}
+
+on post-fs-data
+    # {{{
+
+    # Tombstones
+    mkdir /data/tombstones 0771 system system
+    mkdir /tombstones/modem 0771 system system
+    mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
+    mkdir /tombstones/dsps 0771 system system
+    symlink /data/tombstones /tombstones
+
+    # Persistent time and somethingelse storage
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
+    mkdir /persist/tee 0700 system system
+    
+    #Radio
+    mkdir /data/misc/radio 0775 system radio
+
+    # Audio subsystem
+    mkdir /data/misc/audio 0770 audio audio
+
+    # Create directory for camera
+    mkdir /data/camera 0770 media camera
+    mkdir /data/misc/camera 0770 camera camera
+
+    # CnE subsystem
+    mkdir /data/connectivity 0771 system system
+    chown system system /data/connectivity
+
+    # DASH client
+    mkdir /data/misc/dash 0770 media audio
+
+    # Create directory for display
+    mkdir /data/misc/display 0770 system graphics
+
+    # DPM subsystem, no idea
+    # TODO: delete if unused
+    mkdir /data/dpm 0771 system system
+    chown system system /data/dpm
+
+    mkdir /data/dpm/fdMgr 0771 system system
+    chown system system /data/dpm/fdMgr
+
+    mkdir /data/dpm/nsrm 0771 system system
+    chown system system /data/dpm/nsrm
+
+    # Create directory for hostapd
+    mkdir /data/hostapd 0770 system wifi
+    chown system wifi /data/hostapd
+
+    # IMS Services, whatever that means
+    # TODO: delete if unused
+    mkdir /data/shared 0755 system system
+    chown system system /data/shared
+
+    # Create directory for IPA
+    mkdir /data/misc/ipa 0700 net_admin net_admin
+
+    # Location services
+    mkdir /data/misc/location 0770 gps gps
+    mkdir /data/misc/location/mq 0770 gps gps
+    mkdir /data/misc/location/xtwifi 0770 gps gps
+    mkdir /data/misc/location/gpsone_d 0770 system gps
+    mkdir /data/misc/location/quipc 0770 gps system
+    mkdir /data/misc/location/gsiff 0770 gps gps
+
+    # NFC local data and nfcee xml storage
+    mkdir /data/nfc 0770 nfc nfc
+    mkdir /data/nfc/param 0770 nfc nfc
+
+    # Perfd
+    mkdir /data/misc/perfd 0755 root system
+    chmod 2755 /data/misc/perfd
+
+    mkdir /data/system/perfd 0770 root system
+    chmod 2770 /data/system/perfd
+
+    # time-services
+    mkdir /data/time 0700 system system
+
+    # Create directory for TZ
+    mkdir /data/misc/qsee 0770 system system
+
+    # One M9 has here:
+    setprop vold.post_fs_data_done 1
+
+    # }}}
+
+on early-boot
+    # {{{
+    write /sys/kernel/boot_adsp/boot 1
+    write /proc/sys/vm/swappiness 100
+    # }}}
+
+on boot
+    # {{{
+    # Create QMUX deamon socket area
+    mkdir /dev/socket/qmux_audio 0770 media audio
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    mkdir /dev/socket/qmux_gps 0770 gps gps
+    mkdir /dev/socket/qmux_nfc 0770 nfc nfc
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+
+	#Create NETMGR daemon socket area
+    mkdir /dev/socket/netmgr 0750 radio radio
+
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/type
+
+    # Bluesleep
+    chown bluetooth net_bt_stack /proc/bluetooth/sleep/proto
+    chown bluetooth net_bt_stack /proc/bluetooth/sleep/lpm
+    chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
+    chmod 0660 /proc/bluetooth/sleep/proto
+
+    # create symlink for fb1 as HDMI
+    symlink /sys/class/graphics/fb1 /dev/graphics/hdmi
+
+    # Graphics
+    chown system graphics /sys/class/graphics/fb0/idle_time
+    chown system graphics /sys/class/graphics/fb0/dynamic_fps
+    chown system graphics /sys/class/graphics/fb0/dyn_pu
+    chown system graphics /sys/class/graphics/fb0/modes
+    chown system graphics /sys/class/graphics/fb0/mode
+
+    chmod 0664 /sys/devices/virtual/graphics/fb0/idle_time
+    chmod 0664 /sys/devices/virtual/graphics/fb0/dynamic_fps
+    chmod 0664 /sys/devices/virtual/graphics/fb0/dyn_pu
+    chmod 0664 /sys/devices/virtual/graphics/fb0/modes
+    chmod 0664 /sys/devices/virtual/graphics/fb0/mode
+
+    chown system graphics /sys/class/graphics/fb1/idle_time
+    chown system graphics /sys/class/graphics/fb1/dynamic_fps
+    chown system graphics /sys/class/graphics/fb1/dyn_pu
+    chown system graphics /sys/class/graphics/fb1/modes
+    chown system graphics /sys/class/graphics/fb1/mode
+
+    chmod 0664 /sys/devices/virtual/graphics/fb1/idle_time
+    chmod 0664 /sys/devices/virtual/graphics/fb1/dynamic_fps
+    chmod 0664 /sys/devices/virtual/graphics/fb1/dyn_pu
+    chmod 0664 /sys/devices/virtual/graphics/fb1/modes
+    chmod 0664 /sys/devices/virtual/graphics/fb1/mode
+
+    # Allow access for CCID command/response timeout configuration
+    chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
+
+    # Lights
+    chown system system /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0032/leds/indicator/ModeRGB
+    chmod 0660 /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0032/leds/indicator/ModeRGB
+
+    # Flashlight
+    chown system system /sys/class/leds/flashlight/brightness
+    chown system system /sys/class/leds/flashlight_front/brightness
+    chown system system /sys/class/leds/flashlight_front/dual_brightness
+
+    #set touch permissions
+    chown system system /sys/android_touch/unlock
+
+    #volume key wake up attribute file permission
+    chown media media /sys/keyboard/vol_wakeup
+
+    # Motion Sensors ++
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/buffer/length
+    chown system system /sys/class/htc_sensorhub/sensor_hub/iio/trigger/current_trigger
+
+    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/buffer/enable
+    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/buffer/length
+    chmod 660 /sys/class/htc_sensorhub/sensor_hub/iio/trigger/current_trigger
+
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/ap_calibrator_data_acc_rl
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/batch_enable
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_acc
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_acc_rl
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_barometer
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_gyro
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_light
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_mag
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_proximity
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_en
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_acc
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_gyro
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_mag
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_acc_polling
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_barometer
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_gyro_polling
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_light_kadc
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_light_polling
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_mag_polling
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_proximity
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/data_proximity_polling
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/dbg_flag
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/delay_ms
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/enable
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/firmware_info
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/firmware_version
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/flush
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/gesture_motion
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/ls_mechanism
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/mcu_log_level
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/mcu_log_mask
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/mcu_wakeup
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/ps_canc
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_hub_rdata
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_placement
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_selftest
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/trigger_crash
+    chown system system /sys/devices/virtual/htc_sensorhub/sensor_hub/vibrate_ms
+
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/ap_calibrator_data_acc_rl
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/batch_enable
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_acc
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_acc_rl
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_barometer
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_gyro
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_light
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_mag
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_data_proximity
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_en
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_acc
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_gyro
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/calibrator_status_mag
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_acc_polling
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_barometer
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_gyro_polling
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_light_kadc
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_light_polling
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_mag_polling
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_proximity
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/data_proximity_polling
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/dbg_flag
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/delay_ms
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/enable
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/firmware_info
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/firmware_version
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/flush
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/gesture_motion
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/ls_mechanism
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/mcu_log_level
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/mcu_log_mask
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/mcu_wakeup
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/ps_canc
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_hub_rdata
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_placement
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/sensor_selftest
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/trigger_crash
+    chmod 664 /sys/devices/virtual/htc_sensorhub/sensor_hub/vibrate_ms
+
+    chown system system /sys/class/optical_sensors/proximity/p_status
+    chown radio radio /sys/class/optical_sensors/proximity/ps_adc
+
+    chmod 444 /sys/class/optical_sensors/proximity/p_status
+    chmod 444 /sys/class/optical_sensors/proximity/ps_adc
+
+    chown system graphics /sys/class/leds/lcd-backlight/cabc_level_ctl
+
+    ##### LINE SEPARATES OLD FROM NEW
 
     # permissions for NFC
     chown nfc nfc /sys/class/NFC_sensor/comn/nxp_uicc_swp
@@ -144,86 +385,17 @@ on post-fs
     chown system camera /dev/AIT0
     chmod 0660 /dev/AIT0
 
-    # }}}
-
-
-on post-fs-data
-    # {{{
-
-    # Bluetooth
-    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
-
-    # Camera
-    mkdir /data/misc/camera 0770 camera camera
-
-    # CnE subsystem
-    mkdir /data/connectivity 0771 system system
-    chown system system /data/connectivity
-
-    # Audio subsystem
-    mkdir /data/misc/audio 0770 audio audio
     # Setgid audio dir
     mkdir /data/audio 0775 media audio
     chmod 2775 /data/audio
-
-    # DASH client
-    mkdir /data/misc/dash 0770 media audio
-
-    # DPM subsystem, no idea
-    # TODO: delete if unused
-    mkdir /data/dpm 0771 system system
-    chown system system /data/dpm
 
     # FOTA
     # TODO: delete if unused
     mkdir /data/fota 0771 system system
 
-    # GPSone daemon services
-    mkdir /data/misc/gpsone_d 0770 system gps
-
-    # Hardware tunables
-    chown system system /sys/devices/virtual/graphics/fb0/rgb
-    chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
-    chown system system /sys/devices/virtual/graphics/fb0/idle_time
-    chmod 0660 /sys/devices/virtual/graphics/fb0/idle_time
-
-    # IMS Services, whatever that means
-    # TODO: delete if unused
-    mkdir /data/shared 0755 system system
-
-    # Location services
-    mkdir /data/misc/location 0770 gps gps
-    mkdir /data/misc/location/mq 0770 gps gps
-    mkdir /data/misc/location/xtwifi 0770 gps gps
-    mkdir /data/misc/location/gpsone_d 0770 system gps
-    mkdir /data/misc/location/quipc 0770 gps system
-    mkdir /data/misc/location/gsiff 0770 gps gps
-
-    # Network Socket Request Manager
-    mkdir /data/connectivity/nsrm 0771 system system
-    chown system system /data/connectivity/nsrm
-
-    # NFC local data and nfcee xml storage
-    mkdir /data/nfc 0770 nfc nfc
-    mkdir /data/nfc/param 0770 nfc nfc
-
     # permissions for NFC
     chmod 0600 /dev/pn544
     chown nfc nfc /dev/pn544
-    setprop debug.nfc.fw_download "true"
-    setprop debug.nfc.fw_boot_download "false"
-
-    # Perfd
-    mkdir /data/misc/perfd 0770 root system
-    mkdir /data/misc/perfd 0755 root system
-    mkdir /data/system/perfd 0770 root system
-    chmod 2770 /data/misc/perfd
-    chmod 2755 /data/misc/perfd
-    chmod 2770 /data/system/perfd
-
-    # Persistent time and somethingelse storage
-    mkdir /persist/data/sfs 0700 system system
-    mkdir /persist/data/tz 0700 system system
 
     # Chown/chmod /persist after mount
     chown system system /persist
@@ -247,42 +419,9 @@ on post-fs-data
     # maintain the list of processes name for kernel monitoring usage
     chown system /sys/process/task_comm_list
 
-    # QuIPS
-    # TODO: delete if unused
-    mkdir /data/misc/quipc 0770 gps system
-
-    # Radio directories
-    # TODO: delete if unused
-    mkdir /data/misc/radio 0770 system radio
-    mkdir /data/misc/sms 0770 system radio
-
-    # Create a folder for SRS to be able to create a usercfg file
-    # TODO: delete if unused
-    mkdir /data/data/media 0770 media media
-
     # System storage
     mkdir /data/system 0775 system system
 
-    # time-services
-    mkdir /data/time 0700 system system
-
-    # Tombstones
-    mkdir /data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
-    symlink /data/tombstones /tombstones
-
-    # Wireless subsystem
-    mkdir /data/misc/wifi 0771 system wifi
-    mkdir /data/misc/wifi/hostapd 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    mkdir /data/hostapd 0770 system wifi
-    chown dhcp dhcp /data/misc/dhcp
-	
 	# HTC_WIFI_START
     # [HPKB#6821] Create the directory to ptt_socket_app write log
     mkdir /data/wifi_log 0775 wifi wifi
@@ -290,9 +429,6 @@ on post-fs-data
 
     # Security context restoration
     restorecon /data/OTPData.dat
-
-    # Leave some breadcrumbs behind
-    setprop vold.post_fs_data_done 1
 
     # }}}
 
@@ -315,7 +451,7 @@ on early-boot
     # {{{
 
     # set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
+    #setrlimit 8 67108864 67108864
 
     # }}}
 
@@ -340,9 +476,6 @@ on boot
     # Bluetooth
     chown bluetooth bluetooth /dev/ttyHS0
     chown bluetooth bluetooth /dev/ttyHS2
-    chown bluetooth bluetooth /proc/bluetooth/sleep/proto
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
@@ -350,8 +483,6 @@ on boot
     chown bluetooth bluetooth /sys/module/hci_uart/parameters/ath_lpm
     chmod 0660 /dev/ttyHS0
     chmod 0660 /dev/ttyHS2
-    chmod 0660 /proc/bluetooth/sleep/proto
-    chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
@@ -365,15 +496,6 @@ on boot
 	# remove /dev/mem and /dev/kmem
     rm /dev/mem
     rm /dev/kmem
-
-    # Create QMUX deamon socket area
-    mkdir /dev/socket/qmux_radio 0770 radio radio
-    mkdir /dev/socket/qmux_audio 0770 media audio
-    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
-    mkdir /dev/socket/qmux_gps 0770 gps gps
-	
-	#Create NETMGR daemon socket area
-    mkdir /dev/socket/netmgr 0750 radio radio
 
     chown system system /sys/class/leds/green/brightness
     chown system system /sys/class/leds/green/blink
@@ -407,8 +529,6 @@ on boot
     chmod 0664 /sys/devices/virtual/graphics/fb1/vendor_name
     chmod 0664 /sys/devices/virtual/graphics/fb1/product_description
 
-    # create symlink for fb1 as HDMI
-    symlink /sys/class/graphics/fb1 /dev/graphics/hdmi
     #SSD_HDMI end
 
     #To allow interfaces to get v6 address when tethering is enabled
