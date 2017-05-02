@@ -125,20 +125,6 @@ static char *camera_fixup_getparams(const char *settings)
 
     params.set("preview-frame-rate-mode", "frame-rate-fixed");
 
-    /* Fix rotation missmatch */
-    switch (rotation) {
-        case 90:
-            params.set(android::CameraParameters::KEY_ROTATION, "0");
-            break;
-        case 180:
-            params.set(android::CameraParameters::KEY_ROTATION, "90");
-            break;
-        case 270:
-            params.set(android::CameraParameters::KEY_ROTATION, "180");
-            break;
-        default:
-            break;
-    }
      if (!strcmp(captureMode, "hdr")) {
 	params.set(android::CameraParameters::KEY_SCENE_MODE,
 		android::CameraParameters::SCENE_MODE_HDR);
