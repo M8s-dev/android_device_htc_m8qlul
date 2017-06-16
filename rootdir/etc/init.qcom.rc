@@ -430,6 +430,9 @@ on boot
     # Security context restoration
     restorecon /data/OTPData.dat
 
+    # Permissions required for power HAL
+    chown system system /sys/devices/system/cpu/cpu0/core_ctl/max_cpus
+
     # }}}
 
 on charger
@@ -567,9 +570,6 @@ on boot
     # }}}
 
 # End boot stages }}}
-
-
-# Services {{{
 
 service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
     disabled
