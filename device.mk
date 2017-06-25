@@ -171,11 +171,12 @@ PRODUCT_PACKAGES += \
     org.simalliance.openmobileapi \
     org.simalliance.openmobileapi.xml
 
+# GPS
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/gps/flp.conf:system/etc/flp.conf \
-    $(LOCAL_PATH)/configs/gps/izat.conf:system/etc/izat.conf \
-    $(LOCAL_PATH)/configs/gps/quipc.conf:system/etc/quipc.conf \
-    $(LOCAL_PATH)/configs/gps/sap.conf:system/etc/sap.conf
+    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
+    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
 
 # IRQ balance
 PRODUCT_COPY_FILES += \
@@ -212,10 +213,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.msm8916
 
-#HTC Log Symbols
+# HTC Log Symbols
 PRODUCT_PACKAGES += \
     libc_htc_symbols
-  
+# RIL  
+PRODUCT_PACKAGES += \
+    libshim_ril
+
 # Media config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
@@ -273,7 +277,7 @@ PRODUCT_PACKAGES += \
     libOmxSwVencHevc \
     libOmxVidcCommon \
     libOmxSwVencMpeg4 \
-    libstagefrighthw \
+    libstagefrighthw
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
