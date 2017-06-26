@@ -159,7 +159,6 @@ TARGET_KERNEL_CONFIG := twrp_defconfig
 else
 TARGET_KERNEL_CONFIG := m8qlul_vz_defconfig
 endif
-ENABLE_CPUSETS := true
 # }}}
 
 # Lights    {{{
