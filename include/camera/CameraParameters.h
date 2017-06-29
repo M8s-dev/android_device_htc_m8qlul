@@ -689,6 +689,10 @@ public:
     static const char LIGHTFX_HDR[];
 
     /* HTC parameters */
+    static const char KEY_CAPTURE_MODE[];
+    static const char CAPTURE_MODE_NORMAL[];
+    static const char CAPTURE_MODE_HDR[];
+
     static const char SCENE_MODE_TEXT[];
     static const char KEY_SMILEINFO_BYFACE_SUPPORTED[];
 
