@@ -106,7 +106,6 @@
 #HTC_WIFI_START
 /system/xbin/nc     u:object_r:netcat_exec:s0
 #HTC_WIFI_END
-/system/bin/hcheck                       		u:object_r:hcheck_exec:s0
 /system/bin/hcheck-v2                           u:object_r:wv-prov_exec:s0
 /dev/htcdrm                                     u:object_r:htcdrm_device:s0
 /system/bin/readDapCert                         u:object_r:read_dap_cert_exec:s0

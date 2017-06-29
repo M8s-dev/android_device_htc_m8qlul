@@ -1,0 +1,8 @@
+type wv-prov, domain;
+type wv-prov_exec, exec_type, file_type;
+
+
+init_daemon_domain(wv-prov)
+
+allow wv-prov wv-prov:capability dac_override;
+allow wv-prov tee_device:chr_file rw_file_perms;
