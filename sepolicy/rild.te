@@ -1,2 +1,5 @@
 allow rild carrier_file:file rw_file_perms;
 allow rild carrier_file:file create_file_perms;
+allow rild carrier_file:dir search;
+allow rild system_prop:property_service set;
+
