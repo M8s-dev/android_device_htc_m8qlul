@@ -1,4 +1,6 @@
 allow ueventd sysfs_usb_adw:file { getattr };
 allow ueventd sysfs_g_sensor:file { write open getattr };
 allow ueventd sysfs_sensor_hub:file {  open getattr };
-allow ueventd sysfs_sensor_hub:dir { read open };
+allow ueventd sysfs_sensor_hub:dir { read open getattr search };
+allow ueventd sysfs_sensor_hub:lnk_file getattr;
+allow ueventd sysfs_usb_mirror_link:file { write open };

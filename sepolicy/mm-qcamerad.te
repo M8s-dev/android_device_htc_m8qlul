@@ -1,0 +1,3 @@
+#allow mm-qcamerad default_prop:property_service set;
+allow mm-qcamerad mm-qcamerad_device:chr_file { read write open };
+
