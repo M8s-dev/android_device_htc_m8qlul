@@ -9,4 +9,7 @@ allow init wv-prov_exec:file { getattr execute read open };
 allow init tee_device:chr_file rw_file_perms;
 allow init debugfs:dir { mounton };
 
+allow init sysfs_usb_adw:file relabelto;
+
+
 
