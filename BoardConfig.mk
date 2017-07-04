@@ -126,10 +126,6 @@ TARGET_USES_ION := true
 TARGET_USES_OVERLAY := true
 USE_OPENGL_RENDERER := true
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
-
-BOARD_HARDWARE_CLASS := \
-    $(DEVICE_PATH)/cmhw
-
 # }}}
 
 # Dexopt    {{{
@@ -223,6 +219,7 @@ TARGET_SYSTEM_PROP += \
 # Qualcomm support    {{{
 BOARD_USES_QC_TIME_SERVICES := true
 BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_CYANOGEN_HARDWARE := true
 # }}}
 
 # TWRP {{{
