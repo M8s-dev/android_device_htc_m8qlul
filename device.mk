@@ -239,10 +239,6 @@ PRODUCT_PACKAGES += \
     nfc_nci.pn54x.default \
     Tag
 
-# Thermal
-PRODUCT_COPY_FILES += \ 
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
-
 ifneq ($(TARGET_BUILD_VARIANT),eng)
     NFCEE_ACCESS_PATH := $(LOCAL_PATH)/configs/nfc/nfcee_access.xml
 else
