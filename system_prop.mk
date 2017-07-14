@@ -43,6 +43,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=true
 
+# Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.cpp.duplication=false
+
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true \
