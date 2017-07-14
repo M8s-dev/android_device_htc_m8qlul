@@ -1029,7 +1029,7 @@ so we keep speaker for output device -->
     </path>
 
     <path name="handset-mic">
-        <path name="adc1" />
+        <path name="line-vr" />
     </path>
 
     <path name="headset-mic">
