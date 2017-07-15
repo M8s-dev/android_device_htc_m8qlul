@@ -34,7 +34,7 @@ import init.qcom.usb.rc
 import init.htc.usb.rc
 import init.extras.rc
 import init.sensors.rc
-import init.htc.power.rc
+import init.qcom.power.rc
 
 # End imports }}}
 
