@@ -295,7 +295,7 @@ PRODUCT_PACKAGES += \
     init.htc.usb.rc \
     init.extras.rc \
     init.sensors.rc \
-    init.htc.power.rc \
+    init.qcom.power.rc \
     ueventd.qcom.rc
 
 PRODUCT_PACKAGES += \
