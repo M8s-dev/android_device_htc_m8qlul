@@ -67,7 +67,7 @@ on init
     # {{{
 
     export LD_PRELOAD "libshim_camera.so"
-    export LD_SHIM_LIBS "/system/lib/liblog.so|/system/lib/liblog_shim.so/system/lib64/liblog.so|/system/lib64/liblog_shim.so:/system/lib64/libril.so|/system/lib64/libshim_ril.so"
+    export LD_SHIM_LIBS "/system/lib/liblog.so|/system/lib/liblog_shim.so:/system/lib64/liblog.so|/system/lib64/liblog_shim.so:/system/lib64/libril.so|/system/lib64/libshim_ril.so"
 
     chmod 0644 /proc/cmdline/
 
