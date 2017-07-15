@@ -215,7 +215,7 @@ PRODUCT_PACKAGES += \
 
 # HTC Log Symbols
 PRODUCT_PACKAGES += \
-    libc_htc_symbols
+    liblog_shim
 # RIL  
 PRODUCT_PACKAGES += \
     libshim_ril

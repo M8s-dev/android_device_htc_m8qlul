@@ -18,7 +18,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := \
     htc_log.c
 
-LOCAL_MODULE := libc_htc_symbols
+LOCAL_MODULE := liblog_shim
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 
 include $(BUILD_SHARED_LIBRARY)
