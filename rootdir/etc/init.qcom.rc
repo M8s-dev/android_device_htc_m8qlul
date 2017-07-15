@@ -834,6 +834,28 @@ service wv-prov /system/bin/hcheck-v2
     user root
     oneshot
 
+service mpdecision /system/bin/mpdecision --avg_comp
+    class late_start
+    user root
+    disabled
+
+service thermal-engine /system/vendor/bin/thermal-engine
+    class main
+    user root
+    socket thermal-send-client stream 0666 system system
+    socket thermal-recv-client stream 0660 system system
+    socket thermal-recv-passive-client stream 0666 system system
+    group root
+
+service pnpmgr /system/bin/pnpmgr
+    class core
+    user root
+
+service memlock /system/bin/memlock
+    class main
+    cgroup bg
+    user root
+
 # }}}
 
 

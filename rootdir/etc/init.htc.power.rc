@@ -26,116 +26,94 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 on init
-# init PnPMgr node
-    chmod 0664 /sys/power/pnpmgr/apps/media_mode
-    chown media system /sys/power/pnpmgr/apps/media_mode
-    chown system /sys/power/pnpmgr/apps/activity_trigger
-    chown system /sys/power/pnpmgr/apps/non_activity_trigger
-    chown system /sys/power/pnpmgr/launch_event
-    chown system /sys/power/powersave
-    chown system /sys/power/pnpmgr/cluster/big/user_perf_lvl
-    chown system /sys/power/pnpmgr/cluster/big/user_lvl_to_min_freq
-    chown system /sys/power/pnpmgr/cluster/big/hotplug/user_cpunum_max
-    chown system /sys/power/pnpmgr/cluster/big/hotplug/user_cpunum_min
-    chown system /sys/power/pnpmgr/cluster/little/user_perf_lvl
-    chown system /sys/power/pnpmgr/cluster/little/user_lvl_to_min_freq
-    chown system /sys/power/pnpmgr/cluster/little/hotplug/user_cpunum_max
-    chown system /sys/power/pnpmgr/cluster/little/hotplug/user_cpunum_min
-    chown system /sys/power/pnpmgr/touch_boost
-    chown system /sys/power/pnpmgr/long_duration_touch_boost
-    chown system /sys/power/wait_for_fb_status
-
-    write /sys/power/pnpmgr/cluster/big/hotplug/mp_cpunum_max 4
-    write /sys/power/pnpmgr/cluster/big/hotplug/mp_cpunum_min 1
-    write /sys/power/pnpmgr/cluster/little/hotplug/mp_cpunum_max 4
-    write /sys/power/pnpmgr/cluster/little/hotplug/mp_cpunum_min 0
-    write /sys/power/pnpmgr/thermal/cpu_asn 0
-    write /sys/power/pnpmgr/apps/activity_trigger "booting"
-    write /sys/power/pnpmgr/touch_boost_duration 3000
-    write /sys/power/pnpmgr/long_duration_touch_boost_duration 3000
-
     write /dev/cpuset/cpu_exclusive 0
     write /dev/cpuset/background/cpus "4"
     write /dev/cpuset/foreground/cpus "0-7"
     write /dev/cpuset/system-background/cpus "0-7"
 
-# HTC SSD Battery - BEGIN
-    chown system system /sys/class/power_supply/battery/full_level_dis_batt_chg
-    chmod 0220 /sys/class/power_supply/battery/full_level_dis_batt_chg
-    chown radio radio /sys/class/power_supply/battery/phone_call
-    chmod 0660 /sys/class/power_supply/battery/phone_call
-    chown media media /sys/class/power_supply/battery/play_music
-    chmod 0220 /sys/class/power_supply/battery/play_music
-    chown radio radio /sys/class/power_supply/battery/network_search
-    chmod 0220 /sys/class/power_supply/battery/network_search
-    chown system system /sys/class/power_supply/battery/navigation
-    chmod 0220 /sys/class/power_supply/battery/navigation
-    chown system system /sys/class/power_supply/battery/disable_limit_chg
-    chmod 0220 /sys/class/power_supply/battery/disable_limit_chg
-# HTC SSD Battery - END
+on enable-low-power
 
-    chown root system /sys/devices/system/cpu/cpu1/online
-    chmod 0664 /sys/devices/system/cpu/cpu1/online
-    chown root system /sys/devices/system/cpu/cpu2/online
-    chmod 0664 /sys/devices/system/cpu/cpu2/online
-    chown root system /sys/devices/system/cpu/cpu3/online
-    chmod 0664 /sys/devices/system/cpu/cpu3/online
-    chown root system /sys/devices/system/cpu/cpu4/online
-    chmod 0664 /sys/devices/system/cpu/cpu4/online
-    chown root system /sys/devices/system/cpu/cpu5/online
-    chmod 0664 /sys/devices/system/cpu/cpu5/online
-    chown root system /sys/devices/system/cpu/cpu6/online
-    chmod 0664 /sys/devices/system/cpu/cpu6/online
-    chown root system /sys/devices/system/cpu/cpu7/online
-    chmod 0664 /sys/devices/system/cpu/cpu7/online
+    # HMP scheduler load tracking settings
+    write /proc/sys/kernel/sched_ravg_hist_size 5
 
-    chown root system /sys/power/pnpmgr/thermal/cpu_asn
-    chmod 0664 /sys/power/pnpmgr/thermal/cpu_asn
+    # HMP Task packing settings for 8939, 8929
+    write /proc/sys/kernel/sched_small_task 20
 
-    chown system system /sys/power/pnpmgr/apps/trace_trigger
-    chmod 0664 /sys/power/pnpmgr/apps/trace_trigger
+    write /sys/class/devfreq/qcom,mincpubw.65/governor "cpufreq"
+    write /sys/class/devfreq/qcom,cpubw.64/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,cpubw.64/bw_hwmon/io_percent 20 
+    write /sys/class/devfreq/qcom,gpubw.61/bw_hwmon/io_percent 40
 
-service mpdecision /system/bin/mpdecision --avg_comp
-    class core
-    user root
-    disabled
+    # disable thermal core_control to update interactive gov settings
+    write /sys/module/msm_thermal/core_control/enabled 0
 
-service thermal-engine /system/vendor/bin/thermal-engine
-    class main
-    user root
-    socket thermal-send-client stream 0666 system system
-    socket thermal-recv-client stream 0660 system system
-    socket thermal-recv-passive-client stream 0666 system system
-    group root
+    # enable governor for perf cluster
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "20000 1113600:50000"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 85
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1113600
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "1 960000:85 1113600:90 1344000:80"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/sampling_down_factor 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 960000
 
-service pnpmgr /system/bin/pnpmgr
-    class core
-    user root
+    # enable governor for power cluster
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay "25000 800000:50000"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 90
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 998400
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads "1 800000:90"
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/interactive/sampling_down_factor 40000
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 800000
 
-service memlock /system/bin/memlock
-    class main
-    cgroup bg
-    user root
+    # enable thermal core_control now
+    write /sys/module/msm_thermal/core_control/enabled 1
 
-on property:init.svc.thermal-engine=stopped
-    write /sys/power/pnpmgr/thermal/thermal_final_bcpu 999999999
-    write /sys/power/pnpmgr/thermal/thermal_final_lcpu 999999999
-    write /sys/power/pnpmgr/thermal/thermal_final_gpu 999999999
-    write /sys/power/pnpmgr/thermal/thermal_batt 0
-    write /sys/power/pnpmgr/cluster/big/cpu0/thermal_freq 999999999
-    write /sys/power/pnpmgr/cluster/little/cpu0/thermal_freq 999999999
+    # Bring up all cores online
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
 
-service clockd /system/bin/clockd
-    class main
-    user root
+    # Enable low power modes
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
-service qb_offmode_alarm /system/bin/qb_offmode_alarm
-    class main
-    user root
-    disabled
-    oneshot
+    # HMP scheduler (big.Little cluster related) settings
+    write /proc/sys/kernel/sched_upmigrate 75
+    write /proc/sys/kernel/sched_downmigrate 60
 
-service zchgd_offmode /system/bin/zchgd -pseudooffmode -autostop -poffmodewarn
-    user root
-    group root graphics
-    disabled
+    # cpu idle load threshold
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu6/sched_mostly_idle_load 30
+    write /sys/devices/system/cpu/cpu7/sched_mostly_idle_load 30
+
+    # cpu idle nr run threshold
+    write /sys/devices/system/cpu/cpu0/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu1/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu2/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu3/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu4/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu5/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu6/sched_mostly_idle_nr_run 3
+    write /sys/devices/system/cpu/cpu7/sched_mostly_idle_nr_run 3
+
+on class_start:late_start
+    trigger enable-low-power
+
+on property:init.svc.recovery=running
+    trigger enable-low-power

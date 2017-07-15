@@ -51,6 +51,70 @@ on init
     chmod 0660 /dev/timer_group/bg/tasks
     write /dev/timer_group/bg/timer_slack.min_slack_ns 100000000
 
+    # init PnPMgr node
+    chmod 0664 /sys/power/pnpmgr/apps/media_mode
+    chown media system /sys/power/pnpmgr/apps/media_mode
+    chown system /sys/power/pnpmgr/apps/activity_trigger
+    chown system /sys/power/pnpmgr/apps/non_activity_trigger
+    chown system /sys/power/pnpmgr/launch_event
+    chown system /sys/power/powersave
+    chown system /sys/power/pnpmgr/cluster/big/user_perf_lvl
+    chown system /sys/power/pnpmgr/cluster/big/user_lvl_to_min_freq
+    chown system /sys/power/pnpmgr/cluster/big/hotplug/user_cpunum_max
+    chown system /sys/power/pnpmgr/cluster/big/hotplug/user_cpunum_min
+    chown system /sys/power/pnpmgr/cluster/little/user_perf_lvl
+    chown system /sys/power/pnpmgr/cluster/little/user_lvl_to_min_freq
+    chown system /sys/power/pnpmgr/cluster/little/hotplug/user_cpunum_max
+    chown system /sys/power/pnpmgr/cluster/little/hotplug/user_cpunum_min
+    chown system /sys/power/pnpmgr/touch_boost
+    chown system /sys/power/pnpmgr/long_duration_touch_boost
+    chown system /sys/power/wait_for_fb_status
+
+    write /sys/power/pnpmgr/cluster/big/hotplug/mp_cpunum_max 4
+    write /sys/power/pnpmgr/cluster/big/hotplug/mp_cpunum_min 1
+    write /sys/power/pnpmgr/cluster/little/hotplug/mp_cpunum_max 4
+    write /sys/power/pnpmgr/cluster/little/hotplug/mp_cpunum_min 0
+    write /sys/power/pnpmgr/thermal/cpu_asn 0
+    write /sys/power/pnpmgr/apps/activity_trigger "booting"
+    write /sys/power/pnpmgr/touch_boost_duration 3000
+    write /sys/power/pnpmgr/long_duration_touch_boost_duration 3000
+
+    # HTC SSD Battery - BEGIN
+    chown system system /sys/class/power_supply/battery/full_level_dis_batt_chg
+    chmod 0220 /sys/class/power_supply/battery/full_level_dis_batt_chg
+    chown radio radio /sys/class/power_supply/battery/phone_call
+    chmod 0660 /sys/class/power_supply/battery/phone_call
+    chown media media /sys/class/power_supply/battery/play_music
+    chmod 0220 /sys/class/power_supply/battery/play_music
+    chown radio radio /sys/class/power_supply/battery/network_search
+    chmod 0220 /sys/class/power_supply/battery/network_search
+    chown system system /sys/class/power_supply/battery/navigation
+    chmod 0220 /sys/class/power_supply/battery/navigation
+    chown system system /sys/class/power_supply/battery/disable_limit_chg
+    chmod 0220 /sys/class/power_supply/battery/disable_limit_chg
+    # HTC SSD Battery - END
+
+    chown root system /sys/devices/system/cpu/cpu1/online
+    chmod 0664 /sys/devices/system/cpu/cpu1/online
+    chown root system /sys/devices/system/cpu/cpu2/online
+    chmod 0664 /sys/devices/system/cpu/cpu2/online
+    chown root system /sys/devices/system/cpu/cpu3/online
+    chmod 0664 /sys/devices/system/cpu/cpu3/online
+    chown root system /sys/devices/system/cpu/cpu4/online
+    chmod 0664 /sys/devices/system/cpu/cpu4/online
+    chown root system /sys/devices/system/cpu/cpu5/online
+    chmod 0664 /sys/devices/system/cpu/cpu5/online
+    chown root system /sys/devices/system/cpu/cpu6/online
+    chmod 0664 /sys/devices/system/cpu/cpu6/online
+    chown root system /sys/devices/system/cpu/cpu7/online
+    chmod 0664 /sys/devices/system/cpu/cpu7/online
+
+    chown root system /sys/power/pnpmgr/thermal/cpu_asn
+    chmod 0664 /sys/power/pnpmgr/thermal/cpu_asn
+
+    chown system system /sys/power/pnpmgr/apps/trace_trigger
+    chmod 0664 /sys/power/pnpmgr/apps/trace_trigger
+
     # Enable KSM following Google's guidelines:
     # https://source.android.com/devices/tech/config/low-ram.html
     write /sys/kernel/mm/ksm/pages_to_scan 100
