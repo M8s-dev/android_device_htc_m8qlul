@@ -166,7 +166,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 # }}}
 
 # Malloc    {{{
-MALLOC_IMPL := dlmalloc
+MALLOC_SVELTE := true
 # }}}
 
 # NFC   {{{
