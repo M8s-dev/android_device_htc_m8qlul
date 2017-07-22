@@ -258,6 +258,10 @@ BOARD_SEPOLICY_DIRS += \
 
 # }}}
 
+# Shim {{{
+LINKER_FORCED_SHIM_LIBS := /system/lib/liblog.so|/system/lib/liblog_shim.so:/system/lib64/liblog.so|/system/lib64/liblog_shim.so:/system/lib64/libril.so|/system/lib64/libshim_ril.so:/system/lib/libstagefright.so|/system/lib/libshim_camera.so:/system/lib64/libstagefright.so|/system/lib64/libshim_camera.so:/system/lib/libandroid_runtime.so|libshim_camera.so:/system/lib64/libandroid_runtime.so|libshim_camera.so:/system/lib/libmedia.so|libshim_camera.so:/system/lib64/libmedia.so|libshim_camera.so
+# }}}
+
 # Video    {{{
 TARGET_HAVE_SIGNED_VENUS_FW := true
 # }}}
