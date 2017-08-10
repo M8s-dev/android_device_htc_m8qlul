@@ -728,10 +728,12 @@ service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqb
    class core
     user root
     group root
+    writepid /dev/cpuset/system-background/tasks
     disabled
 
 service netmgrd /system/bin/netmgrd
     class core
+    writepid /dev/cpuset/system-background/tasks
 
 service p2p_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -747,6 +749,7 @@ service p2p_supplicant /system/bin/wpa_supplicant \
 
 service perfd /system/bin/perfd
    user root
+   writepid /dev/cpuset/system-background/tasks
    disabled
 
 service ptt_socket_app /system/bin/ptt_socket_app
@@ -759,6 +762,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
+    writepid /dev/cpuset/system-background/tasks
 
 service qcom-post-boot /system/bin/sh /system/etc/init.m8qlul.post_boot.sh
     class late_start
@@ -780,11 +784,13 @@ service qmuxd /system/bin/qmuxd
     class core
     user radio
     group radio audio bluetooth gps qcom_diag
+    writepid /dev/cpuset/system-background/tasks
 
 service qseecomd /system/bin/qseecomd
     class main
     user root
     group root
+    writepid /dev/cpuset/system-background/tasks
     disabled
 
 service rfs_access /system/bin/rfs_access
@@ -803,11 +809,13 @@ service ril-daemon2 /system/bin/rild -c 2
 service rmt_storage /system/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
     class core
     user root
+    writepid /dev/cpuset/system-background/tasks
 
 service time_daemon /system/bin/time_daemon
     class late_start
     user root
     group root
+    writepid /dev/cpuset/system-background/tasks
 
 service vm_bms /system/bin/vm_bms
     user root
@@ -846,6 +854,7 @@ service thermal-engine /system/vendor/bin/thermal-engine
     socket thermal-recv-client stream 0660 system system
     socket thermal-recv-passive-client stream 0666 system system
     group root
+    writepid /dev/cpuset/system-background/tasks
 
 service pnpmgr /system/bin/pnpmgr
     class core

@@ -25,11 +25,11 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-on init
+on boot
     write /dev/cpuset/cpu_exclusive 0
-    write /dev/cpuset/background/cpus "4"
-    write /dev/cpuset/foreground/cpus "0-7"
-    write /dev/cpuset/system-background/cpus "0-7"
+    write /dev/cpuset/background/cpus 4
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/system-background/cpus 0-7
 
 on enable-low-power
 
