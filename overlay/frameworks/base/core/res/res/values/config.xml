@@ -206,12 +206,6 @@
     
     <!-- Do not use on and off time for M8s. It is predifined by kernel -->
 
-    <!-- Default LED on time for notification LED in milliseconds. -->
-    <!-- integer name="config_defaultNotificationLedOn">1000</integer -->
-
-    <!-- Default LED off time for notification LED in milliseconds. -->
-    <!-- integer name="config_defaultNotificationLedOff">9000</integer -->
-
     <!-- Default value for led color when battery is low on charge -->
     <integer name="config_notificationsBatteryLowARGB">0x00FF0000</integer>
 
@@ -226,10 +220,6 @@
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
-
-    <!-- Does the notification LED support multiple colors?
-         Used to decide if the user can change the colors -->
-    <!-- bool name="config_multiColorNotificationLed">true</bool -->
 
     <!-- /Light sensors }}} -->
 
