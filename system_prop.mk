@@ -27,10 +27,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true \
     mmp.enable.3g2=true
 
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    mm.enable.smoothstreaming=true
-
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecall=true \
     persist.audio.fluence.voicerec=false \
