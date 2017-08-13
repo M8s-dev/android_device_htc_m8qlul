@@ -45,7 +45,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.cpp.duplication=false
+    persist.camera.cpp.duplication=false \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true 
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
