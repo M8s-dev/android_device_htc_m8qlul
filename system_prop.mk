@@ -32,7 +32,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.cpp.duplication=false
+    persist.camera.cpp.duplication=false \
+    persist.camera.tuning_spec=htc \
+    camera.lowpower.record.enable=1
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
