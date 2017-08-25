@@ -138,10 +138,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.baseband.arch=msm \
     ro.telephony.default_network=9
 
-# Scheduler
-PRODUCT_PROPERTY_OVERRIDES += \
-    sys.io.scheduler=bfq
-
 #Storage
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.fuse_sdcard=true
