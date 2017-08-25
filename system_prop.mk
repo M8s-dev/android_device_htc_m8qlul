@@ -7,10 +7,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.buffer.size.kb=1024 \
     audio.offload.multiple.enabled=false \
     audio.offload.buffer.size.kb=1024 \
-    audio.offload.gapless.enabled=false
-
-#added by root-expert
-PRODUCT_PROPERTY_OVERRIDES += \
+    audio.offload.gapless.enabled=false \
     ro.qc.sdk.audio.ssr=false \
     voice.playback.conc.disabled=true \
     voice.record.conc.disabled=false \
@@ -68,12 +65,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.netmgrd.qos.enable=true \
-    ro.use_data_netmgrd=true
-
-# Radio - added by root-expert
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.qmi.adb_logmask=3 \
-    persist.radio.adb_log_on=1 \
     persist.radio.fill_eons=1 \
     DEVICE_PROVISIONED=1 \
     persist.cne.feature=1 \
@@ -87,10 +78,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring.multiple=false
 
-# Recovery
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    ro.cwm.forbid_format=/boot,/firmware,/mpt,/persist,/persist-lg,/sns
-
 # USB
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
@@ -100,7 +87,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #####################################################
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.isa.arm64.features=div
+   dalvik.vm.isa.arm64.features=div
 
 # ActivityManager optimizations
 PRODUCT_PROPERTY_OVERRIDES += \
