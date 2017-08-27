@@ -280,9 +280,6 @@ PRODUCT_PACKAGES += \
     libOmxSwVencMpeg4 \
     libstagefrighthw
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
 # Power HAL
 PRODUCT_PACKAGES += \
     power.qcom \
