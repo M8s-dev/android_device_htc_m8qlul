@@ -86,9 +86,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Start of void's additions based on stock htc_m8qlul
 #####################################################
 
-PRODUCT_PROPERTY_OVERRIDES += \
-   dalvik.vm.isa.arm64.features=div
-
 # ActivityManager optimizations
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.max_starting_bg=4
