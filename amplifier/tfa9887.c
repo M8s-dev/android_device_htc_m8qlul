@@ -154,14 +154,18 @@ void * write_dummy_data(void *param)
         goto err_close_pcm;
     }
 
+    bool signaled = false;
     do {
         if (pcm_write(pcm, buffer, size)) {
             ALOGE("%s: pcm_write failed", __func__);
         }
-        pthread_mutex_lock(&amp->mutex);
-        amp->writing = true;
-        pthread_cond_signal(&amp->cond);
-        pthread_mutex_unlock(&amp->mutex);
+        if (!signaled) {
+            pthread_mutex_lock(&amp->mutex);
+            amp->writing = true;
+            pthread_cond_signal(&amp->cond);
+            pthread_mutex_unlock(&amp->mutex);
+            signaled = true;
+        }
     } while (amp->initializing);
 
 err_free:
