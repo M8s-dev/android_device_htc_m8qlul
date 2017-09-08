@@ -17,8 +17,6 @@
 
 #pragma once
 
-#include <system/audio.h>
-
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -101,7 +99,7 @@ struct tfa9887_amp_t {
     int fd;
     bool is_right;
     bool is_on;
-    uint32_t mode;
+    int mode;
     bool initializing;
     bool writing;
     pthread_t write_thread;
@@ -219,5 +217,5 @@ struct tfa9887_amp_t {
 
 int tfa9887_open(void);
 int tfa9887_power(bool on);
-int tfa9887_set_mode(audio_mode_t mode);
+int tfa9887_set_mode(int mode);
 int tfa9887_close(void);
