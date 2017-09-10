@@ -590,6 +590,10 @@ so we keep speaker for output device -->
         <ctl name="Voip_Tx Mixer TERT_MI2S_TX_Voip" value="1" />
     </path>
 
+    <path name="compress-voip-call voice-speaker">
+	<path name="compress-voip-call speaker"/>
+    </path>
+
     <path name="htc-dummy-ctrl">
         <ctl name="PRI_MI2S_DL_COMPR_STUB Switch" value="1" />
     </path>
