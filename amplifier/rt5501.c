@@ -94,6 +94,7 @@ int rt5501_set_mode(audio_mode_t mode) {
         ALOGE("error querying headset impedance");
 
     switch(mode) {
+        default:
         case AUDIO_MODE_NORMAL:
             /* For headsets with a impedance between 128ohm and 1000ohm */
             if (headsetohm >= HEADSET_128OM && headsetohm <= HEADSET_1KOM) {
@@ -121,13 +122,6 @@ int rt5501_set_mode(audio_mode_t mode) {
             amp_config.reg_len = sizeof(rt5501_voice_data) / sizeof(struct rt5501_reg_data);
             memcpy(&amp_config.reg, rt5501_voice_data, sizeof(rt5501_voice_data));
             amp_data.out_mode = RT5501_MODE_VOICE;
-            amp_data.config = amp_config;
-            break;
-        default:
-            ALOGI("Mode: Default");
-            amp_config.reg_len = sizeof(rt5501_playback_data) / sizeof(struct rt5501_reg_data);
-            memcpy(&amp_config.reg, rt5501_playback_data, sizeof(rt5501_playback_data));
-            amp_data.out_mode = RT5501_MODE_PLAYBACK;
             amp_data.config = amp_config;
             break;
     }
