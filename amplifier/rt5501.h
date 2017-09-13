@@ -17,51 +17,56 @@
 #ifndef _RT5501_H_
 #define _RT5501_H_
 
-#define RT5501_DEVICE "/dev/rt5501"
-#define RT5501_MAX_REG_DATA 15
+#define RT55XX_DEVICE "/dev/rt5501"
+#define RT55XX_MAX_REG_DATA 15
 
-struct rt5501_reg_data {
+struct rt55xx_reg_data {
     unsigned char addr;
     unsigned char val;
 };
 
-struct rt5501_config {
+struct rt55xx_config {
     unsigned int reg_len;
-    struct rt5501_reg_data reg[RT5501_MAX_REG_DATA];
+    struct rt55xx_reg_data reg[RT55XX_MAX_REG_DATA];
 };
 
-struct rt5501_comm_data {
+struct rt55xx_comm_data {
     unsigned int out_mode;
-    struct rt5501_config config;
+    struct rt55xx_config config;
+};
+
+struct rt55xx_config_data {
+    unsigned int mode_num;
+    struct rt55xx_comm_data cmd_data[RT55XX_MAX_MODE];  /* [mode][mode_kind][reserve][cmds..] */
 };
 
 enum {
-    RT5501_INIT = 0,
-    RT5501_MUTE,
-    RT5501_MAX_FUNC
+    RT55XX_INIT = 0,
+    RT55XX_MUTE,
+    RT55XX_MAX_FUNC
 };
 
-enum RT5501_Mode {
-    RT5501_MODE_OFF = RT5501_MAX_FUNC,
-    RT5501_MODE_PLAYBACK,
-    RT5501_MODE_PLAYBACK8OH,
-    RT5501_MODE_PLAYBACK16OH,
-    RT5501_MODE_PLAYBACK32OH,
-    RT5501_MODE_PLAYBACK64OH,
-    RT5501_MODE_PLAYBACK128OH,
-    RT5501_MODE_PLAYBACK256OH,
-    RT5501_MODE_PLAYBACK500OH,
-    RT5501_MODE_PLAYBACK1KOH,
-    RT5501_MODE_VOICE,
-    RT5501_MODE_TTY,
-    RT5501_MODE_FM,
-    RT5501_MODE_RING,
-    RT5501_MODE_MFG,
-    RT5501_MODE_BEATS_8_64,
-    RT5501_MODE_BEATS_128_500,
-    RT5501_MODE_MONO,
-    RT5501_MODE_MONO_BEATS,
-    RT5501_MAX_MODE
+enum RT55XX_MODE {
+    RT55XX_MODE_OFF = RT55XX_MAX_FUNC,
+    RT55XX_MODE_PLAYBACK,
+    RT55XX_MODE_PLAYBACK8OH,
+    RT55XX_MODE_PLAYBACK16OH,
+    RT55XX_MODE_PLAYBACK32OH,
+    RT55XX_MODE_PLAYBACK64OH,
+    RT55XX_MODE_PLAYBACK128OH,
+    RT55XX_MODE_PLAYBACK256OH,
+    RT55XX_MODE_PLAYBACK500OH,
+    RT55XX_MODE_PLAYBACK1KOH,
+    RT55XX_MODE_VOICE,
+    RT55XX_MODE_TTY,
+    RT55XX_MODE_FM,
+    RT55XX_MODE_RING,
+    RT55XX_MODE_MFG,
+    RT55XX_MODE_BEATS_8_64,
+    RT55XX_MODE_BEATS_128_500,
+    RT55XX_MODE_MONO,
+    RT55XX_MODE_MONO_BEATS,
+    RT55XX_MAX_MODE
 };
 
 enum HEADSET_OM {
@@ -77,14 +82,15 @@ enum HEADSET_OM {
     HEADSET_OM_UNDER_DETECT,
 };
 
-#define RT5501_IOCTL_MAGIC 'g'
-#define RT5501_SET_CONFIG   _IOW(RT5501_IOCTL_MAGIC, 0x01,  unsigned)
-#define RT5501_READ_CONFIG  _IOW(RT5501_IOCTL_MAGIC, 0x02, unsigned)
-#define RT5501_SET_MODE        _IOW(RT5501_IOCTL_MAGIC, 0x03, unsigned)
-#define RT5501_SET_PARAM       _IOW(RT5501_IOCTL_MAGIC, 0x04,  unsigned)
-#define RT5501_WRITE_REG       _IOW(RT5501_IOCTL_MAGIC, 0x07,  unsigned)
-#define RT5501_QUERY_OM       _IOW(RT5501_IOCTL_MAGIC, 0x08,  unsigned)
+#define RT55XX_IOCTL_MAGIC      'g'
+//#define RT55XX_SET_CONFIG     _IOW(RT55XX_IOCTL_MAGIC, 0x01, unsigned)
+//#define RT55XX_READ_CONFIG    _IOR(RT55XX_IOCTL_MAGIC, 0x02, unsigned)
+#define RT55XX_SET_MODE         _IOW(RT55XX_IOCTL_MAGIC, 0x03, int)
+#define RT55XX_SET_PARAM        _IOW(RT55XX_IOCTL_MAGIC, 0x04, struct rt55xx_config_data)
+//#define RT55XX_WRITE_REG      _IOW(RT55XX_IOCTL_MAGIC, 0x07, unsigned)
+#define RT55XX_QUERY_OM         _IOR(RT55XX_IOCTL_MAGIC, 0x08, int)
 
-int rt5501_set_mode(audio_mode_t mode);
+int rt55xx_open(void);
+int rt55xx_set_mode(audio_mode_t mode);
 
 #endif

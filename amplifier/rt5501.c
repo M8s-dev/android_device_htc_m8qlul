@@ -17,6 +17,7 @@
 #define LOG_TAG "rt5501"
 //#define LOG_NDEBUG 0
 
+#include <errno.h>
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
@@ -27,111 +28,171 @@
 
 #include "rt5501.h"
 
-static struct rt5501_reg_data rt5501_playback_data[] = {
-    { 0x00, 0xC0, },
-    { 0x01, 0x1A, }, // gain -2dB
-    { 0x02, 0x80, }, // noise gate on
-    { 0x08, 0x37, }, // noise gate on
-    { 0x07, 0x7F, }, // noise gate setting
-    { 0x09, 0x02, }, // noise gate setting
-    { 0x0A, 0x03, }, // noise gate setting
-    { 0x0B, 0xD8, }, // noise gate -4dB
-    { 0x93, 0xAD, }, // de -pop noise enlarge CP Freq
-    { 0x90, 0x93, }, // fix 1X mode
+static struct rt55xx_config rt55xx_playback_config = {
+    .reg_len = 10,
+    .reg = {
+        { 0x00, 0xC0, },
+        { 0x01, 0x1A, }, // gain -2dB
+        { 0x02, 0x80, }, // noise gate on
+        { 0x08, 0x37, }, // noise gate on
+        { 0x07, 0x7F, }, // noise gate setting
+        { 0x09, 0x02, }, // noise gate setting
+        { 0x0A, 0x03, }, // noise gate setting
+        { 0x0B, 0xD8, }, // noise gate -4dB
+        { 0x93, 0xAD, }, // de -pop noise enlarge CP Freq
+        { 0x90, 0x93, }, // fix 1X mode
+    },
 };
 
-static struct rt5501_reg_data rt5501_playback_128_data[] = {
-    { 0x00, 0xC0, },
-    { 0x01, 0x1D, }, // gain +1dB
-    { 0x02, 0x80, }, // noise gate on
-    { 0x08, 0x37, }, // noise gate on
-    { 0x07, 0x7F, }, // noise gate setting
-    { 0x09, 0x02, }, // noise gate setting
-    { 0x0A, 0x03, }, // noise gate setting
-    { 0x0B, 0xD8, }, // noise gate -4dB
-    { 0x93, 0xAD, }, // de -pop noise enlarge CP Freq
-    { 0x90, 0x93, }, // fix 1X mode
+static struct rt55xx_config rt55xx_playback_128_config = {
+    .reg_len = 10,
+    .reg = {
+        { 0x00, 0xC0, },
+        { 0x01, 0x1D, }, // gain +1dB
+        { 0x02, 0x80, }, // noise gate on
+        { 0x08, 0x37, }, // noise gate on
+        { 0x07, 0x7F, }, // noise gate setting
+        { 0x09, 0x02, }, // noise gate setting
+        { 0x0A, 0x03, }, // noise gate setting
+        { 0x0B, 0xD8, }, // noise gate -4dB
+        { 0x93, 0xAD, }, // de -pop noise enlarge CP Freq
+        { 0x90, 0x93, }, // fix 1X mode
+    },
 };
 
-static struct rt5501_reg_data rt5501_ring_data[] = {
-    { 0x00, 0xC0, },
-    { 0x01, 0x0C, }, // gain -16dB
-    { 0x02, 0x81, }, // noise gate on
-    { 0x08, 0x01, }, // noise gate on
-    { 0x07, 0x7F, }, // noise gate setting
-    { 0x09, 0x01, }, // noise gate setting
-    { 0x0A, 0x00, }, // noise gate setting
-    { 0x0B, 0xC7, }, // noise gate -35dB
+static struct rt55xx_config rt55xx_ring_config = {
+    .reg_len = 8,
+    .reg = {
+        { 0x00, 0xC0, },
+        { 0x01, 0x0C, }, // gain -16dB
+        { 0x02, 0x81, }, // noise gate on
+        { 0x08, 0x01, }, // noise gate on
+        { 0x07, 0x7F, }, // noise gate setting
+        { 0x09, 0x01, }, // noise gate setting
+        { 0x0A, 0x00, }, // noise gate setting
+        { 0x0B, 0xC7, }, // noise gate -35dB
+    },
 };
 
-static struct rt5501_reg_data rt5501_voice_data[] = {
-    { 0x00, 0xC0, },
-    { 0x01, 0x1C, }, // gain 0dB
-    { 0x02, 0x00, }, // noise gate off
-    { 0x07, 0x7F, }, // noise gate setting
-    { 0x09, 0x01, }, // noise gate setting
-    { 0x0A, 0x00, }, // noise gate setting
-    { 0x0B, 0xC7, }, // noise gate setting
-    { 0x93, 0xAD, }, // de -pop noise enlarge CP Freq
-    { 0x90, 0x93, }, //fix 1X mode
+static struct rt55xx_config rt55xx_voice_config = {
+    .reg_len = 9,
+    .reg = {
+        { 0x00, 0xC0, },
+        { 0x01, 0x1C, }, // gain 0dB
+        { 0x02, 0x00, }, // noise gate off
+        { 0x07, 0x7F, }, // noise gate setting
+        { 0x09, 0x01, }, // noise gate setting
+        { 0x0A, 0x00, }, // noise gate setting
+        { 0x0B, 0xC7, }, // noise gate setting
+        { 0x93, 0xAD, }, // de -pop noise enlarge CP Freq
+        { 0x90, 0x93, }, //fix 1X mode
+    },
 };
 
-int rt5501_set_mode(audio_mode_t mode) {
-    struct rt5501_comm_data amp_data;
-    struct rt5501_config amp_config;
-    int headsetohm = HEADSET_OM_UNDER_DETECT;
-    int rt5501_fd;
-    int ret = -1;
+int rt55xx_open(void)
+{
+    int fd;
+    int rc = 0;
+    struct rt55xx_config_data cfg;
+
+    memset(&cfg, 0, sizeof(struct rt55xx_config_data));
+
+    cfg.mode_num = RT55XX_MAX_MODE;
+    cfg.cmd_data[RT55XX_MODE_PLAYBACK].config = rt55xx_playback_config;
+    //cfg.cmd_data[RT55XX_MODE_PLAYBACK8OH].config = rt55xx_playback_8_config;
+    //cfg.cmd_data[RT55XX_MODE_PLAYBACK16OH].config = rt55xx_playback_16_config;
+    //cfg.cmd_data[RT55XX_MODE_PLAYBACK32OH].config = rt55xx_playback_32_config;
+    //cfg.cmd_data[RT55XX_MODE_PLAYBACK64OH].config = rt55xx_playback_64_config
+    cfg.cmd_data[RT55XX_MODE_PLAYBACK128OH].config = rt55xx_playback_128_config;
+    //cfg.cmd_data[RT55XX_MODE_PLAYBACK256OH].config = rt55xx_playback_256_config;
+    //cfg.cmd_data[RT55XX_MODE_PLAYBACK500OH].config = rt55xx_playback_512_config;
+    //cfg.cmd_data[RT55XX_MODE_PLAYBACK1KOH].config = rt55xx_playback_1024_config;
+    cfg.cmd_data[RT55XX_MODE_VOICE].config = rt55xx_voice_config;
+    //cfg.cmd_data[RT55XX_MODE_TTY].config = rt55xx_tty_config;
+    //cfg.cmd_data[RT55XX_MODE_FM].config = rt55xx_fm_config;
+    cfg.cmd_data[RT55XX_MODE_RING].config = rt55xx_ring_config;
+    //cfg.cmd_data[RT55XX_MODE_MFG].config = rt55xx_mfg_config;
+    //cfg.cmd_data[RT55XX_MODE_BEATS_8_64].config = rt55xx_beats_8_64_config;
+    //cfg.cmd_data[RT55XX_MODE_BEATS_128_500].config = rt55xx_beats_128_500_config;
+    //cfg.cmd_data[RT55XX_MODE_MONO].config = rt55xx_mono_config;
+    //cfg.cmd_data[RT55XX_MODE_MONO_BEATS].config = rt55xx_mono_beats_config;
 
     /* Open the amplifier device */
-    if ((rt5501_fd = open(RT5501_DEVICE, O_RDWR)) < 0) {
-        ALOGE("error opening amplifier device %s", RT5501_DEVICE);
-        return -1;
+    if ((fd = open(RT55XX_DEVICE, O_RDWR)) < 0) {
+        rc = -errno;
+        ALOGE("%s: error opening amplifier device %s: %d\n",
+                __func__, RT55XX_DEVICE, rc);
+        goto open_err;
     }
 
+    /* Load config */
+    if ((rc = ioctl(fd, RT55XX_SET_PARAM, &cfg)) < 0) {
+        rc = -errno;
+        ALOGE("%s: ioctl RT55XX_SET_CONFIG failed, rc = %d\n",
+                __func__, rc);
+        goto open_err;
+    }
+
+open_err:
+    close(fd);
+    return rc;
+}
+
+int rt55xx_set_mode(audio_mode_t mode) {
+    int headsetohm = HEADSET_OM_UNDER_DETECT;
+    int fd, amp_mode;
+    int rc = 0;
+
+    /* Open the amplifier device */
+    if ((fd = open(RT55XX_DEVICE, O_RDWR)) < 0) {
+        rc = -errno;
+        ALOGE("%s: error opening amplifier device %s: %d\n",
+                __func__, RT55XX_DEVICE, rc);
+        goto set_mode_err;
+    }
+
+
     /* Get impedance of headset */
-    if (ioctl(rt5501_fd, RT5501_QUERY_OM, &headsetohm) < 0)
-        ALOGE("error querying headset impedance");
+    if ((rc = ioctl(fd, RT55XX_QUERY_OM, &headsetohm)) < 0) {
+        rc = -errno;
+        ALOGE("%s: error querying headset impedance: %d\n",
+                __func__, rc);
+        goto set_mode_err;
+    }
 
     switch(mode) {
         default:
         case AUDIO_MODE_NORMAL:
             /* For headsets with a impedance between 128ohm and 1000ohm */
             if (headsetohm >= HEADSET_128OM && headsetohm <= HEADSET_1KOM) {
-                ALOGI("Mode: Playback 128");
-                amp_config.reg_len = sizeof(rt5501_playback_128_data) / sizeof(struct rt5501_reg_data);
-                memcpy(&amp_config.reg, rt5501_playback_128_data, sizeof(rt5501_playback_128_data));
+                ALOGI("%s: Mode: Playback 128\n", __func__);
+                amp_mode = RT55XX_MODE_PLAYBACK128OH;
             } else {
-                ALOGI("Mode: Playback");
-                amp_config.reg_len = sizeof(rt5501_playback_data) / sizeof(struct rt5501_reg_data);
-                memcpy(&amp_config.reg, rt5501_playback_data, sizeof(rt5501_playback_data));
+                ALOGI("%s: Mode: Playback\n", __func__);
+                amp_mode = RT55XX_MODE_PLAYBACK;
             }
-            amp_data.out_mode = RT5501_MODE_PLAYBACK;
-            amp_data.config = amp_config;
             break;
         case AUDIO_MODE_RINGTONE:
-            ALOGI("Mode: Ring");
-            amp_config.reg_len = sizeof(rt5501_ring_data) / sizeof(struct rt5501_reg_data);
-            memcpy(&amp_config.reg, rt5501_ring_data, sizeof(rt5501_ring_data));
-            amp_data.out_mode = RT5501_MODE_RING;
-            amp_data.config = amp_config;
+            ALOGI("%s: Mode: Ring\n", __func__);
+            amp_mode = RT55XX_MODE_RING;
             break;
         case AUDIO_MODE_IN_CALL:
         case AUDIO_MODE_IN_COMMUNICATION:
-            ALOGI("Mode: Voice");
-            amp_config.reg_len = sizeof(rt5501_voice_data) / sizeof(struct rt5501_reg_data);
-            memcpy(&amp_config.reg, rt5501_voice_data, sizeof(rt5501_voice_data));
-            amp_data.out_mode = RT5501_MODE_VOICE;
-            amp_data.config = amp_config;
+            ALOGI("%s: Mode: Voice\n", __func__);
+            amp_mode = RT55XX_MODE_VOICE;
             break;
     }
 
     /* Set the selected config */
-    if ((ret = ioctl(rt5501_fd, RT5501_SET_CONFIG, &amp_data)) != 0) {
-        ALOGE("ioctl %d failed. ret = %d", RT5501_SET_CONFIG, ret);
+    if ((rc = ioctl(fd, RT55XX_SET_MODE, &amp_mode)) < 0) {
+        rc = -errno;
+        ALOGE("%s: ioctl RT55XX_SET_MODE failed, rc = %d\n",
+                __func__, rc);
+        goto set_mode_err;
     }
 
-    close(rt5501_fd);
+set_mode_err:
+    close(fd);
 
-    return ret;
+    return rc;
 }

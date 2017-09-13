@@ -59,7 +59,7 @@ static int amp_set_output_devices(amplifier_device_t *device, uint32_t devices)
         case SND_DEVICE_OUT_VOICE_HEADPHONES:
         case SND_DEVICE_OUT_VOIP_HEADPHONES:
         case SND_DEVICE_OUT_SPEAKER_AND_HEADPHONES:
-            rt5501_set_mode(dev->current_mode);
+            rt55xx_set_mode(dev->current_mode);
             break;
     }
     return 0;
@@ -135,6 +135,7 @@ static int amp_module_open(const hw_module_t *module, UNUSED const char *name,
     *device = (hw_device_t *) m8_dev;
 
     tfa9887_open();
+    rt55xx_open();
 
     return 0;
 }
