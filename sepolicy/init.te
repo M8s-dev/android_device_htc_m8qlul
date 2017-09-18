@@ -11,5 +11,9 @@ allow init debugfs:dir { mounton };
 
 allow init sysfs_usb_adw:file relabelto;
 
+allow init init:capability ipc_lock;
+allow init memlock_exec:file { execute getattr };
+
+allow kernel untrusted_app_tmpfs:file write;
 
 

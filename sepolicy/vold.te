@@ -1,0 +1,3 @@
+allow vold htc_ebdlogd_file:dir { open read };
+allow vold carrier_file:dir { open ioctl };
+allow vold apk_data_file:dir { open read ioctl };

@@ -1,0 +1,2 @@
+allow thermal-engine shell_data_file:dir { add_name open write search remove_name };
+allow thermal-engine shell_data_file:file { read write open create unlink getattr };

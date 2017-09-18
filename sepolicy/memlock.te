@@ -1,0 +1,5 @@
+type memlock, domain;
+
+init_daemon_domain(memlock)
+
+allow memlock memlock:capability ipc_lock;

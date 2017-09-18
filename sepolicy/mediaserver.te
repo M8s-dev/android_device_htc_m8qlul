@@ -1,2 +1,5 @@
 allow mediaserver system_server:unix_stream_socket { connectto read write setopt };
 allow mediaserver sensorservice_service:service_manager find;
+
+allow mediaserver audiod_device:chr_file { read write open ioctl };
+
