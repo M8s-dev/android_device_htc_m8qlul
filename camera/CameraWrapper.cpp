@@ -125,9 +125,6 @@ static char *camera_fixup_getparams(const char *settings)
 
     params.set("preview-frame-rate-mode", "frame-rate-fixed");
 
-    /* Fix HDR hanging after taking a photo */
-    params.set(android::CameraParameters::KEY_PREVIEW_SIZE, "1280x720");
-
      if (!strcmp(captureMode, "hdr")) {
 	params.set(android::CameraParameters::KEY_SCENE_MODE,
 		android::CameraParameters::SCENE_MODE_HDR);
@@ -166,9 +163,6 @@ static char *camera_fixup_setparams(int id, const char *settings)
  
     /* Enable fixed fps mode */
     params.set("preview-frame-rate-mode", "frame-rate-fixed");
-    
-    /* Fix HDR hanging after taking a photo */
-    params.set(android::CameraParameters::KEY_PREVIEW_SIZE, "1280x720");
 
     if (isVideo && id == 1) {
         /* Front camera only supports infinity */
