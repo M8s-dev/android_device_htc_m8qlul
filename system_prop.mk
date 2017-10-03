@@ -100,10 +100,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring.multiple=false
 
-# Recovery
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    ro.cwm.forbid_format=/boot,/firmware,/mpt,/persist,/persist-lg,/sns
-
 # USB
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
@@ -154,10 +150,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Scheduler
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.io.scheduler=bfq
-
-#Storage
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.fuse_sdcard=true
 
 # Persistent Data Block service
 PRODUCT_PROPERTY_OVERRIDES += \
