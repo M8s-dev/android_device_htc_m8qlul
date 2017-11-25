@@ -4,6 +4,7 @@ LOCAL_PATH := $(call my-dir)
 DTBTOOL := $(HOST_OUT_EXECUTABLES)/dtbToolCM$(HOST_EXECUTABLE_SUFFIX)
 INSTALLED_DTIMAGE_TARGET := $(PRODUCT_OUT)/dt.img
 DTBTAGNAME := "htc,project-id = <"
+LZMA := $(shell which lzma)
 
 ifneq ($(TARGET_KERNEL_ARCH),)
 KERNEL_ARCH := $(TARGET_KERNEL_ARCH)
@@ -26,9 +27,14 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) $(INSTAL
 
 ## Overload recoveryimg generation: Same as the original, + --dt arg
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(INSTALLED_DTIMAGE_TARGET) \
-		$(recovery_ramdisk) \
+		$(recovery_uncompressed_ramdisk) \
 		$(recovery_kernel)
-	$(hide) $(call build-recoveryimage-target, $@)
+	$(hide) rm -f $(OUT)/ramdisk-recovery.cpio.lzma
+	@echo -e ${CL_CYN}"Compressing recovery ramdisk..."${CL_RST}
+	$(hide) $(LZMA) -z -9 $(recovery_uncompressed_ramdisk)
+	$(hide) cp $(recovery_uncompressed_ramdisk).lzma $(recovery_ramdisk)
+	#$(hide) $(call build-recoveryimage-target, $@)
+
 	@echo -e ${CL_CYN}"----- Making recovery image ------"${CL_RST}
 	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) --dt $(INSTALLED_DTIMAGE_TARGET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) --output $@
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE),raw)
