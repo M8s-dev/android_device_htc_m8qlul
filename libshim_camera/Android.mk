@@ -16,7 +16,13 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    libshim_camera.c
+    	camera_shim.cpp
+
+LOCAL_SHARED_LIBRARIES := \
+	libbinder \
+        libgui \
+	libui \
+        libutils
 
 LOCAL_MODULE := libshim_camera
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
