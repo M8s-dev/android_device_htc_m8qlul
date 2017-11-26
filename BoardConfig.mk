@@ -214,7 +214,6 @@ BOARD_USES_CYANOGEN_HARDWARE := true
 # }}}
 
 # TWRP {{{
-#uncomment to build TWRP
 ifeq ($(WITH_TWRP),true)
 RECOVERY_VARIANT := twrp
 TW_THEME := portrait_hdpi
@@ -222,10 +221,6 @@ TW_NO_REBOOT_BOOTLOADER := true
 TW_NO_REBOOT_RECOVERY := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
-TW_NO_SCREEN_BLANK := true
-TW_FBIOPAN := true
-TW_SCREEN_BLANK_ON_BOOT := true
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
 endif
 # }}}
 
