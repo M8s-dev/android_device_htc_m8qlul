@@ -198,7 +198,7 @@ TARGET_POWERHAL_VARIANT := qcom
 # }}}
 
 # Preload {{{
-TARGET_LDPRELOAD := libNimsWrap.so
+#TARGET_LDPRELOAD := libNimsWrap.so
 # }}}
 
 # Properties    {{{

@@ -57,8 +57,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.gps.qc_nlp_in_use=1 \
-    ro.gps.agps_provider=1
+    persist.gps.qc_nlp_in_use=0 \
+    ro.gps.agps_provider=0
 
 # NITZ
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -89,7 +89,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.adb_log_on=1 \
     persist.radio.fill_eons=1 \
     DEVICE_PROVISIONED=1 \
-    persist.cne.feature=1 \
+    persist.cne.feature=0 \
     ro.ril.telephony.mqanelements=5
 
 # Do not power down SIM card when modem is sent to Low Power Mode.
