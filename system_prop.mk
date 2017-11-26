@@ -126,7 +126,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Dexopt - limit to 4 cores
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.fw.dex2oat_thread_count=2
+    ro.sys.fw.dex2oat_thread_count=4
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
