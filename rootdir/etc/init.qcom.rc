@@ -713,7 +713,8 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
 service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
     user root
-    oneshot
+    group radio audio bluetooth gps nfc oem_2950
+    writepid /dev/cpuset/system-background/tasks
 
 service qmiproxy /system/bin/qmiproxy
     class late_start
