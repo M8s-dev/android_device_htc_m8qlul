@@ -594,8 +594,8 @@ service qmiproxy /system/vendor/bin/qmiproxy
 
 service qmuxd /system/vendor/bin/qmuxd
     class core
-    user radio
-    group radio audio bluetooth gps qcom_diag
+    user root
+    group radio audio bluetooth gps nfc oem_2950
     writepid /dev/cpuset/system-background/tasks
 
 service qseecomd /system/vendor/bin/qseecomd
@@ -629,7 +629,7 @@ service vm_bms /system/vendor/bin/vm_bms
 service wcnss-service /system/vendor/bin/wcnss_service
     class main
     user system
-    group system wifi qcom_diag radio
+    group system wifi oem_2950 radio
     oneshot
 
 service wpa_supplicant /system/vendor/bin/hw/wpa_supplicant \
