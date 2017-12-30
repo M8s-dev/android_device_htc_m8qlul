@@ -187,8 +187,9 @@ TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 # }}}
 
 # Power    {{{
-CM_POWERHAL_EXTENSION := qcom
-TARGET_POWERHAL_VARIANT := qcom
+TARGET_HAS_LEGACY_POWER_STATS := true
+TARGET_HAS_NO_WIFI_STATS := true
+TARGET_USES_INTERACTION_BOOST := true
 # }}}
 
 # Properties    {{{
