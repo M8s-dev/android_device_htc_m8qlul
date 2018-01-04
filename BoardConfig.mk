@@ -132,6 +132,7 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := true
 
 # HIDL {{{
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 # }}}
 
 # Init    {{{
