@@ -150,4 +150,9 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <xmlfile format="dtd">
+	<name>media_profile</name>
+	<version>1.0</version>
+	<path>/system/etc/media_profile_V1_0.dtd</path>
+    </xmlfile>
 </manifest>
