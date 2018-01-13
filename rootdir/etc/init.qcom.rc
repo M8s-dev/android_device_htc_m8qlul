@@ -571,11 +571,6 @@ on boot
 
 # Services {{{
 
-service audiod /system/bin/audiod
-    class late_start
-    user system
-    group system
-
 service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
