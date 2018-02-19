@@ -106,7 +106,7 @@ ifeq ($(HOST_OS),linux)
 endif
 
 # Extended filesystem support
-TARGET_EXFAT_DRIVER := exfat
+TARGET_EXFAT_DRIVER := sdfat
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
