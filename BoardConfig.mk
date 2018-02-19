@@ -141,6 +141,10 @@ endif
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# Lineage Hardware
+BOARD_HARDWARE_CLASS += \
+    $(DEVICE_PATH)/lineagehw
+
 # NFC
 BOARD_NFC_CHIPSET := pn547
 BOARD_NFC_HAL_SUFFIX := msm8916
