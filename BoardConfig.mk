@@ -105,6 +105,9 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
+# Extended filesystem support
+TARGET_KERNEL_HAVE_EXFAT := true
+
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
