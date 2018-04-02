@@ -22,10 +22,7 @@ PRODUCT_MANUFACTURER := HTC
 # Set build fingerprint / ID / Product Name etc.
 PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=m8qlul_htc_europe TARGET_DEVICE=htc_m8qlul
 
-## Use the latest approved GMS identifiers unless running a signed build
-ifneq ($(SIGN_BUILD),true)
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=htc/m8qlul_htc_europe/htc_m8qlul:6.0.1/MMB29M/743364.1:user/release-keys \
     PRIVATE_BUILD_DESC="2.10.401.1 CL743364 release-keys"
-	
-endif
+
+BUILD_FINGERPRINT := "htc/m8qlul_htc_europe/htc_m8qlul:6.0.1/MMB29M/743364.1:user/release-keys"
