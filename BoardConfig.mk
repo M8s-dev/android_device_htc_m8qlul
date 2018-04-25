@@ -84,11 +84,6 @@ USE_CUSTOM_AUDIO_POLICY := 1
 
 # Camera    {{{
 # BOARD_CAMERA_SENSORS := imx214
-BOARD_NUMBER_OF_CAMERAS := 4
-
-# Camera
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.maxopen=4
 
 # Camera
 TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_m8qlul_ext
