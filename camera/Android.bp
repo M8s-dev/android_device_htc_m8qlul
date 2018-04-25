@@ -1,5 +1,3 @@
-cc_library_static {
-    name: "libcamera_parameters_m8qlul_ext",
-    include_dirs: ["device/htc/m8qlul/include", "frameworks/av/include"],
-    srcs: ["CameraParameters.cpp", "CameraParameters_EXT.cpp"],
-}
+subdirs = [
+    "parameters"
+]
