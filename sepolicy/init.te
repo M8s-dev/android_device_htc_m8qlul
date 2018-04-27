@@ -4,7 +4,6 @@ allow init sysfs_sensor_hub:lnk_file {  read };
 allow init sysfs_sensor_hub:dir { read open search };
 allow sysfs_usb_adw sysfs:filesystem { associate };
 allow init pstorefs:dir { mounton };
-allow init kmem_device:chr_file { unlink };
 allow init wv-prov_exec:file { getattr execute read open };
 allow init tee_device:chr_file rw_file_perms;
 allow init debugfs:dir { mounton };
