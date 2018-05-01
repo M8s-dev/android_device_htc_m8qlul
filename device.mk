@@ -311,9 +311,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/releasetools/variant_script.sh:install/bin/variant_script.sh
 
-
+# Sensors
 PRODUCT_PACKAGES += \
-    sensorservice
+    sensorservice \
+    android.hardware.sensors@1.0-impl
 
 # Thermal
 PRODUCT_COPY_FILES += \
