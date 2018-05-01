@@ -170,7 +170,7 @@ MALLOC_SVELTE := true
 # }}}
 
 # NFC   {{{
-BOARD_NFC_CHIPSET := pn547
+BOARD_NFC_CHIPSET := msm8916
 # }}}
 
 # Offmode Charging   {{{
