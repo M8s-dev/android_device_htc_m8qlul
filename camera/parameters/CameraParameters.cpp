@@ -176,14 +176,30 @@ const char CameraParameters::LIGHTFX_LOWLIGHT[] = "low-light";
 const char CameraParameters::LIGHTFX_HDR[] = "high-dynamic-range";
 
 // HTC settings
-const char CameraParameters::KEY_CAPTURE_MODE[] = "capture-mode";
-const char CameraParameters::CAPTURE_MODE_NORMAL[] = "normal";
-const char CameraParameters::CAPTURE_MODE_HDR[] = "hdr";
 const char CameraParameters::SCENE_MODE_TEXT[] = "text";
 const char CameraParameters::KEY_SMILEINFO_BYFACE_SUPPORTED[] = "smileinfo-byface-supported";
 
+static String8 get_forced_value(String8 key, String8 value)
+{
+    if (key == "face-detection-values") return String8("off");
+    if (key == "face-detection") return String8("off");
+    return value;
+}
+
+static void add(DefaultKeyedVector<String8,String8> &map, String8 key, String8 value)
+{
+    value = get_forced_value(key, value);
+    map.add(key, value);
+}
+
+static void replaceValueFor(DefaultKeyedVector<String8,String8> &map, String8 key, String8 value)
+{
+    value = get_forced_value(key, value);
+    map.replaceValueFor(key, value);
+}
+
 CameraParameters::CameraParameters()
-    : CameraParameters_EXT(this), mMap()
+    : mMap(), mParamsExt(this)
 {
 }
 
@@ -233,12 +249,12 @@ void CameraParameters::unflatten(const String8 &params)
         if (b == 0) {
             // If there's no semicolon, this is the last item.
             String8 v(a);
-            mMap.add(k, v);
+            add(mMap, k, v);
             break;
         }
 
         String8 v(a, (size_t)(b-a));
-        mMap.add(k, v);
+        add(mMap, k, v);
         a = b+1;
     }
 }
@@ -264,11 +280,11 @@ void CameraParameters::set(const char *key, const char *value)
     // The android SDK only wants one frame, so disable this unless the app
     // explicitly asks for it
     if (!get("hdr-need-1x")) {
-        mMap.replaceValueFor(String8("hdr-need-1x"), String8("false"));
+        replaceValueFor(mMap, String8("hdr-need-1x"), String8("false"));
     }
 #endif
 
-    mMap.replaceValueFor(String8(key), String8(value));
+    replaceValueFor(mMap, String8(key), String8(value));
 }
 
 void CameraParameters::set(const char *key, int value)

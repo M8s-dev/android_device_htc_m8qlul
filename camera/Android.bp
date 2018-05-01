@@ -1,3 +1,5 @@
 subdirs = [
-    "parameters"
+    "device",
+    "parameters",
+    "provider",
 ]
