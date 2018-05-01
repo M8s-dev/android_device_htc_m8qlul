@@ -24,8 +24,8 @@ DEVICE_PATH := device/htc/m8qlul
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
 # Assertions    {{{
-TARGET_OTA_ASSERT_DEVICE := htc_m8qlul
-TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
+#TARGET_OTA_ASSERT_DEVICE := htc_m8qlul
+#TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
 # }}}
 
 # Architecture    {{{
