@@ -65,6 +65,8 @@ on early-init
 
 on init
     # {{{
+    export LD_PRELOAD "liblog_shim.so"
+    
     chmod 0644 /proc/cmdline/
 
     # Support legacy paths
