@@ -224,9 +224,14 @@ PRODUCT_PACKAGES += \
 # HTC Log Symbols
 PRODUCT_PACKAGES += \
     liblog_shim
+
 # RIL  
 PRODUCT_PACKAGES += \
+    android.hardware.radio@1.0-impl \
     libshim_ril
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
 
 # Media config
 PRODUCT_COPY_FILES += \
@@ -239,6 +244,12 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
+# Netutils
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.0 \
+    libandroid_net \
+    netutils-wrapper-1.0
 
 # NFC
 PRODUCT_PACKAGES += \
