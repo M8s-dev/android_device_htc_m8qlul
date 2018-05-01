@@ -134,6 +134,10 @@ EXTENDED_FONT_FOOTPRINT := true
 #BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := true
 # }}}
 
+# HIDL {{{
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+# }}}
+
 # Init    {{{
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 # }}}
