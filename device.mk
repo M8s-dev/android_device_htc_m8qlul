@@ -284,7 +284,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # Power HAL
 PRODUCT_PACKAGES += \
     power.qcom \
-    power.msm8916
+    power.msm8916 \
+    android.hardware.power@1.0-impl
 
 # Ramdisk
 PRODUCT_PACKAGES += \
