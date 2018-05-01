@@ -219,7 +219,9 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.msm8916
+    lights.msm8916 \
+    android.hardware.light@2.0-service \
+    android.hardware.light@2.0-impl
 
 # HTC Log Symbols
 PRODUCT_PACKAGES += \
