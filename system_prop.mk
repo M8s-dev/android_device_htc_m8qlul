@@ -43,9 +43,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.camera.preview.size=1920x1080 \
-    media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true 
+    persist.vendor.camera.preview.size=1920x1080
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
