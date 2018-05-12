@@ -165,10 +165,6 @@ ENABLE_CPUSETS := true
 TARGET_PROVIDES_LIBLIGHT := true
 # }}}
 
-# Malloc    {{{
-MALLOC_SVELTE := true
-# }}}
-
 # NFC   {{{
 BOARD_NFC_CHIPSET := pn547
 BOARD_NFC_HAL_SUFFIX := msm8916
