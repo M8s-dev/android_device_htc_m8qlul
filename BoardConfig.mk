@@ -60,7 +60,6 @@ TARGET_NO_BOOTLOADER := true
 # }}}
 
 # ANT+    {{{
-#BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-smd"
 # }}}
 
@@ -83,9 +82,6 @@ USE_CUSTOM_AUDIO_POLICY := 1
 # }}}
 
 # Camera    {{{
-# BOARD_CAMERA_SENSORS := imx214
-
-# Camera
 TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY := libcamera_parameters_ext_m8qlul
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
@@ -172,9 +168,6 @@ BOARD_NFC_HAL_SUFFIX := msm8916
 
 # Offmode Charging   {{{
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
-#COMMON_GLOBAL_CFLAGS += \
-    -DBOARD_CHARGING_CMDLINE_NAME='"androidboot.mode"' \
-    -DBOARD_CHARGING_CMDLINE_VALUE='"chargerlogo"'
 # }}}
 
 # Partitions    {{{
@@ -190,10 +183,6 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 10334748672 # 0x268000000 ~ 10334765056 - 
 # Power    {{{
 CM_POWERHAL_EXTENSION := qcom
 TARGET_POWERHAL_VARIANT := qcom
-# }}}
-
-# Preload {{{
-#TARGET_LDPRELOAD := libNimsWrap.so
 # }}}
 
 # Properties    {{{
@@ -243,11 +232,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 # }}}
 
 # RIL    {{{
-#PROTOBUF_SUPPORTED := true
 TARGET_RIL_VARIANT := caf
-#BOARD_PROVIDES_LIBRIL := true
-#BOARD_RIL_NO_CELLINFOLIST := true
-#BOARD_RIL_FIVE_SEARCH_RESPONSES := true
 # }}}
 
 # SELinux    {{{
