@@ -311,9 +311,6 @@ PRODUCT_PACKAGES += \
     libOmxSwVencMpeg4 \
     libstagefrighthw
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
 # Power HAL
 PRODUCT_PACKAGES += \
     power.qcom \
@@ -354,7 +351,7 @@ PRODUCT_COPY_FILES += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service
+    android.hardware.usb@1.0-service.m8qlul
 
 # Vibrator
 PRODUCT_PACKAGES += \
