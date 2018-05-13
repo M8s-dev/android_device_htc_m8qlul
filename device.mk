@@ -234,7 +234,8 @@ PRODUCT_PACKAGES += \
 
 # HTC Log Symbols
 PRODUCT_PACKAGES += \
-    liblog_shim
+    liblog_shim \
+    libhlg
 
 # RIL  
 PRODUCT_PACKAGES += \
