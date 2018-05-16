@@ -646,7 +646,7 @@ service ftp_del /system/bin/sdptool del 0x1ff20
     disabled
     oneshot
 
-service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
+service hostapd /vendor/bin/hostapd -dddd /system/hostapd/hostapd.conf
     class late_start
     user root
     group root
