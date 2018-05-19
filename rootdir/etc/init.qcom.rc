@@ -65,7 +65,7 @@ on early-init
 
 on init
     # {{{
-    export LD_PRELOAD "liblog_shim.so"
+    export LD_PRELOAD "liblog_shim.so:libshim_camera.so"
     
     chmod 0644 /proc/cmdline/
 
@@ -646,7 +646,7 @@ service ftp_del /system/bin/sdptool del 0x1ff20
     disabled
     oneshot
 
-service hostapd /vendor/bin/hostapd -dddd /system/hostapd/hostapd.conf
+service hostapd /vendor/bin/hostapd -dddd /data/misc/wifi/hostapd.conf
     class late_start
     user root
     group root
