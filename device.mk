@@ -287,6 +287,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/qcom/netmgr_config.xml:system/etc/data/netmgr_config.xml \
     $(LOCAL_PATH)/configs/qcom/qmi_config.xml:system/etc/data/qmi_config.xml
 
+# Seccomp
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/seccomp/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
+    $(LOCAL_PATH)/seccomp/mediaextractor.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
+
 # Test Omx
 PRODUCT_PACKAGES += \
     libOmxVdpp \
