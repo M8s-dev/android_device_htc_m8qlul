@@ -12,7 +12,6 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 $(call inherit-product, device/htc/m8qlul/full_m8qlul.mk)
 
 BOARD_VENDOR := htc
-BOARD_NUMBER_OF_CAMERAS := 4
 
 # Device naming
 PRODUCT_NAME := lineage_m8qlul
