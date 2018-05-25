@@ -458,13 +458,6 @@ on early-boot
 on boot
     # {{{
 
-    # bring CPUs online
-    write /sys/module/msm_thermal/core_control/enabled 0
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/module/msm_thermal/core_control/enabled 1
-
     insmod /system/lib/modules/gspca_main.ko
    	/system/lib/modules/spidev.ko
 
@@ -503,9 +496,6 @@ on boot
     chown system system /sys/class/leds/amber/brightness
     chown system system /sys/class/leds/amber/blink
     chown system system /sys/class/leds/amber/off_timer
-
-    # Telephony
-    setprop ro.telephony.call_ring.multiple false
 
     # Torch
     chown system system /sys/class/leds/flashlight/brightness
