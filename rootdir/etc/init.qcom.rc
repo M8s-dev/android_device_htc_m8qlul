@@ -645,13 +645,6 @@ service ftp_del /system/bin/sdptool del 0x1ff20
     disabled
     oneshot
 
-service hostapd /vendor/bin/hostapd -dddd /data/misc/wifi/hostapd.conf
-    class late_start
-    user root
-    group root
-    oneshot
-    disabled
-
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.bluedroid.sh
     class late_start
     user bluetooth
