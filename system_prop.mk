@@ -148,10 +148,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.baseband.arch=msm \
     ro.telephony.default_network=9
 
-# Scheduler
-PRODUCT_PROPERTY_OVERRIDES += \
-    sys.io.scheduler=bfq
-
 # Persistent Data Block service
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/bootdevice/by-name/frp
