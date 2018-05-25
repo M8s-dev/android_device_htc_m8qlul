@@ -704,6 +704,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
+    writepid /dev/cpuset/camera-daemon/tasks
 
 service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
