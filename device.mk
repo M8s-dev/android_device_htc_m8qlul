@@ -337,6 +337,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
+    init.qcom.mem.sh
     init.qcom.sh
 
 # Recovery
