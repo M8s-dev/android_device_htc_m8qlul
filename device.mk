@@ -18,8 +18,8 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
-#$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
-#$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 # Inherit the vendor files
 $(call inherit-product-if-exists, vendor/htc/m8qlul/m8qlul-vendor.mk)
@@ -337,7 +337,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
-    init.qcom.mem.sh
+    init.qcom.mem.sh \
     init.qcom.sh
 
 # Recovery
