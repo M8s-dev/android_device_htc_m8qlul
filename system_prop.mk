@@ -14,8 +14,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.ssr=false \
     voice.playback.conc.disabled=true \
     voice.record.conc.disabled=false \
-    htc.audio.skiplowlatency=7 \
-    persist.htc.audio.dqlog.dci=1 \
     media.stagefright.enable-player=true \
     media.stagefright.enable-http=true \
     media.stagefright.enable-aac=true \
@@ -32,13 +30,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.voicerec=false \
-    persist.audio.fluence.speaker=true \
+    persist.vendor.audio.fluence.voicecall=true \
+    persist.vendor.audio.fluence.voicerec=false \
+    persist.vendor.audio.fluence.speaker=true \
     audio.offload.disable=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=fluence
+    ro.vendor.audio.sdk.fluencetype=fluence
 
 PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=true
@@ -84,13 +82,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.netmgrd.qos.enable=true \
-    ro.use_data_netmgrd=true
+    persist.data.netmgrd.qos.enable=true
 
 # Radio - added by root-expert
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.qmi.adb_logmask=3 \
-    persist.radio.adb_log_on=1 \
     persist.radio.fill_eons=1 \
     DEVICE_PROVISIONED=1 \
     persist.cne.feature=0 \
