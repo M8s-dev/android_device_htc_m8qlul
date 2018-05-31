@@ -187,8 +187,7 @@ TARGET_POWERHAL_VARIANT := qcom
 
 # Properties    {{{
 TARGET_SYSTEM_PROP += \
-    $(DEVICE_PATH)/ril.prop \
-    $(DEVICE_PATH)/extra.prop
+    $(DEVICE_PATH)/ril.prop
 # }}}
 
 # Qualcomm support    {{{
