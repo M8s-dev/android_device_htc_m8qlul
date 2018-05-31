@@ -36,6 +36,7 @@
 /dev/ion                  0664   system     system
 /dev/rtc0                 0600   system     system
 /dev/smd0                 0660   system     system
+/dev/smd3		  0660	 bluetooth  bluetooth
 /dev/smd4                 0660   system     system
 /dev/smd_cxm_qmi          0640   radio      radio
 /dev/smd5                 0660   system     system
