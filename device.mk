@@ -126,7 +126,8 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl-legacy \
     libmm-qcamera \
     libshim_camera \
-    Snap 
+    Snap \
+    libcameraface
 
 # Charger
 PRODUCT_PACKAGES += \
