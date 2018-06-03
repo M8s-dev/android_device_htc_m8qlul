@@ -28,8 +28,8 @@ $(call inherit-product-if-exists, vendor/htc/m8qlul/m8qlul-vendor.mk)
 -include $(LOCAL_PATH)/system_prop.mk
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
-
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay \
+                           $(LOCAL_PATH)/overlay-lineage
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
@@ -126,7 +126,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl-legacy \
     libmm-qcamera \
     libshim_camera \
-    Snap
+    Snap 
 
 # Charger
 PRODUCT_PACKAGES += \
