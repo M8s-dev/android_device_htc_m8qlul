@@ -246,9 +246,6 @@ PRODUCT_PACKAGES += \
     android.hardware.radio@1.0-impl \
     libshim_ril
 
-PRODUCT_BOOT_JARS += \
-    telephony-ext
-
 # LiveDisplay
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@1.0-service-legacymm
