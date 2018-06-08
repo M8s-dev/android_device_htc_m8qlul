@@ -346,6 +346,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librecovery_updater_cm
 
+# Renderscript
+PRODUCT_PACKAGES += \
+    android.hardware.renderscript@1.0-impl
+
 # Releasetools / Variant script (voidzero TODO: modify to static)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/releasetools/variant_script.sh:install/bin/variant_script.sh
