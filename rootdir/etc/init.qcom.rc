@@ -446,8 +446,6 @@ on charger
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
     start vm_bms
     load_all_props
-    start qcom-post-boot
-
     # }}}
 
 on early-boot
@@ -571,41 +569,6 @@ on boot
 
 # End boot stages }}}
 
-service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bnep1 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bnep2 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bnep3 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
-    disabled
-    oneshot
-
-service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
     user system
@@ -625,48 +588,9 @@ service ftp_del /system/bin/sdptool del 0x1ff20
     disabled
     oneshot
 
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
-    oneshot
-
-service map0 /system/bin/sdptool add --handle=0x1ff16 --channel=16 MAS0
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-service map0_del /system/bin/sdptool del 0x1ff16
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-service map1 /system/bin/sdptool add --handle=0x1ff17 --channel=17 MAS1
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-service map1_del /system/bin/sdptool del 0x1ff17
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
     oneshot
 
 service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
@@ -786,13 +710,6 @@ service memlock /system/bin/memlock
 # }}}
 
 # Properties   {{{
-on property:crypto.driver.load=0
-     exec /system/bin/rmmod qcedev.ko
-     exec /system/bin/rmmod qce.ko
-
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd
-
 on property:ro.boot.emmc=true
     start rfs_access
 
@@ -804,15 +721,10 @@ on property:service.adb.root=1
     write /sys/class/android_usb/android0/restart_adbd 1
 
 on property:sys.boot_completed=1
-    start qcom-post-boot
-
-on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
 
 on property:vold.decrypt=trigger_restart_framework
 		setprop ro.fuse_sdcard ${persist.fuse_sdcard}
     start config_bluetooth
 
-on property:wlan.driver.ath=0
-    start wcnss-service
 # }}}
