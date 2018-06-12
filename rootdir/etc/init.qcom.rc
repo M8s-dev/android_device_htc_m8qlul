@@ -670,10 +670,9 @@ service map1_del /system/bin/sdptool del 0x1ff17
     oneshot
 
 service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
-   class core
+    class main
     user root
     group root
-    disabled
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -707,12 +706,6 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
     writepid /dev/cpuset/camera-daemon/tasks
-
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    group radio audio bluetooth gps nfc oem_2950
-    writepid /dev/cpuset/system-background/tasks
 
 service qmiproxy /system/bin/qmiproxy
     class late_start
