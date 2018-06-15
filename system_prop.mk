@@ -141,10 +141,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.baseband.arch=msm \
     ro.telephony.default_network=9
 
-# Persistent Data Block service
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.frp.pst=/dev/block/platform/soc.0/7824900.sdhci/by-name/frp
-
 # Additionals, yes, more, from yours truly
 PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnGsmDevice=1 \
