@@ -5,9 +5,6 @@ include $(CLEAR_VARS)
 LOCAL_SHARED_LIBRARIES := \
 	liblog libutils libtinyalsa
 
-LOCAL_CFLAGS += \
-	-DPLATFORM_MSM8974
-
 LOCAL_C_INCLUDES := \
 	external/tinyalsa/include \
 	hardware/libhardware/include \

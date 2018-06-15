@@ -27,7 +27,7 @@
 
 #include <hardware/audio_amplifier.h>
 
-#include <msm8974/platform.h>
+#include <msm8916/platform.h>
 
 #include "tfa9887.h"
 #include "rt5506.h"
