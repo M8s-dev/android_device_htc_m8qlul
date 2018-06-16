@@ -11,17 +11,6 @@ on init
 on charger
     setprop sys.usb.config mass_storage
 
-#This PID may conflict with Google PID
-#on property:sys.usb.config=mass_storage,adb
-#    stop adbd
-#    write /sys/class/android_usb/android0/enable 0
-#    write /sys/class/android_usb/android0/idVendor 0bb4
-#    write /sys/class/android_usb/android0/idProduct 0c02
-#    write /sys/class/android_usb/android0/functions mass_storage,adb
-#    write /sys/class/android_usb/android0/enable 1
-#    start adbd
-#    setprop sys.usb.state ${sys.usb.config}
-
 on property:sys.usb.config=mass_storage,modem
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 0bb4
@@ -93,15 +82,6 @@ on property:sys.usb.config=mass_storage,diag
     write /sys/class/android_usb/android0/functions mass_storage,diag
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
-
-# There are three ums pids, and we only keep one to use
-#on property:sys.usb.config=mass_storage
-#    write /sys/class/android_usb/android0/enable 0
-#    write /sys/class/android_usb/android0/idVendor 0bb4
-#    write /sys/class/android_usb/android0/idProduct 0c80
-#    write /sys/class/android_usb/android0/functions mass_storage
-#    write /sys/class/android_usb/android0/enable 1
-#    setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=modem
     write /sys/class/android_usb/android0/enable 0

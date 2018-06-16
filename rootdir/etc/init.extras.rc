@@ -1,7 +1,5 @@
-# vim: ts=4 sw=4 sts=4 ft=sh fdm=marker
-#
-# Copyright blah, 2015. All rights derped.  {{{
-# We are the borg, you will be assimilated.
+# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2017-2018 The LineageOS Project
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,14 +24,8 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# }}}
-
-
-# Boot stages   {{{
 
 on init
-    # {{{
-
     # Create cgroup mount points for timer groups
     mkdir /dev/timer_group
     mount cgroup none /dev/timer_group timer_slack
@@ -121,10 +113,7 @@ on init
     write /sys/kernel/mm/ksm/sleep_millisecs 500
     write /sys/kernel/mm/ksm/run 1
 
-    # }}}
-
 on post-fs
-    # {{{
 
     chown system carrier /carrier
     chmod 0771 /carrier
@@ -136,20 +125,11 @@ on post-fs
     chown root system /proc/driver/hdf
     chmod 0664 /proc/driver/hdf
 
-    # Probably the htc log daemon. We won't need it.
-    # start hld
-
-    # }}}
-
 on post-fs-data
-    # {{{
 
     mkdir /dev/radio 0770 radio radio
 
-    # }}}
-
 on boot
-    # {{{
 
     ## HTC_PROCESS_DEBUG file to maintain the monitoring process list, change owner to system
     chown system /sys/process/task_comm_list
@@ -220,17 +200,6 @@ on boot
     # For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
-    # Set the console loglevel to < KERN_INFO
-    # Set the default message loglevel to KERN_INFO
-    # write /proc/sys/kernel/printk "6 6 1 7"
-
-    # End boot stages }}}
-
-# End boot stages }}}
-
-
-# Services {{{
-
 # Bluetooth experimental daemon to connect with Samsung's Gear smartwatches.
 # Source is actually at https://git.javispedro.com/cgit/sapd.git
 service bt-sap /system/bin/sapd 15
@@ -240,25 +209,8 @@ service bt-sap /system/bin/sapd 15
     disabled
     oneshot
 
-# bugreport is triggered by the KEY_VOL-UP and KEY_VOL-DOWN keycodes
-service bugreport /system/bin/dumpstate -d -p -B \
- -o /data/data/com.android.shell/files/bugreports/bugreport
-    disabled
-    cgroup bg
-    oneshot
-    keycodes 114 115
-
 service charger /charger
     class charger
-
-service rootagent /system/bin/sh /system/etc/init.qcom.rootagent.sh
-    disabled
-    oneshot
-
-# End services }}}
-
-
-# Properties {{{
 
 on property:bluetooth.sap.status=running
     start bt-sap
@@ -286,4 +238,3 @@ on property:persist.usb.chgdisabled=1
 on property:persist.usb.chgdisabled=0
     write /sys/class/power_supply/battery/charging_enabled 1
 
-# }}}
