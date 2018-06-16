@@ -1,4 +1,6 @@
-# vim: ts=4 sw=4 sts=4 et
+# ActivityManager optimizations
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.max_starting_bg=4
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -9,7 +11,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.buffer.size.kb=1024 \
     audio.offload.gapless.enabled=false
 
-#added by root-expert
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.ssr=false \
     voice.playback.conc.disabled=true \
@@ -23,8 +24,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.swhevccodectype=0 \
     media.hwhevccodectype=0 \
     mm.enable.smoothstreaming=true \
-    mmp.enable.3g2=true
-
+    mmp.enable.3g2=true \
+    tunnel.audio.encode=false \
+    vidc.enc.narrow.searchrange=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true
@@ -41,20 +43,35 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=true
 
+# Bluetooth
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qualcomm.bt.hci_transport=smd
+
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.camera.preview.size=1920x1080
+
+# Dexopt - limit to 4 cores
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sys.fw.dex2oat_thread_count=4
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.mdpcomp.enable=true \
     ro.opengles.version=196608 \
-    ro.sf.lcd_density=420
+    ro.sf.lcd_density=420 \
+    debug.composition.type=gpu \
+    debug.enable.sglscale=1
 
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.gps.qc_nlp_in_use=1 \
     ro.gps.agps_provider=1
+
+# Media
+PRODUCT_PROPERTY_OVERRIDES += \
+    mm.enable.qcom_parser=3314291 \
+    drm.service.enabled=1
 
 # NITZ
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -80,10 +97,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.netmgrd.qos.enable=true
-
-# Radio - added by root-expert
-PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.netmgrd.qos.enable=true \
+    ril.ecclist=112,911,113,114,115,118,000,08,110,999,119 \
+    ril.subscription.types=NV,RUIM \
+    rild.libargs=-d/dev/smd0 \
+    rild.libpath=/system/lib64/libhtc_rilhook.so \
+    ro.baseband.arch=msm \
+    ro.telephony.default_network=9 \
     persist.radio.fill_eons=1 \
     DEVICE_PROVISIONED=1 \
     persist.cne.feature=0 \
@@ -100,49 +120,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # USB
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
-
-#####################################################
-# Start of void's additions based on stock htc_m8qlul
-#####################################################
-
-# ActivityManager optimizations
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.max_starting_bg=4
-
-# Audio
-PRODUCT_PROPERTY_OVERRIDES += \
-    tunnel.audio.encode=false \
-    vidc.enc.narrow.searchrange=1
-
-# Bluetooth
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.bt.hci_transport=smd
-
-# Dexopt - limit to 4 cores
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.fw.dex2oat_thread_count=4
-
-# Display
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.composition.type=gpu \
-    debug.enable.sglscale=1
-
-# Media
-PRODUCT_PROPERTY_OVERRIDES += \
-    mm.enable.qcom_parser=3314291 \
-    drm.service.enabled=1
-
-# Radio
-PRODUCT_PROPERTY_OVERRIDES += \
-    ril.ecclist=112,911,113,114,115,118,000,08,110,999,119 \
-    ril.subscription.types=NV,RUIM \
-    rild.libargs=-d/dev/smd0 \
-    rild.libpath=/system/lib64/libhtc_rilhook.so \
-    ro.baseband.arch=msm \
-    ro.telephony.default_network=9
-
-# Additionals, yes, more, from yours truly
-PRODUCT_PROPERTY_OVERRIDES += \
-    telephony.lteOnGsmDevice=1 \
-    telephony.lteOnCdmaDevice=1
-
