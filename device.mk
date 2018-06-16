@@ -1,4 +1,3 @@
-# vim: ts=4 sw=4 sts=4 et
 # Copyright (C) 2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 # The gps config appropriate for this device
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
@@ -403,10 +401,3 @@ PRODUCT_COPY_FILES += \
 ifneq ($(QCPATH),)
 PRODUCT_BOOT_JARS += WfdCommon
 endif
-
-# Device naming
-PRODUCT_DEVICE := m8qlul
-PRODUCT_NAME := m8qlul
-PRODUCT_BRAND := htc
-PRODUCT_MODEL := HTC One M8s
-PRODUCT_MANUFACTURER := HTC
