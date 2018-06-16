@@ -1,4 +1,3 @@
-# vim: ts=4 sw=4 sts=4 et fdm=marker
 # Copyright (C) 2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,22 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# HTC One M8S (htc_m8qlul)
-# Model Ids
-# 0PKV10000 - HTC Europe
-# msm8939 board, msm8916 kernel
-
 BOARD_VENDOR := htc
 DEVICE_PATH := device/htc/m8qlul
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
-# Assertions    {{{
+# Assertions
 #TARGET_OTA_ASSERT_DEVICE := htc_m8qlul
 #TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
-# }}}
 
-# Architecture    {{{
+# Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -46,24 +39,20 @@ TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 TARGET_BOARD_PLATFORM := msm8916
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno405
-# }}}
 
-# Bluetooth    {{{
+# Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BLUETOOTH_HCI_USE_MCT := true
-# }}}
 
-# Bootloader    {{{
+# Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8939
 TARGET_NO_BOOTLOADER := true
-# }}}
 
-# ANT+    {{{
+# ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-smd"
-# }}}
 
-# Audio    {{{
+# Audio
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_DEEP_BUFFER_RINGTONE := true
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
@@ -79,27 +68,22 @@ AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
 USE_CUSTOM_AUDIO_POLICY := 1
-# }}}
 
-# Camera    {{{
+# Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 #COMMON_GLOBAL_CFLAGS += -DPROPERTY_PERMS_APPEND='{"htc.camera.sensor.", AID_CAMERA, 0}, {"camera.4k2k.", AID_MEDIA, 0},'
 
-# }}}
-
-# CPU    {{{
+# CPU
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
-# }}}
 
-# Crypto    {{{
+# Crypto
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true	
-# }}}
 
-# Display    {{{
+# Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
@@ -110,36 +94,30 @@ TARGET_USES_ION := true
 TARGET_USES_OVERLAY := true
 USE_OPENGL_RENDERER := true
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
-# }}}
 
-# Dexopt    {{{
+# Dexopt
 ifeq ($(HOST_OS),linux)
   ifeq ($(WITH_DEXPREOPT),)
     WITH_DEXPREOPT := true
 	WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
   endif
 endif
-# }}}
 
-# Fonts    {{{
+# Fonts
 EXTENDED_FONT_FOOTPRINT := true
-# }}}
 
-# GPS    {{{
+# GPS
 TARGET_GPS_HAL_PATH := $(DEVICE_PATH)/gps
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := true
-# }}}
 
-# HIDL {{{
+# HIDL
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
-# }}}
 
-# Init    {{{
+# Init
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
-# }}}
 
-# Kernel    {{{
+# Kernel
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01f88000 --tags_offset 0x01d88000
 BOARD_KERNEL_BASE := 0x80078000
@@ -159,22 +137,18 @@ TARGET_KERNEL_CONFIG := twrp_defconfig
 else
 TARGET_KERNEL_CONFIG := m8qlul_vz_defconfig
 endif
-# }}}
 
-# Lights    {{{
+# Lights
 TARGET_PROVIDES_LIBLIGHT := true
-# }}}
 
-# NFC   {{{
+# NFC
 BOARD_NFC_CHIPSET := pn547
 BOARD_NFC_HAL_SUFFIX := msm8916
-# }}}
 
-# Offmode Charging   {{{
+# Offmode Charging
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
-# }}}
 
-# Partitions    {{{
+# Partitions
 BOARD_FLASH_BLOCK_SIZE             := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 33554432    # 0x002000000
 BOARD_CACHEIMAGE_PARTITION_SIZE    := 268435456   # 0x010000000
@@ -183,31 +157,26 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 39554432    # 0x002000000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 4294967296  # 0x100000000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 10334748672 # 0x268000000 ~ 10334765056 - 16384
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
-# }}}
 
-# Power    {{{
+# Power
 TARGET_HAS_LEGACY_POWER_STATS := true
 TARGET_HAS_NO_WIFI_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
 TARGET_POWERHAL_SET_INTERACTIVE_EXT := $(DEVICE_PATH)/power/power_ext.c
-# }}}
 
-# Properties    {{{
+# Properties
 TARGET_SYSTEM_PROP += \
     $(DEVICE_PATH)/ril.prop
-# }}}
 
-# Qualcomm support    {{{
+# Qualcomm support
 BOARD_USES_QC_TIME_SERVICES := true
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_CYANOGEN_HARDWARE := true
-# }}}
 
-# Shims {{{
+# Shims
 TARGET_LD_SHIM_LIBS := /system/lib64/libhtc_rilhook.so|libshim_ril.so
-# }}}
 
-# TWRP {{{
+# TWRP
 ifeq ($(WITH_TWRP),true)
 RECOVERY_VARIANT := twrp
 TW_THEME := portrait_hdpi
@@ -218,9 +187,8 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 TW_NEW_ION_HEAP := true
 TW_TARGET_USES_QCOM_BSP := true
 endif
-# }}}
 
-# Recovery    {{{
+# Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_RECOVERY_SWIPE := true
@@ -234,36 +202,27 @@ TARGET_RECOVERY_DENSITY := xxhdpi
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 #TARGET_RECOVERY_DEVICE_MODULES += chargeled
-# }}}
 
-# Releasetools    {{{
-#TARGET_RELEASETOOLS_EXTENSIONS := $(VENDOR_PATH)
+# Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 
-# }}}
-
-# RIL    {{{
+# RIL
 TARGET_RIL_VARIANT := caf
-# }}}
 
-# SELinux    {{{
+# SELinux
 include device/qcom/sepolicy/sepolicy.mk
 include device/qcom/sepolicy/legacy-sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy
 
-# }}}
-
-# Video    {{{
+# Video
 TARGET_HAVE_SIGNED_VENUS_FW := true
-# }}}
 
-# Vold    {{{
+# Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
-# }}}
 
-# Wifi    {{{
+# Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HAS_QCOM_WLAN_SDK := true
 
@@ -280,10 +239,6 @@ WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 
 WPA_SUPPLICANT_VERSION := VER_0_8_X
-# }}}
 
-# Inherit from the proprietary version    {{{
+# Inherit from the proprietary version
 -include vendor/htc/m8qlul/BoardConfigVendor.mk
-# }}}
-
-# vim: ts=4 sw=4 sts=4 et fdm=marker ft=make
