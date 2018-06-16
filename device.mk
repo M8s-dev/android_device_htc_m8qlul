@@ -39,10 +39,6 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 PRODUCT_ENFORCE_RRO_TARGETS := framework-res
 
-## Dot View Case
-# TODO!
-#PRODUCT_PACKAGES += Dotcase
-
 # Permissions
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/com.htc.software.market.xml:system/etc/permissions/com.htc.software.market.xml \
@@ -177,6 +173,10 @@ PRODUCT_PACKAGES += \
     FMRecord \
     libqcomfm_jni \
     qcom.fmradio
+
+# FlipFlap
+PRODUCT_PACKAGES += \
+    FlipFlap
 
 # SIM stuff existent on stock
 PRODUCT_PACKAGES += \
