@@ -75,6 +75,7 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "1 960000:85 1113600:90 1344000:80"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 50000
+    write /sys/devices/system/cpu/cpu0/cpufreq/interacive/boost 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 960000
 
     # enable governor for power cluster
