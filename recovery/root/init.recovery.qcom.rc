@@ -1,73 +1,23 @@
-on init
-    # exfat
-    insmod /system/lib/modules/texfat.ko
-
 on fs
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0bb4
-    write /sys/class/android_usb/android0/idProduct 0f87
-    write /sys/class/android_usb/android0/f_ffs/aliases adb
-    write /sys/class/android_usb/android0/functions mtp,adb
-    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
-    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
-    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+    wait /dev/block/platform/soc.0/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc.0/${ro.boot.bootdevice} /dev/block/bootdevice
 
-on boot
-    write /sys/class/android_usb/android0/enable 1
-    write /sys/devices/platform/android_usb/usb_function_switch 130
-
-    start choice_fn
-    start chargeled
-
-on property:sys.usb.config=none
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/bDeviceClass 0
-
-on property:sys.usb.config=mass_storage,adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/functions ${sys.usb.config}
-    write /sys/class/android_usb/android0/enable 1
-
-on property:sys.usb.config=mtp,adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/functions ${sys.usb.config}
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    write /sys/devices/platform/android_usb/usb_function_switch 130
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/functions ${sys.usb.config}
-    write /sys/class/android_usb/android0/enable ${service.adb.root}
-    start adbd
-    write /sys/class/android_usb/android0/f_ffs/on 1
-    write /sys/class/android_usb/android0/f_adb/on 1
-    write /sys/devices/platform/android_usb/usb_function_switch 3
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:ro.bootmode=offmode_charging
-    stop recovery
-
-service chargeled /sbin/chargeled
-    disabled
-    seclabel u:r:healthd:s0
-
-service choice_fn /sbin/choice_fn
-    disabled
+# Separate copy needed to use /sbin/linker64 instead of /system/bin/linker64
+service sbinqseecomd /sbin/qseecomd
     oneshot
+    disabled
+    user root
+    group root
     seclabel u:r:recovery:s0
 
-service detect_key /sbin/detect_key
-    disabled
-    oneshot
-    seclabel u:r:healthd:s0
+on property:ro.crypto.state=encrypted
+    start sbinqseecomd
 
-service offmode_charging /sbin/offmode_charging
-    disabled
-    seclabel u:r:healthd:s0
-
-service power_test /sbin/power_test
-    disabled
-    oneshot
-    seclabel u:r:recovery:s0
+on init
+    mkdir /system/vendor/firmware
+    mkdir /system/vendor/firmware/keymaster
+    symlink /firmware/image/keymaster.b00 /vendor/firmware/keymaster/keymaster.b00
+    symlink /firmware/image/keymaster.b01 /vendor/firmware/keymaster/keymaster.b01
+    symlink /firmware/image/keymaster.b02 /vendor/firmware/keymaster/keymaster.b02
+    symlink /firmware/image/keymaster.b03 /vendor/firmware/keymaster/keymaster.b03
+    symlink /firmware/image/keymaster.mdt /vendor/firmware/keymaster/keymaster.mdt
