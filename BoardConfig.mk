@@ -189,6 +189,7 @@ TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 TW_NEW_ION_HEAP := true
 TW_TARGET_USES_QCOM_BSP := true
+TW_INCLUDE_CRYPTO := true
 endif
 
 # Recovery
