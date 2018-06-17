@@ -175,7 +175,6 @@ TARGET_SYSTEM_PROP += \
 # Qualcomm support
 BOARD_USES_QC_TIME_SERVICES := true
 BOARD_USES_QCOM_HARDWARE := true
-BOARD_USES_CYANOGEN_HARDWARE := true
 
 # Shims
 TARGET_LD_SHIM_LIBS := /system/lib64/libhtc_rilhook.so|libshim_ril.so
