@@ -10,5 +10,12 @@ allow init debugfs:dir { mounton };
 
 allow init sysfs_usb_adw:file relabelto;
 
+allow init hal_graphics_allocator_default:fd use;
+allow init ion_device:chr_file { ioctl write };
+allow init property_socket:sock_file write;
+allow init self:capability2 block_suspend;
+allow init self:netlink_route_socket read;
+allow init video_device:chr_file { ioctl write };
+
 
 

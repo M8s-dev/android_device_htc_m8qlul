@@ -121,6 +121,8 @@
 /system/bin/hld                                 u:object_r:hld_exec:s0
 #### Add by HTC SSD Tool END ####
 /system/bin/mcDriverDaemon            		u:object_r:mcDriverDaemon_exec:s0
+/system/bin/qseecomd                            u:object_r:tee_exec:s0
+/system/bin/thermal-engine                      u:object_r:thermal-engine_exec:s0
 
 ###################################
 # proc files
