@@ -902,6 +902,11 @@ so we keep speaker for output device -->
         <ctl name="DEC1 Volume" value="89" />
     </path>
 
+    <path name="audio-record headset-vr">
+        <path name="audio-record"/>
+        <path name="headset-vr"/>
+    </path>
+
     <!-- A: 12dB D: 0dB -->
     <path name="headset-cam">
         <path name="headset-mic-generic" />
