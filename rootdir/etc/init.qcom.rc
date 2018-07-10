@@ -586,12 +586,6 @@ service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     group camera system inet input graphics
     writepid /dev/cpuset/camera-daemon/tasks
 
-service qmiproxy /system/vendor/bin/qmiproxy
-    class late_start
-    user radio
-    group radio qcom_diag
-    writepid /dev/cpuset/system-background/tasks
-
 service qmuxd /system/vendor/bin/qmuxd
     class core
     user root
@@ -646,11 +640,6 @@ service wv-prov /system/vendor/bin/hcheck-v2
     user root
     oneshot
 
-service mpdecision /system/vendor/bin/mpdecision --avg_comp
-    class late_start
-    user root
-    disabled
-
 service thermal-engine /system/vendor/bin/thermal-engine
     class main
     user root
@@ -659,15 +648,6 @@ service thermal-engine /system/vendor/bin/thermal-engine
     socket thermal-recv-passive-client stream 0666 system system
     group root
     writepid /dev/cpuset/system-background/tasks
-
-service pnpmgr /system/vendor/bin/pnpmgr
-    class core
-    user root
-
-service memlock /system/vendor/bin/memlock
-    class main
-    cgroup bg
-    user root
 
 service hciattach /system/vendor/bin/hci_qcomm_init -e
     class late_start
@@ -694,7 +674,3 @@ on property:service.adb.root=1
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
-
-on property:vold.decrypt=trigger_restart_framework
-		setprop ro.fuse_sdcard ${persist.fuse_sdcard}
-    start config_bluetooth
