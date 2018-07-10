@@ -544,18 +544,18 @@ service ftp_del /system/bin/sdptool del 0x1ff20
     disabled
     oneshot
 
-service irsc_util /system/bin/irsc_util "/etc/sec_config"
+service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
     writepid /dev/cpuset/system-background/tasks
 
-service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
+service msm_irqbalance /system/vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
     class main
     user root
     group root
 
-service netmgrd /system/bin/netmgrd
+service netmgrd /system/vendor/bin/netmgrd
     class main
     user root
     group root wifi wakelock radio inet
@@ -573,64 +573,64 @@ service p2p_supplicant /system/vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service perfd /system/bin/perfd
+service perfd /system/vendor/bin/perfd
    user root
    disabled
    writepid /dev/cpuset/system-background/tasks
 
-service ptt_socket_app /system/bin/ptt_socket_app
+service ptt_socket_app /system/vendorbin/ptt_socket_app
     class main
     user system
     group system
     oneshot
 
-service qcamerasvr /system/bin/mm-qcamera-daemon
+service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
     writepid /dev/cpuset/camera-daemon/tasks
 
-service qmiproxy /system/bin/qmiproxy
+service qmiproxy /system/vendor/bin/qmiproxy
     class late_start
     user radio
     group radio qcom_diag
     writepid /dev/cpuset/system-background/tasks
 
-service qmuxd /system/bin/qmuxd
+service qmuxd /system/vendor/bin/qmuxd
     class core
     user radio
     group radio audio bluetooth gps qcom_diag
     writepid /dev/cpuset/system-background/tasks
 
-service qseecomd /system/bin/qseecomd
+service qseecomd /system/vendor/bin/qseecomd
     class main
     user root
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service rfs_access /system/bin/rfs_access
+service rfs_access /system/vendor/bin/rfs_access
    class core
    user system
    group system net_raw
 
-service rmt_storage /system/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
+service rmt_storage /system/vendor/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
     class core
     user root
     group system wakelock
     writepid /dev/cpuset/system-background/tasks
 
-service time_daemon /system/bin/time_daemon
+service time_daemon /system/vendor/bin/time_daemon
     class late_start
     user root
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service vm_bms /system/bin/vm_bms
+service vm_bms /system/vendor/bin/vm_bms
     user root
     group root
     disabled
 
-service wcnss-service /system/bin/wcnss_service
+service wcnss-service /system/vendor/bin/wcnss_service
     class main
     user system
     group system wifi qcom_diag radio
@@ -645,12 +645,12 @@ service wpa_supplicant /system/vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service wv-prov /system/bin/hcheck-v2
+service wv-prov /system/vendor/bin/hcheck-v2
     class late_start
     user root
     oneshot
 
-service mpdecision /system/bin/mpdecision --avg_comp
+service mpdecision /system/vendor/bin/mpdecision --avg_comp
     class late_start
     user root
     disabled
@@ -664,11 +664,11 @@ service thermal-engine /system/vendor/bin/thermal-engine
     group root
     writepid /dev/cpuset/system-background/tasks
 
-service pnpmgr /system/bin/pnpmgr
+service pnpmgr /system/vendor/bin/pnpmgr
     class core
     user root
 
-service memlock /system/bin/memlock
+service memlock /system/vendor/bin/memlock
     class main
     cgroup bg
     user root
