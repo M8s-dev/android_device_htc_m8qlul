@@ -617,6 +617,7 @@ service rfs_access /system/bin/rfs_access
 service rmt_storage /system/bin/rmt_storage modem_st1 modem_st2 fsc recovery radio_config cdma_record
     class core
     user root
+    group system wakelock
     writepid /dev/cpuset/system-background/tasks
 
 service time_daemon /system/bin/time_daemon
