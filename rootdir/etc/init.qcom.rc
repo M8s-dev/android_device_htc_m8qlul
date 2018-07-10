@@ -43,7 +43,6 @@ on early-init
     mkdir /firmware 0771 system system
     mkdir /firmware/radio 0771 system system
     mkdir /firmware/wcnss 0771 system system
-    mkdir /firmware/image 0771 system system
 
     mkdir /custdata 0771 system system
     mkdir /devlog 0700 root root
