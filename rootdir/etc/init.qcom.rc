@@ -447,10 +447,6 @@ on boot
     chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
     
-	# remove /dev/mem and /dev/kmem
-    rm /dev/mem
-    rm /dev/kmem
-
     chown system system /sys/class/leds/green/brightness
     chown system system /sys/class/leds/green/blink
     chown system system /sys/class/leds/green/off_timer
