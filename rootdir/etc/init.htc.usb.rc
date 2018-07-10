@@ -1243,15 +1243,15 @@ on property:sys.usb.config=mtp,mass_storage,adb,diag,modem
     setprop sys.usb.state ${sys.usb.config}
 
 # Regression for old HTC style adb
-#on property:sys.usb.config=adb
-#    stop adbd
-#    write /sys/class/android_usb/android0/enable 0
-#    write /sys/class/android_usb/android0/idVendor 0bb4
-#    write /sys/class/android_usb/android0/idProduct 0f86
-#    write /sys/class/android_usb/android0/functions mass_storage,adb
-#    write /sys/class/android_usb/android0/enable 1
-#    start adbd
-#    setprop sys.usb.state ${sys.usb.config}
+on property:sys.usb.config=adb
+    stop adbd
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0bb4
+    write /sys/class/android_usb/android0/idProduct 0f86
+    write /sys/class/android_usb/android0/functions mass_storage,adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=adboff,modem
     stop adbd
