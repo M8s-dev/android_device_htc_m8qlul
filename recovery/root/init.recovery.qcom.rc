@@ -22,6 +22,9 @@ on init
     symlink /firmware/image/keymaster.b03 /vendor/firmware/keymaster/keymaster.b03
     symlink /firmware/image/keymaster.mdt /vendor/firmware/keymaster/keymaster.mdt
 
+on boot
+    start chargeled
+
 on property:ro.bootmode=offmode_charging
     start detect_key
 #    start offmode_charging
@@ -42,3 +45,7 @@ service power_test /sbin/power_test
     disabled
     oneshot
     seclabel u:r:recovery:s0
+
+service chargeled /sbin/chargeled
+    disabled
+    seclabel u:r:healthd:s0
