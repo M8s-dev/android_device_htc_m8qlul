@@ -10,7 +10,6 @@
 /carrier 	ext4	/dev/block/bootdevice/by-name/carrier
 /cota		ext4	/dev/block/bootdevice/by-name/cota
 /preload	ext4	/dev/block/bootdevice/by-name/apppreload
-/persist	ext4	/dev/block/bootdevice/by-name/persist
 
 # Removable storage
 /external_sd	vfat	/dev/block/mmcblk1p1			/dev/block/mmcblk1	flags=storage;wipeingui;removable;encryptable=footer
