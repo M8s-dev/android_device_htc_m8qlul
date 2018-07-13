@@ -1,0 +1,4 @@
+permissive thermal-engine;
+
+allow thermal-engine proc:file { getattr open read };
+

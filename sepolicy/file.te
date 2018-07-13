@@ -1,5 +1,14 @@
-type touchpanel_sysfs, fs_type, sysfs_type;
-type leds_device, file_type, dev_type;
-type color_device, file_type, dev_type;
-type ylparams_device, file_type, dev_type;
-type display_sysfs, sysfs_type, file_type;
+type rmt_storage_debug_file, file_type;
+type sysfs_gesture, fs_type, sysfs_type;
+type debugfs_heaps_system, fs_type, debugfs_type;
+
+# /carrier/qcril.db
+type qcril_file,  file_type;
+
+# /sys/class/leds/indicator/ModeRGB
+type sysfs_flashlight, fs_type, sysfs_type;
+
+# /sys/android_camera_awb_cal/*
+type camera_cal_sysfs, fs_type, sysfs_type;
+
+

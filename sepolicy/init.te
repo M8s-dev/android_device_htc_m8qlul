@@ -1,21 +1,8 @@
-allow sysfs_g_sensor sysfs:filesystem { associate };
-allow sysfs_sensor_hub sysfs:filesystem { associate };
-allow init sysfs_sensor_hub:lnk_file {  read };
-allow init sysfs_sensor_hub:dir { read open search };
-allow sysfs_usb_adw sysfs:filesystem { associate };
-allow init pstorefs:dir { mounton };
-allow init wv-prov_exec:file { getattr execute read open };
-allow init tee_device:chr_file rw_file_perms;
+allow init { domain -lmkd -crash_dump }:process noatsecure;
+
 allow init debugfs:dir { mounton };
+allow init debugfs_rmt:dir relabelfrom;
+allow init debugfs_rmt:file relabelfrom;
 
-allow init sysfs_usb_adw:file relabelto;
-
-allow init hal_graphics_allocator_default:fd use;
-allow init ion_device:chr_file { ioctl write };
-allow init property_socket:sock_file write;
-allow init self:capability2 block_suspend;
-allow init self:netlink_route_socket read;
-allow init video_device:chr_file { ioctl write };
-
-
-
+# Allow init mount /sys/fs/pstore
+allow init pstorefs:dir mounton;

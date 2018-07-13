@@ -1,8 +1,12 @@
 type wv-prov, domain;
 type wv-prov_exec, exec_type, file_type;
 
-
 init_daemon_domain(wv-prov)
 
 allow wv-prov wv-prov:capability dac_override;
 allow wv-prov tee_device:chr_file rw_file_perms;
+
+allow wv-prov firmware_file:file { getattr open read };
+allow wv-prov ion_device:chr_file { ioctl open read };
+allow wv-prov firmware_file:dir search;
+

@@ -1,5 +1,8 @@
-allow rild carrier_file:file rw_file_perms;
-allow rild carrier_file:file create_file_perms;
-allow rild carrier_file:dir search;
 allow rild system_prop:property_service set;
 
+allow rild qcril_device:dir { add_name write search };
+allow rild qcril_device:file { create getattr open read write };
+allow rild qcril_device:dir search;
+
+allow rild qcril_file:dir search;
+allow rild qcril_file:file { getattr ioctl lock open read write };

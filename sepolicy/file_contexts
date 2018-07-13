@@ -1,232 +1,52 @@
-# Probably overkill, but this file_contexts
-# contains all the unique entries that
-# can be found in HTC's stock boot and
-# recovery images. Deduplicated of course:
-# I have removed all the lines that could
-# also be found in the inherited file
-# qcom/sepolicy/common/file_contexts.
-# -- voidzero.
-###########################################
-/dev/akm.*                                      u:object_r:akmd_device:s0
-/dev/htc_diag                                   u:object_r:diag_device:s0
-/dev/diag_arm9                                  u:object_r:diag_device:s0
-/dev/diag_mdm                                   u:object_r:diag_device:s0
-/dev/diag_qsc                                   u:object_r:diag_device:s0
-/dev/smuxctl.*                                  u:object_r:smux_device:s0
-/dev/mdm1                                       u:object_r:qsc_device:s0
-/dev/msm_rotator                                u:object_r:gpu_device:s0
-/dev/lightsensor                                u:object_r:sensors_device:s0
-/dev/cm3602                                     u:object_r:sensors_device:s0
-/dev/cwmcu                                      u:object_r:cwmcu_device:s0
-/dev/timerirq                                   u:object_r:invensense_device:s0
-/dev/ttyHSL1                                    u:object_r:hs_device:s0
-/dev/ttyHSL2                                    u:object_r:cir_device:s0
-/dev/ttyHSL3                                    u:object_r:hs_device:s0
-/dev/ttyHSUSB[1-3]                              u:object_r:autobot_device:s0
-/dev/ttyHSUSB4                                  u:object_r:acm_device:s0
+# Audio
+/dev/htc-acoustic                                                                     u:object_r:audio_device:s0
+/dev/rt5501                                                                           u:object_r:audio_device:s0
+/dev/tfa9887                                                                          u:object_r:audio_device:s0
+/dev/tfa9887l                                                                         u:object_r:audio_device:s0
 
-#Radio
-/dev/radio(/.*)?				u:object_r:radio_data_file:s0
-#End
-#
-# HTC++
-#HTC_FP_START
-/dev/vfsspi                                     u:object_r:vcsFPService_device:s0
-/dev/validity/*                                 u:object_r:vcsFPService_device:s0
-#HTC_FP_END
-/dev/btlock                                     u:object_r:btlock_device:s0
-/dev/htc_sdservice                              u:object_r:vold_device:s0
-/dev/rawchip0                                   u:object_r:mm-qcamerad_device:s0
-/dev/gemini0                                    u:object_r:mm-qcamerad_device:s0
-/dev/AIT0                                       u:object_r:mm-qcamerad_device:s0
-#HTC+
-/dev/htc_nsd_misc                               u:object_r:audiod_device:s0
-/dev/htc_hsicctl                                u:object_r:audiod_device:s0
-/dev/htc-acoustic                               u:object_r:audiod_device:s0
-/dev/rt5501                                     u:object_r:audiod_device:s0
-/dev/tfa9887                                    u:object_r:audiod_device:s0
-/dev/tfa9887l                                   u:object_r:audiod_device:s0
-/dev/tfa9895                                    u:object_r:audiod_device:s0
-/dev/tfa9895l                                   u:object_r:audiod_device:s0
-/dev/msm_acdb                                   u:object_r:audiod_device:s0
-/dev/pmem.*                                     u:object_r:pmem_device:s0
-#HTC-
-/dev/simlock                                    u:object_r:simlock_device:s0
+# Debugfiles
+/sys/kernel/debug/rmt_storage(/.*)?                                                   u:object_r:rmt_storage_debug_file:s0
 
-#HTC sensor_hub+
-/dev/shub_dload                                 u:object_r:sensor_hub_device:s0
-/dev/shub_log                                   u:object_r:sensor_hub_device:s0
-/dev/shub_fw_fla                                u:object_r:sensor_hub_device:s0
-/dev/shub_event                                 u:object_r:sensor_hub_device:s0
-#HTC sensor_hub-
+# Diag
+/dev/htc_diag                                                                         u:object_r:diag_device:s0
 
-# local partition
-/dev/block/bootdevice/by-name/local             u:object_r:local_partition:s0
+# Gesture
+/sys/devices/virtual/htc_sensorhub/sensor_hub/gesture_motion                          u:object_r:sysfs_gesture:s0
 
-###################################
-# Dev socket nodes
-#
-# HTC-htc_dk-BEGIN: for dumping kernel log from system_server
-/dev/socket/htc_dk                              u:object_r:htc_dk_socket:s0
-# HTC-htc_dk-END
-# HTC-htc_dlk-BEGIN: for dumping last kernel log from system_app
-/dev/socket/htc_dlk                             u:object_r:htc_dlk_socket:s0
-# HTC-htc_dlk-END
+# rild qcril.db
+/carrier(/.*)?                                                                        u:object_r:qcril_file:s0
 
-#OMADM_DMAGENT_START
-/dev/socket/dmagent  u:object_r:dmagent_socket:s0
-#OMADM_DMAGENT_END
+# Radio
+/dev/radio                                                                            u:object_r:qcril_device:s0
 
-#### Add by HTC RIL START ####
-/dev/socket/kipc                                u:object_r:htc_kipc_socket:s0
-/dev/socket/cfiat                               u:object_r:htc_cfiat_socket:s0
-#### Add by HTC RIL END####
+# Camera device
+/dev/AIT0                                                                             u:object_r:camera_device_file:s0
 
-#### Add by HTC SSD Tool START ####
-/dev/socket/hld(/.*)?                           u:object_r:hld_socket:s0
-#### Add by HTC SSD Tool END ####
+# Camera calibration files
+/sys/android_camera_awb_cal(/.*)?                                                     u:object_r:camera_cal_sysfs:s0
 
-/system/bin/cand                                u:object_r:cand_exec:s0
-###################################
-# System files
-#
-#/system/bin/app_process                         u:object_r:zygote_exec:s0
-/system/bin/cir_fw_update                       u:object_r:cir_fw_update_exec:s0
-/system/bin/thermald                            u:object_r:thermald_exec:s0
-/system/bin/pnpmgr                              u:object_r:pnpmgr_exec:s0
-/system/bin/memlock                             u:object_r:memlock_exec:s0
-/system/bin/akmd                                u:object_r:akmd_exec:s0
-/system/bin/tpd_daemon                          u:object_r:tpd_daemon_exec:s0
-#HTC_FP_START
-/system/bin/vcsFPService			u:object_r:vcsFPService_device:s0
-/system/bin/vcsFirmwareVersion			u:object_r:vcsFPService_exec:s0
-/system/bin/vcsSimpleEnrollMatch		u:object_r:vcsFPService_exec:s0
-#HTC_FP_END
+# Heaps
+/sys/kernel/debug/ion/heaps/system                                                    u:object_r:debugfs_heaps_system:s0
 
-#HTC_WIFI_START
-/system/xbin/nc     u:object_r:netcat_exec:s0
-#HTC_WIFI_END
-/system/bin/hcheck-v2                           u:object_r:wv-prov_exec:s0
-/dev/htcdrm                                     u:object_r:htcdrm_device:s0
-/system/bin/readDapCert                         u:object_r:read_dap_cert_exec:s0
-/system/bin/htc_ebdlogd                         u:object_r:htc_ebdlogd_exec:s0
-/sbin/htc_ebdlogd_recvy                         u:object_r:htc_ebdlogd_exec:s0
-#OMADM_DMAGENT_START
-/system/bin/dmagent  u:object_r:dmagent_exec:s0
-#OMADM_DMAGENT_END
-/system/bin/shub_dbg                            u:object_r:shub_dbg_exec:s0
-/sbin/sfc                                       u:object_r:sfc_exec:s0
-/system/bin/rild_qsc                            u:object_r:rild_exec:s0
-#### Add by HTC SSD Tool START ####
-/system/bin/hld                                 u:object_r:hld_exec:s0
-#### Add by HTC SSD Tool END ####
-/system/bin/mcDriverDaemon            		u:object_r:mcDriverDaemon_exec:s0
-/system/bin/qseecomd                            u:object_r:tee_exec:s0
-/system/bin/thermal-engine                      u:object_r:thermal-engine_exec:s0
+# BT Address file
+/sys/module/htc_bdaddress/parameters/bdaddress                                        u:object_r:sysfs_bluetooth_writable:s0
 
-###################################
-# proc files
-#
-/proc/driver/hdf                                u:object_r:sfc_block_device:s0
+# Flash light file
+/sys/devices/soc.0/78b8000.i2c/i2c-4/4-0033/leds/flashlight(/.*)?                     u:object_r:sysfs_flashlight:s0
 
+# Leds sysfs file
+/sys/devices/soc.0/78b6000.i2c/i2c-0/0-0032/leds/indicator/ModeRGB                    u:object_r:sysfs_leds:s0
 
-###################################
-# sysfs files
-#
-/sys/devices/.*bcl.*(/.*)?                                          u:object_r:sysfs_thermal:s0
-/sys/devices/virtual/android_usb/android0/f_projector/.*            u:object_r:sysfs_usb_mirror_link:s0
-/sys/devices/virtual/android_usb/android0/f_projector2/.*           u:object_r:sysfs_usb_mirror_link:s0
-/sys/devices/virtual/htc_sensorhub/sensor_hub/.*                    u:object_r:sysfs_sensor_hub:s0
-/sys/devices/virtual/ST_acc/acc/.*                                  u:object_r:sysfs_g_sensor:s0
-/sys/devices/virtual/htc_g_sensor/g_sensor/.*                       u:object_r:sysfs_g_sensor:s0
-/sys/devices/soc.*/78b6000.i2c/i2c-0/0-000e/iio.*/.*                u:object_r:sysfs_g_sensor:s0
+# Modem partitions
+/dev/block/platform/soc.0/7824900.sdhci/by-name/cdma_record                           u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc.0/7824900.sdhci/by-name/modem_st1                             u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc.0/7824900.sdhci/by-name/modem_st2                             u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc.0/7824900.sdhci/by-name/rfg_[0-9]*                            u:object_r:modem_efs_partition_device:s0
 
-###################################
-# data files
-#
-/data/misc/modem_config(/.*)?                                       u:object_r:modem_config_file:s0
-/data/time/*                                                        u:object_r:time_data_file:s0
-/data/dalvik-cache/arm/system(/.*)?                                 u:object_r:dalvikcache_device:s0
+# HALs
+/system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.m8qlul                   u:object_r:hal_light_default_exec:s0
+/system/vendor/bin/hw/android\.hardware\.usb@1\.0-service\.m8qlul                     u:object_r:hal_usb_default_exec:s0
 
-#OMADM_DMAGENT_START
-/data/local/dma.cfg                                                 u:object_r:dmagent_data_file:s0
-#OMADM_DMAGENT_END
-
-# [framework] begin, Jim Guo, 2014/12/17, [DEBUG][HPROF] ART: Collecting debug information on OOME occurred.
-/data/misc/hprof(/.*)?                                              u:object_r:hprof_data_file:s0
-# [framework] end, Jim Guo, 2014/12/17.
-
-###################################
-# persist files
-#
-
-
-###################################
-# oem files
-#
-
-###################################
-# OMADM_SPCS carrier files
-#
-/carrier(/.*)?       u:object_r:carrier_file:s0
-
-###################################
-# app preload files
-#
-/preload(/.*)?       u:object_r:system_data_file:s0
-
-###################################
-# ADW serial port
-#
-/sys/devices/virtual/android_usb/android0/f_serial/on				u:object_r:sysfs_usb_adw:s0
-
-###################################
-# Embedded log files
-#
-/devlog(/.*)?                                                       u:object_r:htc_ebdlogd_file:s0
-/fataldevlog(/.*)?                                                  u:object_r:htc_ebdlogd_file:s0
-
-###################################
-# vzw quality logger files
-#
-/vzw/quality(/.*)?                                                  u:object_r:vzw_quality_file:s0
-/vzwqualitylogger(/.*)?                                             u:object_r:vzwqualitylogger_file:s0
-
-###################################
-# PDN files
-#
-/carrier/PDN(/.*)?       u:object_r:pdn_file:s0
-
-###################################
-# cota files
-#
-/cota(/.*)?       u:object_r:system_data_file:s0
-
-###################################
-# nfc_record files
-#
-/nfc_record(/.*)?       u:object_r:system_data_file:s0
-
-
-# Absolute persisted directory
-/persdata/absolute(/.*)?                                            u:object_r:abt_pers_data_file:s0
-#line 1 "device/qcom/sepolicy/msm8916/file_contexts"
-###################################
-# Dev nodes
-#
-#### Add by HTC RIL+ ####
-/dev/block/mmcblk0p15                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p16                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p17                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p18                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p19                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p20                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p21                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p22                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p23                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p27                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p28                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p35                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p36                           u:object_r:mmc_block_device_modem:s0
-/dev/block/mmcblk0p37                           u:object_r:mmc_block_device_ssd:s0
-#### Add by HTC RIL- ####
+# Vendor blobs
+/system/vendor/bin/hcheck-v2                                                          u:object_r:wv-prov_exec:s0
+/system/vendor/bin/hci_qcomm_init                                                     u:object_r:bluetooth_loader_exec:s0

@@ -1,7 +1,16 @@
 allow mediaserver system_server:unix_stream_socket { connectto read write setopt };
 allow mediaserver sensorservice_service:service_manager find;
 
-allow mediaserver init:unix_dgram_socket sendto;
-allow mediaserver proc:file read;
-allow mediaserver sysfs:file write;
+allow mediaserver proc:file { getattr open read };
+allow mediaserver mm-qcamerad:unix_dgram_socket sendto;
+allow mediaserver debugfs_heaps_system:file { getattr open read };
+allow mediaserver apk_data_file:dir search;
 
+allow mediaserver firmware_file:dir search;
+allow mediaserver firmware_file:file { read open getattr };
+
+allow mediaserver hal_configstore_ISurfaceFlingerConfigs:hwservice_manager find;
+binder_call(mediaserver, hal_configstore)
+
+allow mediaserver camera_cal_sysfs:dir search;
+allow mediaserver camera_cal_sysfs:file r_file_perms;

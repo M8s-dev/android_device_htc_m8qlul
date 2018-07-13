@@ -1,11 +1,1 @@
-# CmHardwareService access to TapToWake and KeyDisabler
-allow system_server touchpanel_sysfs:file rw_file_perms;
-allow system_server touchpanel_sysfs:dir { search };
-
-# CmHardwareService access to Color Calibration
-allow system_server color_device:chr_file rw_file_perms;
-
-# CmHardwareService access to Color Calibration
-allow system_server display_sysfs:file rw_file_perms;
-
-allow system_server sysfs_sensor_hub:file r_file_perms;
+allow system_server sysfs_gesture:file write;

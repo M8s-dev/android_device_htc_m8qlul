@@ -1,0 +1,1 @@
+dontaudit untrusted_app_25 proc:file { getattr open read };

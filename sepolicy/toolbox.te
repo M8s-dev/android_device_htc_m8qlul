@@ -1,0 +1,7 @@
+allow toolbox toolbox:udp_socket { create ioctl };
+allow toolbox init:fifo_file write;
+allow toolbox diag_device:chr_file { read write };
+
+allow toolbox self:capability net_admin;
+allow toolbox self:udp_socket ioctl;
+

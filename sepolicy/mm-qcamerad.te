@@ -1,3 +1,13 @@
-#allow mm-qcamerad default_prop:property_service set;
-allow mm-qcamerad mm-qcamerad_device:chr_file { read write open };
+# Allow camera to access /dev/AIT0
+allow mm-qcamerad camera_device_file:chr_file { open read write };
 
+# Allow camera to access /sys/android_camera_awb_cal/* files
+allow mm-qcamerad camera_cal_sysfs:file r_file_perms;
+allow mm-qcamerad camera_cal_sysfs:dir search;
+
+allow mm-qcamerad sysfs_flashlight:dir search;
+allow mm-qcamerad sysfs_flashlight:file { getattr open read };
+
+allow mm-qcamerad sysfs_leds:dir search;
+
+allow mm-qcamerad vendor_file:file execmod;

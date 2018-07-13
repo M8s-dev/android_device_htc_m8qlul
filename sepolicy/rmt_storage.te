@@ -1,1 +1,5 @@
-allow rmt_storage mmc_block_device_modem:blk_file rw_file_perms;
+allow rmt_storage rmt_storage_debug_file:dir search;
+allow rmt_storage rmt_storage_debug_file:file { open write };
+allow rmt_storage self:capability { net_raw };
+allow rmt_storage_debug_file debugfs:filesystem { associate };
+
