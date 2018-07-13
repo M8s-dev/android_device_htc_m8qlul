@@ -574,7 +574,7 @@ service perfd /system/vendor/bin/perfd
    disabled
    writepid /dev/cpuset/system-background/tasks
 
-service ptt_socket_app /system/vendorbin/ptt_socket_app
+service ptt_socket_app /system/vendor/bin/ptt_socket_app
     class main
     user system
     group system
@@ -620,7 +620,7 @@ service vm_bms /system/vendor/bin/vm_bms
     group root
     disabled
 
-service wcnss-service /system/vendor/bin/wcnss_service
+service wcnss-service /system/bin/wcnss_service
     class main
     user system
     group system wifi oem_2950 radio
