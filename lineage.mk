@@ -18,6 +18,7 @@ PRODUCT_NAME := lineage_m8qlul
 PRODUCT_DEVICE := m8qlul
 PRODUCT_BRAND := htc
 PRODUCT_MANUFACTURER := HTC
+PRODUCT_MODEL := HTC One M8s
 
 # Set build fingerprint / ID / Product Name etc.
 PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=m8qlul_htc_europe TARGET_DEVICE=htc_m8qlul
