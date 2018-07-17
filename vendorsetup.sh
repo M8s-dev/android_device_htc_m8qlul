@@ -1,2 +1,2 @@
-add_lunch_combo lineage_m8qlul-userdebug
-add_lunch_combo lineage_m8qlul-eng
+add_lunch_combo aicp_m8qlul-userdebug
+add_lunch_combo aicp_m8qlul-eng

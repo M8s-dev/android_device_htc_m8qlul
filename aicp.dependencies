@@ -1,0 +1,27 @@
+[
+  {
+    "repository": "M8S-dev/android_kernel_htc_msm8939",
+    "target_path": "kernel/htc/msm8939",
+    "branch":      "lineage-15.1"
+  },
+  {
+    "repository": "LineageOS/android_device_qcom_common",
+    "target_path": "device/qcom/common",
+    "branch":      "lineage-15.1"
+  },
+  {
+    "repository": "LineageOS/android_hardware_qcom_fm",
+    "target_path": "hardware/qcom/fm",
+    "branch":      "lineage-15.1"
+  },
+  {
+    "repository": "LineageOS/android_packages_apps_FlipFlap",
+    "target_path": "packages/apps/FlipFlap",
+    "branch":      "lineage-15.1"
+  },
+ {
+    "repository":  "TeamWin/android_device_qcom_htc-common",
+    "target_path": "device/qcom/htc-common",
+    "branch":    "android-8.1"
+   }
+]
