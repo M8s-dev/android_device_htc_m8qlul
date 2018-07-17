@@ -4,10 +4,6 @@
     "target_path": "kernel/htc/msm8939",
   },
   {
-    "repository": "android_external_mm-dash",
-    "target_path": "external/mm-dash"
-  },
-  {
     "repository": "android_device_qcom_common",
     "target_path": "device/qcom/common"
   },
@@ -25,5 +21,4 @@
     "target_path": "device/qcom/htc-common",
     "revision":    "android-8.1"
   }
-
 ]
