@@ -521,25 +521,6 @@ on boot
     # load ADSP
     write /sys/kernel/boot_adsp/boot 1
 
-service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
-    class late_start
-    user system
-    group system
-    disabled
-    oneshot
-
-service ftp /system/bin/sdptool add --handle=0x1ff20 --psm=5257 --channel=20 FTP
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-service ftp_del /system/bin/sdptool del 0x1ff20
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
 service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     class main
     user root
