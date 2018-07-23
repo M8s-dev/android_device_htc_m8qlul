@@ -1,0 +1,5 @@
+# video rec fix
+68945/1 http://gerrit.aicp-rom.com frameworks/av
+
+# RIL fix
+71210/1 http://gerrit.aicp-rom.com bionic
