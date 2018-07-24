@@ -53,6 +53,7 @@ public class HtcGestureService extends Service {
     private static final String KEY_SWIPE_DOWN = "swipe_down_action_key";
     private static final String KEY_SWIPE_LEFT = "swipe_left_action_key";
     private static final String KEY_SWIPE_RIGHT = "swipe_right_action_key";
+    private static final String DOUBLE_TAP_GESTURE_ENABLE = "touchscreen_double_tap_to_wake_toogle";
 
     private static final int SENSOR_WAKELOCK_DURATION = 200;
 
@@ -74,6 +75,7 @@ public class HtcGestureService extends Service {
     private int mSwipeDownAction;
     private int mSwipeLeftAction;
     private int mSwipeRightAction;
+    private boolean mDoubleTap;
 
     private GestureMotionSensor.GestureMotionSensorListener mListener =
         new GestureMotionSensor.GestureMotionSensorListener() {
@@ -179,8 +181,9 @@ public class HtcGestureService extends Service {
     }
 
     private boolean isDoubleTapEnabled() {
+        if (DEBUG) Log.d(TAG, "mDoubleTap is: " + Boolean.toString(mDoubleTap));
         return (Settings.Secure.getInt(mContext.getContentResolver(),
-                    Settings.Secure.DOUBLE_TAP_TO_WAKE, 0) != 0);
+                    Settings.Secure.DOUBLE_TAP_TO_WAKE, 0) != 0 && mDoubleTap);
     }
 
     private void handleGestureAction(int action) {
@@ -313,6 +316,7 @@ public class HtcGestureService extends Service {
                     Integer.toString(ACTION_NONE)));
             mSwipeRightAction = Integer.parseInt(sharedPreferences.getString(KEY_SWIPE_RIGHT,
                         Integer.toString(ACTION_NONE)));
+            mDoubleTap = sharedPreferences.getBoolean(DOUBLE_TAP_GESTURE_ENABLE, false);
         } catch (NumberFormatException e) {
             Log.e(TAG, "Error loading preferences");
         }
@@ -335,6 +339,8 @@ public class HtcGestureService extends Service {
                 } else if (KEY_SWIPE_RIGHT.equals(key)) {
                     mSwipeRightAction = Integer.parseInt(sharedPreferences.getString(KEY_SWIPE_RIGHT,
                                 Integer.toString(ACTION_NONE)));
+                } else if (DOUBLE_TAP_GESTURE_ENABLE.equals(key)) {
+                    mDoubleTap = sharedPreferences.getBoolean(DOUBLE_TAP_GESTURE_ENABLE, false);
                 }
             } catch (NumberFormatException e) {
                 Log.e(TAG, "Error loading preferences");

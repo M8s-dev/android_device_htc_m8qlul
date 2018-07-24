@@ -71,6 +71,12 @@
             android:summary="@string/touchscreen_gesture_haptic_feedback_summary"
             android:defaultValue="true" />
 
+        <SwitchPreference
+            android:key="touchscreen_double_tap_to_wake_toogle"
+            android:title="@string/touchscreen_double_tap_to_wake_toogle"
+            android:summary="@string/touchscreen_double_tap_to_wake_toogle_summary"
+            android:defaultValue="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
