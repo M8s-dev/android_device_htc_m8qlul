@@ -8,8 +8,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true \
     audio.offload.buffer.size.kb=1024 \
     audio.offload.multiple.enabled=false \
-    audio.offload.buffer.size.kb=1024 \
-    audio.offload.gapless.enabled=false
+    audio.offload.gapless.enabled=false \
+    audio.offload.pcm.16bit.enable=true \
+    audio.offload.pcm.24bit.enable=false \
+    av.offload.enable=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.ssr=false \
@@ -34,8 +36,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.audio.fluence.voicecall=true \
     persist.vendor.audio.fluence.voicerec=false \
-    persist.vendor.audio.fluence.speaker=true \
-    audio.offload.disable=true
+    persist.vendor.audio.fluence.speaker=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.audio.sdk.fluencetype=fluence
