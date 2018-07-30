@@ -23,19 +23,23 @@ on init
     symlink /firmware/image/keymaster.mdt /vendor/firmware/keymaster/keymaster.mdt
 
 on boot
+    start choice_fn
     start chargeled
 
 on property:ro.bootmode=offmode_charging
     start detect_key
-#    start offmode_charging
+    exec /sbin/sleep 4
+    start offmode_charging
+    stop recovery
 
 service choice_fn /sbin/choice_fn
-    disabled
+    oneshot
     seclabel u:r:recovery:s0
 
 service detect_key /sbin/detect_key
     disabled
-    seclabel u:r:recovery:s0
+    oneshot
+    seclabel u:r:healthd:s0
 
 service offmode_charging /sbin/offmode_charging
     disabled
