@@ -44,7 +44,6 @@ import android.util.Log;
 import lineageos.providers.LineageSettings;
 
 public class HtcGestureService extends Service {
-
     private static final boolean DEBUG = false;
 
     public static final String TAG = "GestureService";
@@ -60,6 +59,7 @@ public class HtcGestureService extends Service {
     private static final int ACTION_NONE = 0;
     private static final int ACTION_CAMERA = 1;
     private static final int ACTION_TORCH = 2;
+    private static final int ACTION_UNLOCK = 3;
 
     private Context mContext;
     private GestureMotionSensor mGestureSensor;
@@ -195,10 +195,20 @@ public class HtcGestureService extends Service {
             case ACTION_TORCH:
                 handleFlashlightActivation();
                 break;
+            case ACTION_UNLOCK:
+                handleUnlock();
             case ACTION_NONE:
             default:
                 break;
         }
+    }
+
+    private void handleUnlock() {
+        doHapticFeedback();
+        mSensorWakeLock.acquire(SENSOR_WAKELOCK_DURATION);
+        mPowerManager.wakeUp(SystemClock.uptimeMillis());
+        Intent intent = new Intent(this, UnlockActivity.class);
+        startActivity(intent);
     }
 
     private void handleCameraActivation() {

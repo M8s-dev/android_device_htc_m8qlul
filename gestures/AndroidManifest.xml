@@ -34,7 +34,13 @@
                 <action android:name="org.lineageos.settings.device.GESTURE_SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
+         </activity>
+
+         <activity
+             android:name=".UnlockActivity"
+             android:theme="@android:style/Theme.NoDisplay">
+         </activity>
+
 
     </application>
 </manifest>
