@@ -44,10 +44,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=true
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    use.dts_eagle=true \
-    hpx_send_params=1
-
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd
