@@ -446,13 +446,6 @@ on boot
     chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
     
-    chown system system /sys/class/leds/green/brightness
-    chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/green/off_timer
-    chown system system /sys/class/leds/amber/brightness
-    chown system system /sys/class/leds/amber/blink
-    chown system system /sys/class/leds/amber/off_timer
-
     # Torch
     chown system system /sys/class/leds/flashlight/brightness
     chmod 0666 /sys/class/leds/flashlight/brightness
