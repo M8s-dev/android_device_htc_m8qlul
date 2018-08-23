@@ -41,6 +41,7 @@ on boot
     write /dev/cpuset/camera-daemon/cpus 4-7
 
 on enable-low-power
+    start qcom-mem
 
     write /proc/sys/kernel/sched_boost 1
 
