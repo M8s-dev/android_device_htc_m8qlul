@@ -50,3 +50,4 @@
 # Vendor blobs
 /system/vendor/bin/hcheck-v2                                                          u:object_r:wv-prov_exec:s0
 /system/vendor/bin/hci_qcomm_init                                                     u:object_r:bluetooth_loader_exec:s0
+/system/vendor/bin/init.qcom.mem.sh                                                   u:object_r:qti_init_shell_exec:s0
