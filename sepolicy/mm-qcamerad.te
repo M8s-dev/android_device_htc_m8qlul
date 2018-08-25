@@ -11,3 +11,6 @@ allow mm-qcamerad sysfs_flashlight:file { getattr open read };
 allow mm-qcamerad sysfs_leds:dir search;
 
 allow mm-qcamerad vendor_file:file execmod;
+
+# Allow camera to set htc.camera.* properties
+allow mm-qcamerad camera_prop:property_service set;

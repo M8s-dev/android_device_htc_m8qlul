@@ -1,20 +1,5 @@
 qualcomm.bt.                     u:object_r:bluetooth_prop:s0
 
-camera.0.otp_info		u:object_r:camera_prop:s0
-htc.camera.0.otp_info		u:object_r:camera_prop:s0
-htc.camera.1.otp_info		u:object_r:camera_prop:s0
-htc.camera.2.otp_info		u:object_r:camera_prop:s0
-htc.camera.sensor.main_fuse1	u:object_r:camera_prop:s0
-htc.camera.sensor.main_fuse2	u:object_r:camera_prop:s0
-htc.camera.sensor.main_fuse3	u:object_r:camera_prop:s0
-htc.camera.sensor.main_fuse4	u:object_r:camera_prop:s0
-htc.camera.sensor.front_fuse1	u:object_r:camera_prop:s0
-htc.camera.sensor.front_fuse2	u:object_r:camera_prop:s0
-htc.camera.sensor.front_fuse3	u:object_r:camera_prop:s0
-htc.camera.sensor.front_fuse4	u:object_r:camera_prop:s0
-htc.camera.sensor.sub_fuse1	u:object_r:camera_prop:s0
-htc.camera.sensor.sub_fuse2	u:object_r:camera_prop:s0
-htc.camera.sensor.sub_fuse3	u:object_r:camera_prop:s0
-htc.camera.sensor.sub_fuse4	u:object_r:camera_prop:s0
+htc.camera.                      u:object_r:camera_prop:s0
 
-sys.under_silent_reset.slot0	u:object_r:system_prop:s0
+sys.under_silent_reset.slot0     u:object_r:system_prop:s0
