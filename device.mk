@@ -196,6 +196,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH_)/gps/etc/gps.conf:system/vendor/etc/gps.conf
+
 # IRQ balance
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
