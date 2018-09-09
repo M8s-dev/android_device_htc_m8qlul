@@ -958,10 +958,10 @@ so we keep speaker for output device -->
         <ctl name="RX3 Digital Volume" value="80" />
     </path>
 
-    <!-- SPK D : 0dB -->
+    <!-- SPK D : 5dB -->
     <path name="speaker">
         <path name="speaker-generic" />
-        <ctl name="RX3 Digital Volume" value="84" />
+        <ctl name="RX3 Digital Volume" value="89" />
     </path>
 
     <!-- MFG recording&playback use -->
