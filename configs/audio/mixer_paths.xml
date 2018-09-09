@@ -690,11 +690,11 @@ so we keep speaker for output device -->
         <ctl name="MI2S_TX Channels" value="Two" />
     </path>
 
-    <!-- A: 12/18dB D: 2/0dB -->
+    <!-- A: 15/21dB D: 2/0dB -->
     <path name="dmic-endfire">
         <path name="dual-mic" />
-        <ctl name="ADC1 Gain" value="G_12_DB" />
-        <ctl name="ADC3 Gain" value="G_18_DB" />
+        <ctl name="ADC1 Gain" value="G_15_DB" />
+        <ctl name="ADC3 Gain" value="G_21_DB" />
         <ctl name="DEC1 Volume" value="86" />
         <ctl name="DEC2 Volume" value="84" />
     </path>
