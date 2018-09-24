@@ -141,13 +141,21 @@
             <instance>default</instance>
         </interface>
     </hal>
-
     <hal format="hidl">
         <name>vendor.lineage.livedisplay</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
             <name>IColor</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.gnss</name>
+        <transport arch="32+64">passthrough</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IGnss</name>
             <instance>default</instance>
         </interface>
     </hal>
