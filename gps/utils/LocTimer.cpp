@@ -283,8 +283,7 @@ void LocTimerContainer::updateSoonestTime(LocTimerDelegate* priorTop) {
 
     // check if top has changed
     if (curTop != priorTop) {
-        struct itimerspec delay;
-        memset(&delay, 0, sizeof(struct itimerspec));
+        struct itimerspec delay = {0};
         bool toSetTime = false;
         // if tree is empty now, we remove poll and disarm timer
         if (!curTop) {
@@ -375,8 +374,7 @@ void LocTimerContainer::expire() {
         }
     };
 
-    struct itimerspec delay;
-    memset(&delay, 0, sizeof(struct itimerspec));
+    struct itimerspec delay = {0};
     timerfd_settime(getTimerFd(), TFD_TIMER_ABSTIME, &delay, NULL);
     mPollTask->removePoll(*this);
     mMsgTask->sendMsg(new MsgTimerExpire(*this));
@@ -509,13 +507,8 @@ int LocTimerDelegate::ranks(LocRankable& rankable) {
     LocTimerDelegate* timer = (LocTimerDelegate*)(&rankable);
     if (timer) {
         // larger time ranks lower!!!
-        // IOW, if input obj has bigger tv_sec/tv_nsec, this obj outRanks higher
+        // IOW, if input obj has bigger tv_sec, this obj outRanks higher
         rank = timer->mFutureTime.tv_sec - mFutureTime.tv_sec;
-        if(0 == rank)
-        {
-            //rank against tv_nsec for msec accuracy
-            rank = (int)(timer->mFutureTime.tv_nsec - mFutureTime.tv_nsec);
-        }
     }
     return rank;
 }

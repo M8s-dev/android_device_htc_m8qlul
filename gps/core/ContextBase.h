@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011-2015, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -34,7 +34,6 @@
 #include <MsgTask.h>
 #include <LocApiBase.h>
 #include <LBSProxyBase.h>
-#include <loc_cfg.h>
 
 #define MAX_XTRA_SERVER_URL_LENGTH 256
 
@@ -48,22 +47,17 @@ typedef struct loc_gps_cfg_s
     uint32_t       ACCURACY_THRES;
     uint32_t       SUPL_VER;
     uint32_t       SUPL_MODE;
-    uint32_t       SUPL_ES;
     uint32_t       CAPABILITIES;
     uint32_t       LPP_PROFILE;
     uint32_t       XTRA_VERSION_CHECK;
-    char           XTRA_SERVER_1[MAX_XTRA_SERVER_URL_LENGTH];
-    char           XTRA_SERVER_2[MAX_XTRA_SERVER_URL_LENGTH];
-    char           XTRA_SERVER_3[MAX_XTRA_SERVER_URL_LENGTH];
+    char        XTRA_SERVER_1[MAX_XTRA_SERVER_URL_LENGTH];
+    char        XTRA_SERVER_2[MAX_XTRA_SERVER_URL_LENGTH];
+    char        XTRA_SERVER_3[MAX_XTRA_SERVER_URL_LENGTH];
     uint32_t       USE_EMERGENCY_PDN_FOR_EMERGENCY_SUPL;
     uint32_t       NMEA_PROVIDER;
     uint32_t       GPS_LOCK;
     uint32_t       A_GLONASS_POS_PROTOCOL_SELECT;
     uint32_t       AGPS_CERT_WRITABLE_MASK;
-    uint32_t       AGPS_CONFIG_INJECT;
-    uint32_t       LPPE_CP_TECHNOLOGY;
-    uint32_t       LPPE_UP_TECHNOLOGY;
-    uint32_t       EXTERNAL_DR_ENABLED;
 } loc_gps_cfg_s_type;
 
 /* NOTE: the implementaiton of the parser casts number
@@ -106,8 +100,6 @@ class LocAdapterBase;
 class ContextBase {
     static LBSProxyBase* getLBSProxy(const char* libName);
     LocApiBase* createLocApi(LOC_API_ADAPTER_EVENT_MASK_T excludedMask);
-    static const loc_param_s_type mGps_conf_table[];
-    static const loc_param_s_type mSap_conf_table[];
 protected:
     const LBSProxyBase* mLBSProxy;
     const MsgTask* mMsgTask;
@@ -124,7 +116,6 @@ public:
     inline LocApiProxyBase* getLocApiProxy() { return mLocApiProxy; }
     inline bool hasAgpsExtendedCapabilities() { return mLBSProxy->hasAgpsExtendedCapabilities(); }
     inline bool hasCPIExtendedCapabilities() { return mLBSProxy->hasCPIExtendedCapabilities(); }
-    inline bool hasNativeXtraClient() { return mLBSProxy->hasNativeXtraClient(); }
     inline void modemPowerVote(bool power) const { return mLBSProxy->modemPowerVote(power); }
     inline void requestUlp(LocAdapterBase* adapter,
                            unsigned long capabilities) {
@@ -138,7 +129,6 @@ public:
     static loc_gps_cfg_s_type mGps_conf;
     static loc_sap_cfg_s_type mSap_conf;
 
-    void readConfig();
     static uint32_t getCarrierCapabilities();
 
 };

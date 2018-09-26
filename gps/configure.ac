@@ -1,11 +1,11 @@
-# configure.ac -- Autoconf script for gps loc_hal
+# configure.ac -- Autoconf script for gps loc_api
 #
 # Process this file with autoconf to produce a configure script
 
 # Requires autoconf tool later than 2.61
 AC_PREREQ(2.61)
-# Initialize the gps loc-hal package version 1.0.0
-AC_INIT([loc-hal],1.0.0)
+# Initialize the gps loc_api package version 1.0.0
+AC_INIT([loc-api],1.0.0)
 # Does not strictly follow GNU Coding standards
 AM_INIT_AUTOMAKE([foreign])
 # Disables auto rebuilding of configure, Makefile.ins
@@ -29,25 +29,19 @@ AC_PROG_MAKE_SET
 PKG_PROG_PKG_CONFIG
 
 # Checks for libraries.
-PKG_CHECK_MODULES([QMI], [qmi])
-AC_SUBST([QMI_CFLAGS])
-AC_SUBST([QMI_LIBS])
-
 PKG_CHECK_MODULES([QMIF], [qmi-framework])
 AC_SUBST([QMIF_CFLAGS])
 AC_SUBST([QMIF_LIBS])
 
-PKG_CHECK_MODULES([DATA], [data])
-AC_SUBST([DATA_CFLAGS])
-AC_SUBST([DATA_LIBS])
+AC_ARG_WITH([libhardware_includes],
+      AC_HELP_STRING([--with-libhardware-includes=@<:@dir@:>@],
+         [Specify the location of the libhardware headers]),
+      [libhardware_incdir=$withval],
+      with_libhardware_includes=no)
 
-PKG_CHECK_MODULES([LOCPLA], [loc-pla])
-AC_SUBST([LOCPLA_CFLAGS])
-AC_SUBST([LOCPLA_LIBS])
-
-PKG_CHECK_MODULES([GPSUTILS], [gps-utils])
-AC_SUBST([GPSUTILS_CFLAGS])
-AC_SUBST([GPSUTILS_LIBS])
+if test "x$with_libhardware_includes" != "xno"; then
+   CPPFLAGS="${CPPFLAGS} -I${libhardware_incdir}"
+fi
 
 AC_ARG_WITH([core_includes],
       AC_HELP_STRING([--with-core-includes=@<:@dir@:>@],
@@ -82,10 +76,10 @@ AM_CONDITIONAL(USE_GLIB, test "x${with_glib}" = "xyes")
 
 AC_CONFIG_FILES([ \
         Makefile \
-        core/Makefile \
-        location/Makefile \
-        gnss/Makefile \
-        loc-hal.pc \
+        utils/Makefile \
+        loc_api/libloc_api_50001/Makefile \
+        loc_api/loc_api_v02/Makefile \
+        loc-api.pc \
         ])
 
 AC_OUTPUT
