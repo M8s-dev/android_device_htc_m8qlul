@@ -194,10 +194,11 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH_)/gps/etc/gps.conf:system/vendor/etc/gps.conf
+    android.hardware.gnss@1.0-impl \
+    libloc_eng \
+    libloc_core \
+    libgps.utils \
+    gps.conf
 
 # IRQ balance
 PRODUCT_COPY_FILES += \
