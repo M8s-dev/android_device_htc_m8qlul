@@ -1,4 +1,4 @@
-***Unofficial CyanogenMod port***
+***Unofficial LineageOS port***
 
 Device configuration for HTC One M8s.
 =====================================
