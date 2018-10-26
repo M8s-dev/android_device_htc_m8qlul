@@ -37,7 +37,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    	camera_shim.cpp
+   camera_shim.cpp
 
 LOCAL_SHARED_LIBRARIES := \
 	libbinder \
@@ -53,10 +53,19 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-	  ril_shim.cpp
+   ril_shim.cpp
 
 LOCAL_MODULE := libshim_ril
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
 
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := \
+   get_process_name.cpp
+
+LOCAL_MODULE := libshim_izat
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SHARED_LIBRARY)

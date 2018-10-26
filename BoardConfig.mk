@@ -181,7 +181,7 @@ BOARD_USES_QC_TIME_SERVICES := true
 BOARD_USES_QCOM_HARDWARE := true
 
 # Shims
-TARGET_LD_SHIM_LIBS := /system/lib64/libhtc_rilhook.so|libshim_ril.so
+TARGET_LD_SHIM_LIBS := /system/lib64/libhtc_rilhook.so|libshim_ril.so:/system/vendor/lib64/libizat_core.so|libshim_izat.so
 
 # TWRP
 ifeq ($(WITH_TWRP),true)
