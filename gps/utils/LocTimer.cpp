@@ -183,7 +183,7 @@ class LocTimerDelegate : public LocRankable {
         : mClient(NULL), mLock(NULL), mFutureTime(delay), mContainer(NULL) {}
     inline ~LocTimerDelegate() { if (mLock) { mLock->drop(); mLock = NULL; } }
 public:
-    LocTimerDelegate(LocTimer& client, struct timespec& futureTime, LocTimerContainer* container);
+    LocTimerDelegate(LocTimer& client, struct timespec& futureTime, bool wakeOnExpire);
     void destroyLocked();
     // LocRankable virtual method
     virtual int ranks(LocRankable& rankable);
@@ -283,8 +283,7 @@ void LocTimerContainer::updateSoonestTime(LocTimerDelegate* priorTop) {
 
     // check if top has changed
     if (curTop != priorTop) {
-        struct itimerspec delay;
-        memset(&delay, 0, sizeof(struct itimerspec));
+        struct itimerspec delay = {0};
         bool toSetTime = false;
         // if tree is empty now, we remove poll and disarm timer
         if (!curTop) {
@@ -375,8 +374,7 @@ void LocTimerContainer::expire() {
         }
     };
 
-    struct itimerspec delay;
-    memset(&delay, 0, sizeof(struct itimerspec));
+    struct itimerspec delay = {0};
     timerfd_settime(getTimerFd(), TFD_TIMER_ABSTIME, &delay, NULL);
     mPollTask->removePoll(*this);
     mMsgTask->sendMsg(new MsgTimerExpire(*this));
@@ -474,13 +472,11 @@ bool LocTimerPollTask::run() {
 /***************************LocTimerDelegate methods***************************/
 
 inline
-LocTimerDelegate::LocTimerDelegate(LocTimer& client,
-                                   struct timespec& futureTime,
-                                   LocTimerContainer* container)
+LocTimerDelegate::LocTimerDelegate(LocTimer& client, struct timespec& futureTime, bool wakeOnExpire)
     : mClient(&client),
       mLock(mClient->mLock->share()),
       mFutureTime(futureTime),
-      mContainer(container) {
+      mContainer(LocTimerContainer::get(wakeOnExpire)) {
     // adding the timer into the container
     mContainer->add(*this);
 }
@@ -560,13 +556,8 @@ bool LocTimer::start(unsigned int timeOutInMs, bool wakeOnExpire) {
             futureTime.tv_sec += futureTime.tv_nsec / 1000000000;
             futureTime.tv_nsec %= 1000000000;
         }
-
-        LocTimerContainer* container;
-        container = LocTimerContainer::get(wakeOnExpire);
-        if (NULL != container) {
-            mTimer = new LocTimerDelegate(*this, futureTime, container);
-            // if mTimer is non 0, success should be 0; or vice versa
-        }
+        mTimer = new LocTimerDelegate(*this, futureTime, wakeOnExpire);
+        // if mTimer is non 0, success should be 0; or vice versa
         success = (NULL != mTimer);
     }
     mLock->unlock();
